@@ -1,0 +1,32 @@
+{
+	"composefiles": {
+		"docker-compose.yml": [
+			{
+				"name": "node",
+				"tag": "14-alpine",
+				"digest": "76badf0d0284ad838536d49d8a804988b4985fc6bc7242dfff4f8216c851438b",
+				"dockerfile": "api/Dockerfile",
+				"service": "api"
+			},
+			{
+				"name": "localstack/localstack",
+				"tag": "0.11.2",
+				"digest": "f3c62976f864b0087226991fe111e19122346f0f601c55eb2491190159dd07f9",
+				"service": "localstack"
+			},
+			{
+				"name": "tianon/true",
+				"tag": "latest",
+				"digest": "009cce421096698832595ce039aa13fa44327d96beedb84282a69d3dbcf5a81b",
+				"service": "services"
+			},
+			{
+				"name": "node",
+				"tag": "14-alpine",
+				"digest": "76badf0d0284ad838536d49d8a804988b4985fc6bc7242dfff4f8216c851438b",
+				"dockerfile": "web/quipt/Dockerfile",
+				"service": "web"
+			}
+		]
+	}
+}
