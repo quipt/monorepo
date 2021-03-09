@@ -1,0 +1,34 @@
+type User {
+  id: String
+  username: String
+  boards: [Board]
+  originals: [Media]
+}
+
+type Media {
+  originalPoster: User
+  format: String
+  width: Number
+  height: Number
+  sha256: String
+}
+
+type Clip {
+  media: [Media]
+  caption: String
+}
+
+type Board {
+  title: String
+  favorites: Number
+  favorited: Boolean
+  clips: [Clip]
+}
+
+Query {
+
+}
+
+Mutation {
+
+}
