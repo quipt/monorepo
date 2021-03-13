@@ -1,6 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
-import { NetworkBuilder } from '@aws-cdk/aws-ec2/lib/network-util';
+import {NetworkBuilder} from '@aws-cdk/aws-ec2/lib/network-util';
 
 export interface SubnetGroupProps {
   vpc: ec2.Vpc;

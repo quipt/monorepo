@@ -210,7 +210,7 @@ export class EcsCdStack extends cloudformation.NestedStack {
         detailType: ['ECR Image Action'],
         source: ['aws.ecr'],
       },
-      targets: [new events_targets.CodePipeline(pipeline, { eventRole })],
+      targets: [new events_targets.CodePipeline(pipeline, {eventRole})],
     });
   }
 }

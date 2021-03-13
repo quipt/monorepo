@@ -1,9 +1,9 @@
 import * as cdk from '@aws-cdk/core';
-import { NetworkBuilder } from '@aws-cdk/aws-ec2/lib/network-util';
-import { NetworkStack } from './network-stack';
-import { DnsStack } from './dns-stack';
-import { WebStack, WebStackProps } from './applications/web-stack';
-import { RegionGroup } from './application-account';
+import {NetworkBuilder} from '@aws-cdk/aws-ec2/lib/network-util';
+import {NetworkStack} from './network-stack';
+import {DnsStack} from './dns-stack';
+import {WebStack, WebStackProps} from './applications/web-stack';
+import {RegionGroup} from './application-account';
 
 export interface ApplicationStageProps extends cdk.StageProps {
   isProduction: boolean;

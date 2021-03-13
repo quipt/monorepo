@@ -1,9 +1,9 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as cloudformation from '@aws-cdk/aws-cloudformation';
-import { NetworkBuilder } from '@aws-cdk/aws-ec2/lib/network-util';
-import { PublicNetworkAclEntries } from './public-network-acl-entries-construct';
-import { Cidrs } from '../network-stack';
+import {NetworkBuilder} from '@aws-cdk/aws-ec2/lib/network-util';
+import {PublicNetworkAclEntries} from './public-network-acl-entries-construct';
+import {Cidrs} from '../network-stack';
 
 export interface PublicNetworkStackProps
   extends cloudformation.NestedStackProps {

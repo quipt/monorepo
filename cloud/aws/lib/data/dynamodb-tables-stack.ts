@@ -10,13 +10,18 @@ export class DynamoDBTablesStack extends cdk.NestedStack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
-    const commonTableProps: Pick<dynamodb.TableProps, 'billingMode' | 'encryption' | 'removalPolicy' | 'replicationRegions'> = {
+    const commonTableProps: Pick<
+      dynamodb.TableProps,
+      'billingMode' | 'encryption' | 'removalPolicy' | 'replicationRegions'
+    > = {
       removalPolicy: cdk.RemovalPolicy.RETAIN,
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       encryption: dynamodb.TableEncryption.AWS_MANAGED,
-      replicationRegions: props.replicationRegions.length ? props.replicationRegions : undefined,
+      replicationRegions: props.replicationRegions.length
+        ? props.replicationRegions
+        : undefined,
     };
-    
+
     const usersTable = new dynamodb.Table(this, 'UsersTable', {
       ...commonTableProps,
       tableName: 'users',

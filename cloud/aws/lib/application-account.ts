@@ -1,6 +1,6 @@
 import * as cdk from '@aws-cdk/core';
-import { WebStackProps } from './applications/web-stack';
-import { ApplicationStage } from './application-stage';
+import {WebStackProps} from './applications/web-stack';
+import {ApplicationStage} from './application-stage';
 
 const availabilityZoneCounts = new Map([
   ['us-east-1', 4],
@@ -125,7 +125,7 @@ export class ApplicationAccount {
                 region,
               ].join('-'),
               {
-                env: { account: this.accountId, region },
+                env: {account: this.accountId, region},
                 isProduction: this.isProduction,
                 vpcCidr: `10.${[...availabilityZoneCounts.keys()].indexOf(
                   region

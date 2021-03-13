@@ -1,8 +1,8 @@
 import * as cdk from '@aws-cdk/core';
 import * as cloudformation from '@aws-cdk/aws-cloudformation';
 import * as ec2 from '@aws-cdk/aws-ec2';
-import { Cidrs } from '../network-stack';
-import { PublicNetworkStack } from './public-network-stack';
+import {Cidrs} from '../network-stack';
+import {PublicNetworkStack} from './public-network-stack';
 
 export interface PrivateNetworkStackProps
   extends cloudformation.NestedStackProps {

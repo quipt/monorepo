@@ -5,9 +5,9 @@ import * as cloudfront from '@aws-cdk/aws-cloudfront';
 import * as route53 from '@aws-cdk/aws-route53';
 import * as route53_targets from '@aws-cdk/aws-route53-targets';
 import * as ecr from '@aws-cdk/aws-ecr';
-import { DnsStack } from '../dns-stack';
-import { SpaCdStack } from '../cd/spa-cd-stack';
-import { RegionGroup } from '../application-account';
+import {DnsStack} from '../dns-stack';
+import {SpaCdStack} from '../cd/spa-cd-stack';
+import {RegionGroup} from '../application-account';
 
 export interface WebStackProps extends cdk.StackProps {
   repositoryNamespace: string;

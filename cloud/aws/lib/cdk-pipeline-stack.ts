@@ -1,8 +1,8 @@
-import { Stack, StackProps, Construct, SecretValue } from '@aws-cdk/core';
-import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines';
+import {Stack, StackProps, Construct, SecretValue} from '@aws-cdk/core';
+import {CdkPipeline, SimpleSynthAction} from '@aws-cdk/pipelines';
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
-import { ApplicationAccount } from './application-account';
+import {ApplicationAccount} from './application-account';
 // import { CIAccount } from './ci-account';
 
 interface CdkPipelineStackProps extends StackProps {

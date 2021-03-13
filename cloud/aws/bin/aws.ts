@@ -7,7 +7,7 @@ import {
   Brand,
 } from '../lib/application-account';
 // import { CIAccount } from '../lib/ci-account';
-import { CdkPipelineStack } from '../lib/cdk-pipeline-stack';
+import {CdkPipelineStack} from '../lib/cdk-pipeline-stack';
 
 const globalPrimaryAccountId = '204102652951'; // Quipt Primary
 const globalPrimaryRegion = 'us-east-1';
@@ -18,11 +18,13 @@ const applicationAccounts = [
     brand: Brand.Quipt,
     accountId: '264149948773',
     auth0ClientId: '',
-    regionGroups: [{
-      name: 'US',
-      primaryRegion: globalPrimaryRegion,
-      replicaRegions: [],
-    }],
+    regionGroups: [
+      {
+        name: 'US',
+        primaryRegion: globalPrimaryRegion,
+        replicaRegions: [],
+      },
+    ],
     baseDomain: 'dev.qui.pt',
   },
   // {

@@ -1,8 +1,8 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as cloudformation from '@aws-cdk/aws-cloudformation';
-import { PrivateSubnetGroup } from './private-subnet-group-construct';
-import { Cidrs } from '../network-stack';
+import {PrivateSubnetGroup} from './private-subnet-group-construct';
+import {Cidrs} from '../network-stack';
 
 export interface DataNetworkStackProps extends cloudformation.NestedStackProps {
   vpc: ec2.Vpc;

@@ -7,13 +7,13 @@ import * as elbv2 from '@aws-cdk/aws-elasticloadbalancingv2';
 import * as globalaccelerator from '@aws-cdk/aws-globalaccelerator';
 import * as route53 from '@aws-cdk/aws-route53';
 import * as ssm from '@aws-cdk/aws-ssm';
-import { DbClusterStack } from '../data/db-cluster-stack';
-import { EcsCdStack } from '../cd/ecs-cd-stack';
-import { PrivateSubnetGroup } from '../network/private-subnet-group-construct';
-import { NetworkStack } from '../network-stack';
-import { DnsStack } from '../dns-stack';
-import { RegionGroup } from '../application-account';
-import { CrossRegionParameter } from '@henrist/cdk-cross-region-params';
+import {DbClusterStack} from '../data/db-cluster-stack';
+import {EcsCdStack} from '../cd/ecs-cd-stack';
+import {PrivateSubnetGroup} from '../network/private-subnet-group-construct';
+import {NetworkStack} from '../network-stack';
+import {DnsStack} from '../dns-stack';
+import {RegionGroup} from '../application-account';
+import {CrossRegionParameter} from '@henrist/cdk-cross-region-params';
 
 export interface ApiStackProps extends cdk.StackProps {
   repositoryNamespace: string;
@@ -161,7 +161,7 @@ export class ApiStack extends cdk.Stack {
           DATABASE_CREDENTIAL: ecs.Secret.fromSecretsManager(database.secret),
         },
       })
-      .addPortMappings({ containerPort });
+      .addPortMappings({containerPort});
 
     const debugTaskDefinition = new ecs.FargateTaskDefinition(
       this,
@@ -193,7 +193,7 @@ export class ApiStack extends cdk.Stack {
           DATABASE_CREDENTIAL: ecs.Secret.fromSecretsManager(database.secret),
         },
       })
-      .addPortMappings({ containerPort });
+      .addPortMappings({containerPort});
 
     const cluster = new ecs.Cluster(this, 'Cluster', {
       clusterName: applicationName,
@@ -312,7 +312,7 @@ export class ApiStack extends cdk.Stack {
         'AcceleratorListener',
         {
           accelerator,
-          portRanges: [{ fromPort: 443, toPort: 443 }],
+          portRanges: [{fromPort: 443, toPort: 443}],
         }
       );
 
@@ -361,8 +361,8 @@ export class ApiStack extends cdk.Stack {
       repository,
       cluster,
       services: [
-        { name: 'Service', service },
-        { name: 'DebugService', service: debugService },
+        {name: 'Service', service},
+        {name: 'DebugService', service: debugService},
       ],
     });
   }

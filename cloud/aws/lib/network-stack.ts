@@ -1,10 +1,10 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
-import { NetworkBuilder } from '@aws-cdk/aws-ec2/lib/network-util';
-import { PublicNetworkStack } from './network/public-network-stack';
-import { DataNetworkStack } from './network/data-network-stack';
-import { WorkloadsNetworkStack } from './network/workloads-network-stack';
-import { InternalLoadBalancersNetworkStack } from './network/internal-load-balancers-network-stack';
+import {NetworkBuilder} from '@aws-cdk/aws-ec2/lib/network-util';
+import {PublicNetworkStack} from './network/public-network-stack';
+import {DataNetworkStack} from './network/data-network-stack';
+import {WorkloadsNetworkStack} from './network/workloads-network-stack';
+import {InternalLoadBalancersNetworkStack} from './network/internal-load-balancers-network-stack';
 
 export interface NetworkStackProps extends cdk.StackProps {
   vpcCidr: string;
