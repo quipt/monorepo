@@ -6,7 +6,8 @@ type User {
 }
 
 type Media {
-  originalPoster: User
+  user: User
+  id: String
   format: String
   width: Number
   height: Number
