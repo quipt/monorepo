@@ -1,5 +1,5 @@
 type User {
-  id: String
+  id: ID!
   username: String
   boards: [Board]
   originals: [Media]
@@ -20,16 +20,30 @@ type Clip {
 }
 
 type Board {
+  id: ID!
   title: String
   favorites: Number
   favorited: Boolean
   clips: [Clip]
 }
 
-Query {
+input BoardInput {
+  title: String
+  clips: [Clip]
+}
 
+type BoardPayload {
+  board: Board!
+}
+
+Query {
+  boards(
+    user: ID!
+  ): [Board]
+  me(): User!
+  user(id: ID!): User!
 }
 
 Mutation {
-
+  boardCreate(input: BoardInput!): BoardPayload!
 }
