@@ -288,7 +288,7 @@
     "@aws-cdk/custom-resources" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-ec2@1.93.0":
+"@aws-cdk/aws-ec2@1.93.0", "@aws-cdk/aws-ec2@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ec2/-/aws-ec2-1.93.0.tgz#fd4c2b928868e7d6e71cc9d250e472dede938a73"
   integrity sha512-LWNY3SrCR+t8DTXbf5Qszw8GJcMOZzub/bQNmlgxYyXoxrW7tiVniDKRXR8tn3CCgUV/S1YH7h60QKYd8Vg9XQ==
@@ -320,7 +320,7 @@
     constructs "^3.2.0"
     minimatch "^3.0.4"
 
-"@aws-cdk/aws-ecr@1.93.0":
+"@aws-cdk/aws-ecr@1.93.0", "@aws-cdk/aws-ecr@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ecr/-/aws-ecr-1.93.0.tgz#6085ad5eb807d3711a2f929a2b779c76008cbf8d"
   integrity sha512-pU9IDvO2vxE5kb3FU4ejFvy0Ei85u0j3TgYI4Fj8ZCDZj8CJ25r33t87//tWbhLJjudj4engFnJXzmxlPxx91g==
@@ -330,7 +330,7 @@
     "@aws-cdk/core" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-ecs@1.93.0":
+"@aws-cdk/aws-ecs@1.93.0", "@aws-cdk/aws-ecs@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ecs/-/aws-ecs-1.93.0.tgz#1ee99b48bdad0152dd2ad1591d7b4dd89ae1fa9c"
   integrity sha512-LEbP7vJu5K7i1hCBxBiRJbwHTe3AkOjYgwX2PSJ67bb4FJRC1D+lmVD9Sir9ZCT0QVSlrmvC1q4e5e6FUP+lTw==
@@ -383,7 +383,7 @@
     "@aws-cdk/core" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-elasticloadbalancingv2@1.93.0":
+"@aws-cdk/aws-elasticloadbalancingv2@1.93.0", "@aws-cdk/aws-elasticloadbalancingv2@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-elasticloadbalancingv2/-/aws-elasticloadbalancingv2-1.93.0.tgz#ad311d094e81e7f583edafcde5558bdf74777ecb"
   integrity sha512-/vfqx+CNXfY721iu6BsF528dN3BUWkMTjAWnZ+wuB0IpEUK2Cd0uU5MpqiJUfjgG/a4x9CcbJgJfmR0on2o4ag==
@@ -433,7 +433,7 @@
     "@aws-cdk/core" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-globalaccelerator@1.93.0":
+"@aws-cdk/aws-globalaccelerator@1.93.0", "@aws-cdk/aws-globalaccelerator@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-globalaccelerator/-/aws-globalaccelerator-1.93.0.tgz#2d1161093678f15d1dd0ce82633645aced914f13"
   integrity sha512-teBGtCqiYGJ19D7WTJz61r8lvh8bXVQghJ/7VYsZB3z2itr0242VKtbT5pkUlWPcGP9LZCXzk57gKDpn7Tt0dA==
@@ -443,7 +443,7 @@
     "@aws-cdk/custom-resources" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-iam@1.93.0":
+"@aws-cdk/aws-iam@1.93.0", "@aws-cdk/aws-iam@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-iam/-/aws-iam-1.93.0.tgz#81109a83a7e7b74d7db83091f18cf5a368dd5eec"
   integrity sha512-QhRh+B4w8Q70RmAQuNxsAKfDeui5qPgT8veyLyMQ1PMuB5K2qhK8l3EYP3cwhnCU8xo0bO0Z48W64LcKlFxH0A==
@@ -537,7 +537,7 @@
     "@aws-cdk/region-info" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-route53@1.93.0":
+"@aws-cdk/aws-route53@1.93.0", "@aws-cdk/aws-route53@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-route53/-/aws-route53-1.93.0.tgz#ccf21f550192387708bfc62960204da2b6071be2"
   integrity sha512-2+1A2OtSTs/Ie/A30tYP+TIgnlabS4TtP2Nni4FODtVIPSpljvfGRZ1PhVjueFoeXNErWS0YWqaIUSyCfSnSnA==
@@ -660,7 +660,7 @@
     "@aws-cdk/core" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-ssm@1.93.0":
+"@aws-cdk/aws-ssm@1.93.0", "@aws-cdk/aws-ssm@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ssm/-/aws-ssm-1.93.0.tgz#e26b766d33ac2708dc897a4d896a0d213de15693"
   integrity sha512-ptcuPc5S5bNiI4xluHAoO4Y8fFY4vePr0bvG+l5QHTNWvvJa+TIwD/jz91xJCrt83qAHwcnjSGZj94JIK732PQ==

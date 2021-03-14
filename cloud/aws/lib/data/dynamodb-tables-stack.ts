@@ -22,6 +22,9 @@ export class DynamoDBTablesStack extends cdk.NestedStack {
         : undefined,
     };
 
+    /**
+     * Users
+     */
     const usersTable = new dynamodb.Table(this, 'UsersTable', {
       ...commonTableProps,
       tableName: 'users',
@@ -47,6 +50,9 @@ export class DynamoDBTablesStack extends cdk.NestedStack {
       },
     });
 
+    /**
+     * Hashes of media
+     */
     const hashesTable = new dynamodb.Table(this, 'HashesTable', {
       ...commonTableProps,
       tableName: 'hashes',
@@ -56,6 +62,9 @@ export class DynamoDBTablesStack extends cdk.NestedStack {
       },
     });
 
+    /**
+     * Boards
+     */
     const boardsTable = new dynamodb.Table(this, 'BoardsTable', {
       ...commonTableProps,
       tableName: 'boards',

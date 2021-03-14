@@ -4,6 +4,7 @@ import {NetworkStack} from './network-stack';
 import {DnsStack} from './dns-stack';
 import {WebStack, WebStackProps} from './applications/web-stack';
 import {RegionGroup} from './application-account';
+import {ApiStack} from './applications/api-stack';
 
 export interface ApplicationStageProps extends cdk.StageProps {
   isProduction: boolean;
@@ -39,6 +40,13 @@ export class ApplicationStage extends cdk.Stage {
     };
 
     const networkBuilder = new NetworkBuilder(network.cidrs.workloads);
+
+    const api = new ApiStack(this, 'Api', {
+      ...applicationProps,
+      network,
+      cidr: networkBuilder.addSubnet(24),
+      isProduction: props.isProduction,
+    });
 
     const web = new WebStack(this, 'Web', {
       ...applicationProps,

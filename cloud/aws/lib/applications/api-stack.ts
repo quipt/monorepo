@@ -7,13 +7,13 @@ import * as elbv2 from '@aws-cdk/aws-elasticloadbalancingv2';
 import * as globalaccelerator from '@aws-cdk/aws-globalaccelerator';
 import * as route53 from '@aws-cdk/aws-route53';
 import * as ssm from '@aws-cdk/aws-ssm';
-import {DbClusterStack} from '../data/db-cluster-stack';
 import {EcsCdStack} from '../cd/ecs-cd-stack';
 import {PrivateSubnetGroup} from '../network/private-subnet-group-construct';
 import {NetworkStack} from '../network-stack';
 import {DnsStack} from '../dns-stack';
 import {RegionGroup} from '../application-account';
 import {CrossRegionParameter} from '@henrist/cdk-cross-region-params';
+import {DynamoDBTablesStack} from '../data/dynamodb-tables-stack';
 
 export interface ApiStackProps extends cdk.StackProps {
   repositoryNamespace: string;
@@ -43,22 +43,19 @@ export class ApiStack extends cdk.Stack {
       routeTables: props.network.workloads.routeTables,
     });
 
-    const database = new DbClusterStack(this, 'Data', {
-      network: props.network,
-      dbClusterIdentifier: applicationName,
-      isProduction: props.isProduction,
-    });
-
     const securityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
       vpc: props.network.vpc,
       description: `${applicationName} service`,
       allowAllOutbound: false,
     });
 
-    securityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
-    securityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443));
-    securityGroup.addEgressRule(database.securityGroup, ec2.Port.tcp(5432));
-    database.securityGroup.addIngressRule(securityGroup, ec2.Port.tcp(5432));
+    // securityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
+    // securityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443));
+
+    const tables = new DynamoDBTablesStack(this, 'DynamoDBTables', {
+      replicationRegions: props.regionGroup.replicaRegions,
+      isProduction: props.isProduction,
+    });
 
     const repository = new ecr.Repository(this, 'Repository', {
       repositoryName,
@@ -152,13 +149,7 @@ export class ApiStack extends cdk.Stack {
           startPeriod: cdk.Duration.seconds(30),
         },
         environment: {
-          DATABASE_HOST: database.endpointAddress,
-          DATABASE_PORT: database.endpointPort,
-          DATABASE_NAME: 'postgres',
-          DATABASE_SSL: 'true',
-        },
-        secrets: {
-          DATABASE_CREDENTIAL: ecs.Secret.fromSecretsManager(database.secret),
+          // Table Names
         },
       })
       .addPortMappings({containerPort});
