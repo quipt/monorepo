@@ -23,6 +23,7 @@ services:
   web:
     build:
       context: ./web/quipt
+      target: base
     container_name: web
     image: ${REGISTRY_URI:-ghcr.io}/${REPOSITORY_NAME:-quipt/web}:${NAMED_TAG:-latest}
     ports:

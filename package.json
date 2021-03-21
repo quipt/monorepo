@@ -2,7 +2,7 @@
   "name": "monorepo",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:Quipt/monorepo.git",
+  "repository": "git@github.com:quipt/monorepo.git",
   "author": "Barrett Harber <barrett.harber@gmail.com>",
   "license": "Private",
   "private": true,
