@@ -17,7 +17,7 @@ interface Config {
   providedIn: 'root',
 })
 export class ConfigService {
-  private config: Config;
+  private config!: Config;
   private http: HttpClient;
   private authClientConfig: AuthClientConfig;
 
