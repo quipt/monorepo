@@ -3,8 +3,7 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import {Cidrs} from '../network-stack';
 import {PublicNetworkStack} from './public-network-stack';
 
-export interface PrivateNetworkStackProps
-  extends cdk.NestedStackProps {
+export interface PrivateNetworkStackProps extends cdk.NestedStackProps {
   vpc: ec2.Vpc;
   usedAzCount: number;
   cidrs: Cidrs;

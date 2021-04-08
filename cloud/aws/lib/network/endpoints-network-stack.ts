@@ -4,8 +4,7 @@ import * as cloudformation from '@aws-cdk/aws-cloudformation';
 import {PrivateSubnetGroup} from './private-subnet-group-construct';
 import {Cidrs} from '../network-stack';
 
-export interface EndpointsNetworkStackProps
-  extends cdk.NestedStackProps {
+export interface EndpointsNetworkStackProps extends cdk.NestedStackProps {
   vpc: ec2.Vpc;
   cidrs: Cidrs;
   usedAzCount: number;
