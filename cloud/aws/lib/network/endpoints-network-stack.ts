@@ -5,7 +5,7 @@ import {PrivateSubnetGroup} from './private-subnet-group-construct';
 import {Cidrs} from '../network-stack';
 
 export interface EndpointsNetworkStackProps
-  extends cloudformation.NestedStackProps {
+  extends cdk.NestedStackProps {
   vpc: ec2.Vpc;
   cidrs: Cidrs;
   usedAzCount: number;

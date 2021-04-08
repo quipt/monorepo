@@ -9,14 +9,14 @@ import * as codebuild from '@aws-cdk/aws-codebuild';
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
 
-export interface StackProps extends cloudformation.NestedStackProps {
+export interface StackProps extends cdk.NestedStackProps {
   imageTag: string;
   repository: ecr.Repository;
   bucket: s3.Bucket;
   configJson: string;
 }
 
-export class SpaCdStack extends cloudformation.NestedStack {
+export class SpaCdStack extends cdk.NestedStack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
     super(scope, id, props);
 

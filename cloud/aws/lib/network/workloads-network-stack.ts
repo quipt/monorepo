@@ -1,18 +1,17 @@
 import * as cdk from '@aws-cdk/core';
-import * as cloudformation from '@aws-cdk/aws-cloudformation';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import {Cidrs} from '../network-stack';
 import {PublicNetworkStack} from './public-network-stack';
 
 export interface PrivateNetworkStackProps
-  extends cloudformation.NestedStackProps {
+  extends cdk.NestedStackProps {
   vpc: ec2.Vpc;
   usedAzCount: number;
   cidrs: Cidrs;
   publicNetwork: PublicNetworkStack;
 }
 
-export class WorkloadsNetworkStack extends cloudformation.NestedStack {
+export class WorkloadsNetworkStack extends cdk.NestedStack {
   readonly routeTables: ec2.CfnRouteTable[] = [];
   readonly networkAcl: ec2.NetworkAcl;
 

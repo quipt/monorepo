@@ -1,12 +1,10 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
-import * as cloudformation from '@aws-cdk/aws-cloudformation';
 import {NetworkBuilder} from '@aws-cdk/aws-ec2/lib/network-util';
 import {PublicNetworkAclEntries} from './public-network-acl-entries-construct';
 import {Cidrs} from '../network-stack';
 
-export interface PublicNetworkStackProps
-  extends cloudformation.NestedStackProps {
+export interface PublicNetworkStackProps extends cdk.NestedStackProps {
   vpc: ec2.Vpc;
   gatewayId: string;
   cidrs: Cidrs;
@@ -14,7 +12,7 @@ export interface PublicNetworkStackProps
   maxAzCount: number;
 }
 
-export class PublicNetworkStack extends cloudformation.NestedStack {
+export class PublicNetworkStack extends cdk.NestedStack {
   readonly networkAcl: ec2.NetworkAcl;
   readonly subnets: ec2.Subnet[] = [];
   readonly routeTables: ec2.CfnRouteTable[] = [];

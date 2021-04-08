@@ -1,5 +1,4 @@
 import * as cdk from '@aws-cdk/core';
-import * as cloudformation from '@aws-cdk/aws-cloudformation';
 import * as ecr from '@aws-cdk/aws-ecr';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as iam from '@aws-cdk/aws-iam';
@@ -14,7 +13,7 @@ interface Service {
   service: ecs.IBaseService;
 }
 
-export interface StackProps extends cloudformation.NestedStackProps {
+export interface StackProps extends cdk.NestedStackProps {
   ecrAccount: string;
   repository: ecr.Repository;
   imageTag: string;
@@ -22,7 +21,7 @@ export interface StackProps extends cloudformation.NestedStackProps {
   services: Service[];
 }
 
-export class EcsCdStack extends cloudformation.NestedStack {
+export class EcsCdStack extends cdk.NestedStack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
