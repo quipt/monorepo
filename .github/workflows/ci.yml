@@ -2,9 +2,11 @@ name: Docker
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches:
+      - master
   pull_request:
-    branches: [ $default-branch ]
+    branches:
+      - master
 
 env:
   REGISTRY_USERNAME: quipt-devsecops
