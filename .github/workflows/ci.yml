@@ -45,9 +45,11 @@ jobs:
             # If the image does not exist, build and push it with the named tag and commit tag
             else
               GIT_COMMIT=${{ github.sha }}
-              docker-compose build api
+              docker-compose build $1
               docker-compose push $_
-              docker tag "${REPOSITORY_URI}:${NAMED_TAG}" "${REPOSITORY_URI}:${COMMIT_TAG}"
+              docker tag "${REPOSITORY_URI}:latest" "${REPOSITORY_URI}:${NAMED_TAG}"
+              docker push $_
+              docker tag "${REPOSITORY_URI}:latest" "${REPOSITORY_URI}:${COMMIT_TAG}"
               docker push $_
             fi
           }
