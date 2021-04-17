@@ -5,7 +5,7 @@ type User {
   originals: [Media]
 }
 
-type Media {
+type Medium {
   user: User
   id: String
   format: String
@@ -15,7 +15,7 @@ type Media {
 }
 
 type Clip {
-  media: [Media]
+  media: [Medium]
   caption: String
 }
 
