@@ -2,8 +2,8 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Medium } from '../../media/models/medium.model';
 
 @ObjectType()
-export class Post {
-  @Field((type) => Int)
+export class ClipType {
+  @Field(() => Int)
   media: Medium[];
 
   @Field()

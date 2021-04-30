@@ -1,11 +1,13 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Board } from '../../boards/models/board.model';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { toGlobalId } from 'graphql-relay';
+import { NodeObjectType, NodeType } from '../../nodes/models/node.model';
+import { BoardType } from '../../boards/models/board.model';
 import { Medium } from '../../media/models/medium.model';
 
-@ObjectType()
-export class User {
-  @Field()
-  id: string;
+@ObjectType(NodeObjectType.User, { implements: NodeType })
+export class UserType implements NodeType {
+  @Field(() => ID)
+  readonly id!: string;
 
   @Field({ nullable: false })
   username: string;
@@ -16,9 +18,20 @@ export class User {
   @Field({ nullable: true })
   lastName?: string;
 
-  @Field((type) => [Board])
-  boards: Board[];
+  @Field(() => [BoardType])
+  boards: BoardType[];
 
-  @Field((type) => [Medium])
+  @Field(() => [Medium])
   originals: Medium[];
+
+  @Field(() => ID, { name: 'id' })
+  get relayId(): string {
+    return toGlobalId('User', this.id);
+  }
+}
+
+@ObjectType('UserPayload')
+export class UserPayloadType {
+  @Field(() => UserType)
+  readonly user!: UserType;
 }

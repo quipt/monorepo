@@ -2,18 +2,15 @@ import { NodeObjectType } from './models/node.model';
 import { fromGlobalId } from 'graphql-relay';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { BoardsService } from '../boards/boards.service';
-import { OrderLineItemsService } from '../order-line-items/order-line-items.service';
 import { UsersService } from '../users/users.service';
 import { AppContext } from '../app.context';
-import { OrderEntity } from '../db/entities/order.entity';
+import { BoardEntity } from '../db/entities/board.entity';
 import { UserEntity } from '../db/entities/user.entity';
 
 @Injectable()
 export class NodesService {
   constructor(
-    private readonly taxCodesService: TaxCodesService,
     private readonly boardsService: BoardsService,
-    private readonly orderLineItemsService: OrderLineItemsService,
     private readonly usersService: UsersService,
   ) {}
 
@@ -23,7 +20,7 @@ export class NodesService {
       ctx?: AppContext;
       enforcedTypes?: NodeObjectType | NodeObjectType[];
     },
-  ): Promise<OrderEntity | OrderLineItemEntity | UserEntity | undefined> {
+  ): Promise<BoardEntity | UserEntity | undefined> {
     const { id, type } = fromGlobalId(relayId);
     const nodeObjectType = NodeObjectType[type as NodeObjectType];
     if (

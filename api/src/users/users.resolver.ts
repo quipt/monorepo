@@ -10,7 +10,7 @@ import {
 import { UseGuards } from '@nestjs/common';
 import DataLoader from 'dataloader';
 import { Loader } from 'nestjs-graphql-dataloader';
-import { UserPayloadType, UserType } from './dto/user.type';
+import { UserPayloadType, UserType } from './models/user.model';
 import { UsersService } from './users.service';
 import { BoardsService } from '../boards/boards.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -25,7 +25,7 @@ import {
   UserCreateInput,
   UserUpdateInput,
 } from './dto/user.input';
-import { OrderConnection } from '../orders/dto/order.relay';
+import { BoardConnection } from '../boards/dto/board.relay';
 import { OrderConnectionArgs } from '../orders/dto/order.input';
 import { OrdersLoader } from '../orders/orders.loader';
 import { OrderEntity } from '../db/entities/order.entity';
@@ -79,7 +79,7 @@ export class UsersResolver {
     );
   }
 
-  @ResolveField(() => OrderConnection)
+  @ResolveField(() => BoardConnection)
   async boards(
     @Context('req') ctx: AppContext,
     @Parent() parent: UserType,
@@ -87,7 +87,7 @@ export class UsersResolver {
     { where: _where, orderBy: order, ...connectionArgs }: OrderConnectionArgs,
     @Loader(OrdersLoader)
     ordersLoader: DataLoader<OrderEntity['id'], OrderEntity>,
-  ): Promise<OrderConnection> {
+  ): Promise<BoardConnection> {
     const results = await this.boardsService.findAndPaginate(
       { userId: parent.id },
       order,

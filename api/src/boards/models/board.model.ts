@@ -1,8 +1,10 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Clip } from '../../clips/models/clip.model';
+import { Field, Int, ID, ObjectType } from '@nestjs/graphql';
+import { toGlobalId } from 'graphql-relay';
+import { NodeObjectType, NodeType } from '../../nodes/models/node.model';
+import { ClipType } from '../../clips/models/clip.model';
 
-@ObjectType()
-export class Board {
+@ObjectType(NodeObjectType.Board, { implements: NodeType })
+export class BoardType implements NodeType {
   @Field()
   userId: string;
 
@@ -12,12 +14,17 @@ export class Board {
   @Field()
   title: string;
 
-  @Field((type) => Int)
+  @Field(() => Int)
   favorites: number;
 
-  @Field((type) => Boolean)
+  @Field(() => Boolean)
   favorited: boolean;
 
-  @Field((type) => [Clip])
-  clips: Clip[];
+  @Field(() => [ClipType])
+  clips: ClipType[];
+
+  @Field(() => ID, { name: 'id' })
+  get relayId(): string {
+    return toGlobalId('Order', this.id);
+  }
 }
