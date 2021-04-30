@@ -9,15 +9,15 @@ export class Medium {
   @Field()
   format: string;
 
-  @Field(type => Int)
+  @Field((type) => Int)
   width: number;
-  
-  @Field(type => Int)
+
+  @Field((type) => Int)
   height: number;
 
   @Field()
   sha256: string;
 
-  @Field(type => User)
+  @Field((type) => User)
   originalUploader: User;
 }

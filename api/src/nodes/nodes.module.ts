@@ -6,10 +6,7 @@ import { NodesService } from './nodes.service';
 
 @Global()
 @Module({
-  imports: [
-    forwardRef(() => BoardsModule),
-    forwardRef(() => UsersModule),
-  ],
+  imports: [forwardRef(() => BoardsModule), forwardRef(() => UsersModule)],
   providers: [NodesService, NodesResolver],
   exports: [NodesService],
 })

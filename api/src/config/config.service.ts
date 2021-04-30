@@ -14,11 +14,11 @@ export class AppConfigService {
     return {
       issuer: this.configService.get<string>(
         'AUTH0_ISSUER',
-        'https://quipt.us.auth0.com/'
+        'https://quipt.us.auth0.com/',
       ),
       audience: this.configService.get<string>(
         'AUTH0_AUDIENCE',
-        'http://localhost:3000/'
+        'http://localhost:3000/',
       ),
     };
   }
@@ -30,7 +30,7 @@ export class AppConfigService {
   get localstackEndpoint(): string {
     return this.configService.get<string>(
       'LOCALSTACK_ENDPOINT',
-      'http://localhost:4566'
+      'http://localhost:4566',
     );
   }
 

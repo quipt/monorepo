@@ -45,7 +45,7 @@ export class UsersResolver {
   async viewer(
     @Context('req') ctx: AppContext,
     @Loader(UsersLoader)
-    usersLoader: DataLoader<UserEntity['id'], UserEntity>
+    usersLoader: DataLoader<UserEntity['id'], UserEntity>,
   ): Promise<UserType> {
     return usersLoader
       .load(ctx.user.id)
@@ -59,13 +59,13 @@ export class UsersResolver {
     @Context('req') ctx: AppContext,
     @Args() { where, orderBy: order, ...connectionArgs }: UserConnectionArgs,
     @Loader(UsersLoader)
-    usersLoader: DataLoader<UserEntity['id'], UserEntity>
+    usersLoader: DataLoader<UserEntity['id'], UserEntity>,
   ): Promise<UserConnection> {
     const results = await this.usersService.findAndPaginate(
       where,
       order,
       connectionArgs,
-      { ctx }
+      { ctx },
     );
     return usersLoader.loadMany(results.ids).then((entities) =>
       Relay.connectionFromArraySlice(
@@ -74,8 +74,8 @@ export class UsersResolver {
         {
           arrayLength: results.count,
           sliceStart: results.offset || 0,
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -86,13 +86,13 @@ export class UsersResolver {
     @Args()
     { where: _where, orderBy: order, ...connectionArgs }: OrderConnectionArgs,
     @Loader(OrdersLoader)
-    ordersLoader: DataLoader<OrderEntity['id'], OrderEntity>
+    ordersLoader: DataLoader<OrderEntity['id'], OrderEntity>,
   ): Promise<OrderConnection> {
     const results = await this.boardsService.findAndPaginate(
       { userId: parent.id },
       order,
       connectionArgs,
-      { ctx }
+      { ctx },
     );
     return ordersLoader.loadMany(results.ids).then((entities) =>
       Relay.connectionFromArraySlice(
@@ -101,8 +101,8 @@ export class UsersResolver {
         {
           arrayLength: results.count,
           sliceStart: results.offset || 0,
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -111,7 +111,7 @@ export class UsersResolver {
   @Permissions('user:create')
   async userCreate(
     // @Context('req') ctx: AppContext,
-    @Args('input') input: UserCreateInput
+    @Args('input') input: UserCreateInput,
   ): Promise<UserPayloadType> {
     // TODO: Verify ctx.user is creating a user for an organization which they are admin.
     const entity = await this.usersService.create(input);
@@ -123,7 +123,7 @@ export class UsersResolver {
   @Permissions('user:update')
   async userUpdate(
     @Args('input', ParseNodeIdPipe(NodeObjectType.User, 'userId', 'user'))
-    input: UserUpdateInput
+    input: UserUpdateInput,
   ): Promise<UserPayloadType> {
     const entity = await this.usersService.update(input.user, input);
     return { user: UserType.fromEntity(entity) };

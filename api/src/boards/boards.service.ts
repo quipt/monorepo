@@ -15,33 +15,28 @@ export interface FindAndPaginateOutput<T> {
 export class BoardsService {
   dynamodb: DynamoDB;
 
-  constructor(
-    private configService: AppConfigService
-  ) {
+  constructor(private configService: AppConfigService) {
     this.dynamodb = new DynamoDB(this.configService.awsClientOptions);
   }
 
   async findById(
     userId: string,
     id: string,
-    options?: { ctx?: AppContext }
+    options?: { ctx?: AppContext },
   ): Promise<UserEntity> {
-
-
     this.dynamodb.getItem({
       TableName: 'boards',
-      
     });
-    return 
+    return;
   }
 
   async findByIds(
     ids: number[],
-    options?: { ctx?: AppContext }
+    options?: { ctx?: AppContext },
   ): Promise<UserEntity[]> {
     return this.usersRepository.findByIds(
       ids,
-      this.repositoryOptions(options?.ctx)
+      this.repositoryOptions(options?.ctx),
     );
   }
 
@@ -49,7 +44,7 @@ export class BoardsService {
     where: FindManyOptions<UserEntity>['where'],
     order: FindManyOptions<UserEntity>['order'],
     connectionArgs: ConnectionArgs,
-    options?: { ctx?: AppContext }
+    options?: { ctx?: AppContext },
   ): Promise<FindAndPaginateOutput<UserEntity['id']>> {
     const { limit, offset } = getPagingParameters(connectionArgs);
     const repositoryOptions = this.repositoryOptions(options?.ctx);
@@ -82,7 +77,7 @@ export class BoardsService {
   @Transactional()
   async update(
     _user: UserEntity,
-    _input: Omit<UserUpdateInput, 'userId'>
+    _input: Omit<UserUpdateInput, 'userId'>,
   ): Promise<UserEntity> {
     throw new NotImplementedException('TODO');
   }

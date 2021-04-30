@@ -16,9 +16,9 @@ export class User {
   @Field({ nullable: true })
   lastName?: string;
 
-  @Field(type => [Board])
+  @Field((type) => [Board])
   boards: Board[];
 
-  @Field(type => [Medium])
+  @Field((type) => [Medium])
   originals: Medium[];
 }

@@ -3,7 +3,7 @@ import { Medium } from '../../media/models/medium.model';
 
 @ObjectType()
 export class Post {
-  @Field(type => Int)
+  @Field((type) => Int)
   media: Medium[];
 
   @Field()

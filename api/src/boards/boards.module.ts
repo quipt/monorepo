@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 
 @Module({
-    imports: [],
-    controllers: [],
-    providers: [],
+  imports: [],
+  controllers: [],
+  providers: [],
 })
 export class BoardsModule {}

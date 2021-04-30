@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import {Clip} from '../../clips/models/clip.model';
+import { Clip } from '../../clips/models/clip.model';
 
 @ObjectType()
 export class Board {
@@ -12,12 +12,12 @@ export class Board {
   @Field()
   title: string;
 
-  @Field(type => Int)
+  @Field((type) => Int)
   favorites: number;
 
-  @Field(type => Boolean)
+  @Field((type) => Boolean)
   favorited: boolean;
 
-  @Field(type => [Clip])
+  @Field((type) => [Clip])
   clips: Clip[];
 }

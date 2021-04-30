@@ -11,7 +11,7 @@ export class HealthController {
   constructor(
     private readonly health: HealthCheckService,
     private readonly http: HttpHealthIndicator,
-    private readonly disk: DiskHealthIndicator
+    private readonly disk: DiskHealthIndicator,
   ) {}
 
   @Get()
@@ -21,7 +21,7 @@ export class HealthController {
       async () =>
         this.http.pingCheck(
           'graphql',
-          'http://localhost:3000/.well-known/apollo/server-health'
+          'http://localhost:3000/.well-known/apollo/server-health',
         ),
       async () =>
         this.disk.checkStorage('storage', {

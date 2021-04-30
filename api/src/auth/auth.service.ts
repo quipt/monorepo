@@ -16,9 +16,8 @@ export class AuthService {
 
   constructor(
     private jwtService: JwtService,
-    private configService: AppConfigService
+    private configService: AppConfigService,
   ) {
-
     this.dynamodb = new DynamoDB(options);
   }
 
@@ -27,8 +26,8 @@ export class AuthService {
   }
 
   async personalAccessTokenCreate(user: Auth0JwtPayload, scopes: string[]) {
-    const valid = scopes.every(scope =>
-      this.personalAccessTokenScopes.includes(scope)
+    const valid = scopes.every((scope) =>
+      this.personalAccessTokenScopes.includes(scope),
     );
 
     if (!valid) {
@@ -51,7 +50,7 @@ export class AuthService {
           sub: { S: payload.sub },
           jti: { S: payload.jti },
           iat: { N: `${payload.iat}` },
-          scp: { L: scopes.map(scope => ({ S: scope })) },
+          scp: { L: scopes.map((scope) => ({ S: scope })) },
         },
       })
       .promise();
@@ -85,7 +84,7 @@ export class AuthService {
         .promise();
     } catch (err) {
       throw new AuthenticationError(
-        `The access token ${payload.jti} has been revoked`
+        `The access token ${payload.jti} has been revoked`,
       );
     }
   }
@@ -119,7 +118,7 @@ export class AuthService {
 
   async listPersonalAccessTokens(
     sub: string,
-    includeRevoked = false
+    includeRevoked = false,
   ): Promise<PersonalAccessTokenPayloadType[]> {
     const result = await this.dynamodb
       .query({
@@ -139,10 +138,10 @@ export class AuthService {
 
     return result?.Items
       ? result.Items.map(
-          item =>
+          (item) =>
             DynamoDB.Converter.unmarshall(
-              item
-            ) as PersonalAccessTokenPayloadType
+              item,
+            ) as PersonalAccessTokenPayloadType,
         )
       : [];
   }
@@ -150,7 +149,7 @@ export class AuthService {
   get personalAccessTokenScopes() {
     return [OrderPermissions, OrderLineItemPermissions].reduce(
       (acc, val) => [...acc, ...Object.values(val)],
-      [] as string[]
+      [] as string[],
     );
   }
 }

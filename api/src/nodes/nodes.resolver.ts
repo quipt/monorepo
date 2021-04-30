@@ -21,7 +21,7 @@ export class NodesResolver {
   @UseGuards(JwtAuthGuard)
   async node(
     @Context('req') ctx: AppContext,
-    @Args({ name: 'id', type: () => ID }) id: string
+    @Args({ name: 'id', type: () => ID }) id: string,
   ): Promise<NodeType | undefined> {
     const entity = await this.nodesService.findById(id, { ctx });
 

@@ -14,7 +14,7 @@ export class NodesService {
     private readonly taxCodesService: TaxCodesService,
     private readonly boardsService: BoardsService,
     private readonly orderLineItemsService: OrderLineItemsService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
   ) {}
 
   async findById(
@@ -22,13 +22,8 @@ export class NodesService {
     options?: {
       ctx?: AppContext;
       enforcedTypes?: NodeObjectType | NodeObjectType[];
-    }
-  ): Promise<
-    | OrderEntity
-    | OrderLineItemEntity
-    | UserEntity
-    | undefined
-  > {
+    },
+  ): Promise<OrderEntity | OrderLineItemEntity | UserEntity | undefined> {
     const { id, type } = fromGlobalId(relayId);
     const nodeObjectType = NodeObjectType[type as NodeObjectType];
     if (

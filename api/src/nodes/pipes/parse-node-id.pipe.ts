@@ -18,13 +18,13 @@ export function ParseNodeIdPipe(type: NodeObjectType): Type<PipeTransform>;
 export function ParseNodeIdPipe(
   type: NodeObjectType,
   source?: string,
-  target?: string
+  target?: string,
 ): Type<PipeTransform>;
 
 export function ParseNodeIdPipe(
   type: NodeObjectType,
   source?: string,
-  target?: string
+  target?: string,
 ): Type<PipeTransform> {
   return createParseNodeIdPipe(type, source, target);
 }
@@ -32,12 +32,13 @@ export function ParseNodeIdPipe(
 function createParseNodeIdPipe(
   type: NodeObjectType,
   source: string | undefined,
-  target: string | undefined
+  target: string | undefined,
 ): Type<PipeTransform> {
   class MixinParseNodeIdPipe implements PipeTransform {
     constructor(
       @Inject(CONTEXT) private context: { req: AppContext },
-      @Inject(forwardRef(() => NodesService)) private nodesService: NodesService
+      @Inject(forwardRef(() => NodesService))
+      private nodesService: NodesService,
     ) {}
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

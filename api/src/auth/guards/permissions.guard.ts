@@ -10,11 +10,11 @@ import { AppConfigService } from '../../config/config.service';
 export class PermissionsGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly config: AppConfigService
+    private readonly config: AppConfigService,
   ) {}
 
   canActivate(
-    context: ExecutionContext
+    context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const ctx = GqlExecutionContext.create(context);
     const request = ctx.getContext().req;
@@ -22,7 +22,7 @@ export class PermissionsGuard implements CanActivate {
 
     if (!request.user) {
       throw new AuthenticationError(
-        'Could not authenticate with token or user does not have permissions'
+        'Could not authenticate with token or user does not have permissions',
       );
     }
 
@@ -32,7 +32,7 @@ export class PermissionsGuard implements CanActivate {
 
     const permissions = this.reflector.get<string[]>(
       'permissions',
-      context.getHandler()
+      context.getHandler(),
     );
 
     if (!permissions) {
@@ -41,6 +41,6 @@ export class PermissionsGuard implements CanActivate {
 
     const scopes = user.scp || [];
 
-    return permissions.every(permission => scopes.includes(permission));
+    return permissions.every((permission) => scopes.includes(permission));
   }
 }

@@ -14,26 +14,26 @@ export interface FindAndPaginateOutput<T> {
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly usersRepository: Repository<UserEntity>
+    private readonly usersRepository: Repository<UserEntity>,
   ) {}
 
   async findById(
     id: number,
-    options?: { ctx?: AppContext }
+    options?: { ctx?: AppContext },
   ): Promise<UserEntity> {
     return this.usersRepository.findOneOrFail(
       id,
-      this.repositoryOptions(options?.ctx)
+      this.repositoryOptions(options?.ctx),
     );
   }
 
   async findByIds(
     ids: number[],
-    options?: { ctx?: AppContext }
+    options?: { ctx?: AppContext },
   ): Promise<UserEntity[]> {
     return this.usersRepository.findByIds(
       ids,
-      this.repositoryOptions(options?.ctx)
+      this.repositoryOptions(options?.ctx),
     );
   }
 
@@ -48,7 +48,7 @@ export class UsersService {
   async updateLastSeenAt(user: UserEntity): Promise<UpdateResult> {
     return this.usersRepository.update(
       { id: user.id },
-      { lastSeenAt: new Date() }
+      { lastSeenAt: new Date() },
     );
   }
 
@@ -56,7 +56,7 @@ export class UsersService {
     where: FindManyOptions<UserEntity>['where'],
     order: FindManyOptions<UserEntity>['order'],
     connectionArgs: ConnectionArgs,
-    options?: { ctx?: AppContext }
+    options?: { ctx?: AppContext },
   ): Promise<FindAndPaginateOutput<UserEntity['id']>> {
     const { limit, offset } = getPagingParameters(connectionArgs);
     const repositoryOptions = this.repositoryOptions(options?.ctx);
@@ -89,7 +89,7 @@ export class UsersService {
   @Transactional()
   async update(
     _user: UserEntity,
-    _input: Omit<UserUpdateInput, 'userId'>
+    _input: Omit<UserUpdateInput, 'userId'>,
   ): Promise<UserEntity> {
     throw new NotImplementedException('TODO');
   }
