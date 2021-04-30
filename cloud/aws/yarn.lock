@@ -1100,10 +1100,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@henrist/cdk-cross-region-params@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@henrist/cdk-cross-region-params/-/cdk-cross-region-params-1.0.0.tgz#2e09a4cdae71b7ec4f908b204fd2ae9d37577db6"
-  integrity sha512-FdzsEUx3iMXwTutonRW4FDQp+VszEanuEDjJva3kBtKGdrnT2wrStV5gQmMCD2pLO43NW1kQKprvO2eUwvvnAw==
+"@henrist/cdk-cross-region-params@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@henrist/cdk-cross-region-params/-/cdk-cross-region-params-1.0.1.tgz#622c9359c89eddd8f8340fabd227d5bc4b39f2be"
+  integrity sha512-yfPv+Zv9e2OMdx/ABI1m7HTCBcVmv5zhKbMLb8y0WAYKLMhSM0+RfczmzVxsyti7BsN+3DyigjJKLV+xgKhgvw==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
