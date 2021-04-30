@@ -80,7 +80,7 @@ export class UsersResolver {
   }
 
   @ResolveField(() => OrderConnection)
-  async orders(
+  async boards(
     @Context('req') ctx: AppContext,
     @Parent() parent: UserType,
     @Args()

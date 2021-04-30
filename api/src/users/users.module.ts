@@ -5,7 +5,7 @@ import { BoardsModule } from '../boards/boards.module';
 import { UsersLoader } from './users.loader';
 
 @Module({
-  imports: []
+  imports: [
     forwardRef(() => BoardsModule),
   ],
   providers: [UsersResolver, UsersService, UsersLoader],
