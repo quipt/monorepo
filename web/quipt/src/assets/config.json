@@ -2,7 +2,7 @@
     "apiUri": "http://localhost:3000/graphql",
     "auth0": {
       "domain": "quipt.us.auth0.com",
-      "clientId": "KGuFD9CRxD2hOLUTwf3lw6FdKe7eklAH",
+      "clientId": "PzUX18HPPyzmzk6ajAMMkvRHKopcDcSM",
       "audience": "http://localhost:3000/"
     },
     "brand": "Quipt"
