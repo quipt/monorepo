@@ -22,7 +22,6 @@ export class ConfigService {
   private authClientConfig: AuthClientConfig;
 
   constructor(httpBackend: HttpBackend, authClientConfig: AuthClientConfig) {
-    console.log('test');
     this.http = new HttpClient(httpBackend);
     this.authClientConfig = authClientConfig;
   }
