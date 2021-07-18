@@ -215,12 +215,12 @@
   dependencies:
     tslib "^2.2.0"
 
-"@angular/flex-layout@11.0.0-beta.33":
-  version "11.0.0-beta.33"
-  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-11.0.0-beta.33.tgz#c2d08f90164701b66a62b8c4365b4e22c1e95789"
-  integrity sha512-unfhw3abZuKtdwQicRStHCYGbANPTHYg4WNRQk/RC5Mxq+4WOp4Q8HI7GqRHCGUYDCGUP7w1sU/oDt8f09nM8w==
+"@angular/flex-layout@12.0.0-beta.34":
+  version "12.0.0-beta.34"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-12.0.0-beta.34.tgz#24d83bf3f8e4eacb661b3b8f9f85b0102415ff30"
+  integrity sha512-nLwKovXpyG+/U3Lbmfwt+q4ARupxtbPmFTZD0Y8oItFAV6/Oh9l+QQsNQa2VhOHAOrVagyDwcEM+SePtB5EmrQ==
   dependencies:
-    tslib "^2.0.0"
+    tslib "^2.1.0"
 
 "@angular/forms@~12.1.2":
   version "12.1.2"
