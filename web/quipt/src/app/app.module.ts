@@ -16,7 +16,9 @@ import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import { BoardsComponent } from './boards/boards.component';
+import { BoardComponent } from './board/board.component'
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { HomeComponent } from './home/home.component'
     HomeComponent,
     NavigationComponent,
     NotFoundComponent,
+    BoardsComponent,
+    BoardComponent,
   ],
   imports: [
     BrowserModule,
