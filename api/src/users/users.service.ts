@@ -1,41 +1,38 @@
-import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { Injectable } from '@nestjs/common';
-import { AppConfigService } from '../config/config.service';
+import { ReturnModel, InjectModel } from '@skypress/nestjs-dynamodb';
+import { User } from './user.schema';
+import { UserInput } from './user.input';
 
-export interface FindAndPaginateOutput<T> {
-  ids: T[];
-  count: number;
-  offset: number | undefined;
-}
+const returnModel = ReturnModel<User>();
 
 @Injectable()
 export class UsersService {
-  dynamodb: DynamoDB;
+  constructor(
+    @InjectModel(User)
+    private readonly userModel: typeof returnModel,
+  ) {}
 
-  constructor(private configService: AppConfigService) {
-    this.dynamodb = new DynamoDB(this.configService.awsClientOptions);
+  async findAll(): Promise<User[]> {
+    return this.userModel.find();
   }
 
-  async findById(id: string) {
-    const data = await this.dynamodb.getItem({
-      TableName: 'users',
-      Key: {
-        id: { S: id },
-      },
-    });
-
-    return data.Item?.id.S;
+  async findById(id: string): Promise<User> {
+    return this.userModel.findById(id);
   }
 
-  async findByIds(ids: string[]) {
-    const data = await this.dynamodb.batchGetItem({
-      RequestItems: {
-        users: {
-          Keys: ids.map((id) => ({ id: { S: id } })),
-        },
-      },
-    });
+  async create(input: UserInput): Promise<User> {
+    return this.userModel.create(input);
+  }
 
-    return data.Responses.users.map((user) => user.id.S);
+  async delete(input: string) {
+    return this.userModel.findByIdAndDelete(input);
+  }
+
+  async update(id: string, item: UserInput): Promise<User> {
+    return this.userModel.findByIdAndUpdate(id, item);
+  }
+
+  async find(input: Partial<UserInput>): Promise<User[]> {
+    return this.userModel.find(input);
   }
 }

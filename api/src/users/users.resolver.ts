@@ -26,10 +26,10 @@ import {
   UserUpdateInput,
 } from './dto/user.input';
 import { BoardConnection } from '../boards/dto/board.relay';
-import { OrderConnectionArgs } from '../orders/dto/order.input';
-import { OrdersLoader } from '../orders/orders.loader';
-import { OrderEntity } from '../db/entities/order.entity';
-import { OrderType } from '../orders/dto/order.type';
+import { BoardConnectionArgs } from '../orders/dto/board.input';
+import { BoardsLoader } from '../orders/orders.loader';
+import { BoardEntity } from '../db/entities/order.entity';
+import { BoardType } from '../boards/models/board.model';
 import { ParseNodeIdPipe } from '../nodes/pipes/parse-node-id.pipe';
 import { NodeObjectType } from '../nodes/models/node.model';
 
@@ -96,7 +96,7 @@ export class UsersResolver {
     );
     return ordersLoader.loadMany(results.ids).then((entities) =>
       Relay.connectionFromArraySlice(
-        entities.map((entity) => OrderType.fromEntity(entity)),
+        entities.map((entity) => BoardType.fromEntity(entity)),
         connectionArgs,
         {
           arrayLength: results.count,
