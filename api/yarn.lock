@@ -2433,12 +2433,12 @@
   dependencies:
     "@types/node" "*"
 
-"@types/graphql-relay@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@types/graphql-relay/-/graphql-relay-0.6.0.tgz#c3dac6a2944fe02372e2b8eee44b7ce474234f6d"
-  integrity sha512-/o2GDW22mdggQ9PUSNMbYFJMrCMwwiX8uu1/xS1rbDEdcC6+OVBy9Uz5ePW2zLDzhOznh3Ozm5t09jHqaY8cuw==
+"@types/graphql-relay@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@types/graphql-relay/-/graphql-relay-0.7.0.tgz#e6187e7ba76bbf3dccbef32a21ba5d23affa7160"
+  integrity sha512-LQHsyXFX5ZXFxgrLlRg5skLp17GBVTEzM8IE0iIt9Id5EwxS80qhdj2H01+7GzCPcRxVdQqbIFlTRUU6QFhaFw==
   dependencies:
-    graphql "^14.5.3 || ^15.0.0"
+    graphql-relay "*"
 
 "@types/http-assert@*":
   version "1.5.1"
@@ -5276,6 +5276,11 @@ graphql-extensions@^0.13.0:
     apollo-server-env "^3.0.0"
     apollo-server-types "^0.7.0"
 
+graphql-relay@*:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/graphql-relay/-/graphql-relay-0.8.0.tgz#35f0090f0f056192767c1acdaa402daed19ede6d"
+  integrity sha512-NU7CkwNxPzkqpBgv76Cgycrc3wmWVA2K5Sxm9DHSSLLuQTpaSRAUsX1sf2gITf+XQpkccsv56/z0LojXTyQbUw==
+
 graphql-relay@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/graphql-relay/-/graphql-relay-0.6.0.tgz#18ec36b772cfcb3dbb9bd369c3f8004cf42c7b93"
@@ -5360,7 +5365,7 @@ graphql-ws@4.2.2:
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-4.2.2.tgz#73ede40c064fe76c48c6869df7fc0bfbef80cc20"
   integrity sha512-b6TLtWLAmKunD72muL9EeItRGpio9+V3Cx4zJsBkRA+3wxzTWXDvQr9/3qSwJ3D/2abz0ys2KHTM6lB1uH7KIQ==
 
-"graphql@^14.5.3 || ^15.0.0", graphql@^15.5.0:
+graphql@^15.5.0:
   version "15.5.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.0.tgz#39d19494dbe69d1ea719915b578bf920344a69d5"
   integrity sha512-OmaM7y0kaK31NKG31q4YbD2beNYa6jBBKtMFT6gLYJljHLJr42IqJ8KX08u3Li/0ifzTU5HjmoOOrwa5BRLeDA==
