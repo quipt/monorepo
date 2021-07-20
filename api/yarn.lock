@@ -2131,10 +2131,10 @@
     jsonc-parser "3.0.0"
     pluralize "8.0.0"
 
-"@nestjs/terminus@^7.1.2":
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/terminus/-/terminus-7.1.2.tgz#0d6e0500c7c524725442c0a66e3543f2a2a7de41"
-  integrity sha512-kiwNNU5ADkOkcdv8/X0FXJ7IXSlFyVhdDyNhNHD+Z9Eu78fulCLYQGQC6Jq4QVgQKwSrdJpFxIhXBMbrWnW3xA==
+"@nestjs/terminus@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/terminus/-/terminus-7.2.0.tgz#73b08aa329b8f36a0c3a1bc26f730b1cb14b9a8d"
+  integrity sha512-aQuqpT9MkI/HUUXzFgMyN7HnKishNGCd/QOQ4s8vjz8WOfjkZrrX0yoJGVhHmLca5IXa6HnhsHC1PiVTdXlw8g==
   dependencies:
     check-disk-space "2.1.0"
     deprecate "^1.1.1"
