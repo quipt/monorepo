@@ -29,7 +29,7 @@
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/passport": "^8.0.0",
     "@nestjs/platform-fastify": "^7.6.15",
-    "@nestjs/terminus": "^7.1.2",
+    "@nestjs/terminus": "^7.2.0",
     "@skypress/nestjs-dynamodb": "^0.1.0",
     "apollo-server-core": "^2.23.0",
     "apollo-server-fastify": "^2.23.0",
