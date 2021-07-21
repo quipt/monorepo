@@ -1,1 +1,21 @@
-<p>board works!</p>
+<div class="container">
+    <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <div fxLayout="row" fxLayoutAlight="center">
+            <span><a routerLink="/{{username}}">{{username}}</a></span>
+            <mat-icon>chevron_right</mat-icon>
+            <span>{{title}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+            <mat-card fxLayout="row" fxLayoutAlign="center">
+                <mat-icon>movie</mat-icon>
+                <div>{{clipCount}}</div>
+            </mat-card>
+            <mat-card fxLayout="row" fxLayoutAlign="center">
+                <button mat-button (click)="onFavoriteClick()">
+                    <mat-icon>{{favorited ? 'favorite' :'favorite_border'}}</mat-icon>
+                </button>
+                <div>{{favorites}}</div>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+:host {
+  font-size: large;
+}
+
+mat-card {
+  padding: 8px;
+  margin: 8px;
+}
+
+mat-card > * {
+  padding: 0 4px;
+}
+
+mat-card > div {
+  border-left: 1px solid;
+}
