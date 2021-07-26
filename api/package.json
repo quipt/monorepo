@@ -23,7 +23,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.22.0",
     "@nestjs/common": "^7.6.13",
-    "@nestjs/config": "^0.6.3",
+    "@nestjs/config": "^1.0.1",
     "@nestjs/core": "^7.6.15",
     "@nestjs/graphql": "^7.10.3",
     "@nestjs/jwt": "^7.2.0",
