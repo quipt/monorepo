@@ -1,12 +1,12 @@
-import { Attribute, HashKey, Table } from '@skypress/nestjs-dynamodb';
+import { Attribute, HashKey, RangeKey, Table } from '@skypress/nestjs-dynamodb';
 import { ClipType } from '../clips/models/clip.model';
 
-@Table('users')
-export class User {
+@Table('boards')
+export class Board {
   @HashKey()
   userId: string;
 
-  @Attribute()
+  @RangeKey()
   id: string;
 
   @Attribute()

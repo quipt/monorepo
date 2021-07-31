@@ -1,24 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { AppConfigService } from '../config/config.service';
-import { DynamoDB } from '@aws-sdk/client-dynamodb';
+import { ReturnModel, InjectModel } from '@skypress/nestjs-dynamodb';
+import { Board } from './board.schema';
+// import { BoardInput } from './board.input';
+
+const ReturnModelInstance = ReturnModel<Board>()
 
 @Injectable()
 export class BoardsService {
-  dynamodb: DynamoDB;
+  constructor(
+    @InjectModel(Board)
+    private readonly boardModel: typeof ReturnModelInstance,
+  ) {}
 
-  constructor(private configService: AppConfigService) {
-    this.dynamodb = new DynamoDB(this.configService.awsClientOptions);
+  async findAll(): Promise<Board[]> {
+    return this.boardModel.find();
   }
 
-  async findById(userId: string, id: string) {
-    const data = await this.dynamodb.getItem({
-      TableName: 'boards',
-      Key: {
-        userId: { S: userId },
-        id: { S: id },
-      },
-    });
-
-    return data.Item;
+  async findById(id: string): Promise<Board> {
+    return this.boardModel.findById(id);
   }
+
+  // async create(input: BoardInput): Promise<Board> {
+  //   return this.boardModel.create(input);
+  // }
+
+  // async delete(input: string): Promise<DynamoDB.DeleteItemOutput> {
+  //   return this.boardModel.findByIdAndDelete(input)
+  // }
+
+  // async update(id: string, item: BoardInput): Promise<Board> {
+  //   return this.boardModel.findByIdAndUpdate(id, item)
+  // }
+
+  // async find(input: Partial<BoardInput>): Promise<Board[]> {
+  //   return this.boardModel.find(input)
+  // }
 }
