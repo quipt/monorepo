@@ -54,5 +54,4 @@ jobs:
             fi
           }
 
-          buildAndPush api
           buildAndPush web
