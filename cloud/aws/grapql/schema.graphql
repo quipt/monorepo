@@ -1,0 +1,58 @@
+# type User {
+#   id: ID!
+#   username: String
+#   boards: [Board]
+#   originals: [Media]
+# }
+
+# type Medium {
+#   user: User
+#   id: String
+#   format: String
+#   width: Number
+#   height: Number
+#   sha256: String
+# }
+
+# type Clip {
+#   media: [Medium]
+#   caption: String
+# }
+
+type Board {
+  id: ID!
+  title: String
+  # favorites: Number
+  # favorited: Boolean
+  # clips: [Clip]
+}
+
+input BoardInput {
+  title: String
+  # clips: [Clip]
+}
+
+input UpdateBoardInput {
+  id: ID!
+  title: String
+}
+
+type Query {
+  getBoardById(boardId: String!): Board
+  listBoards: [Board]
+}
+
+type Mutation {
+  createBoard(board: BoardInput!): Board
+  updateBoard(board: UpdateBoardInput!): Board
+  deleteBoard(boardId: String!): String
+}
+
+type Subscription {
+  onCreateBoard: Board
+    @aws_subscribe(mutations: ["createBoard"])
+  onDeleteBoard: String
+    @aws_subscribe(mutations: ["deleteBoard"])
+  onUpdateBoard: Board
+    @aws_subscribe(mutations: ["updateBoard"])
+}
