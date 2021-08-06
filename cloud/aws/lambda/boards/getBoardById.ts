@@ -11,5 +11,6 @@ export default async function getBoardById(boardId: String) {
     return Item;
   } catch (err) {
     console.log('DynamoDB error: ', err);
+    return null;
   }
 }
