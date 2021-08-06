@@ -10,7 +10,7 @@ export interface DnsStackProps extends cdk.StackProps {
 
 export class DnsStack extends cdk.Stack {
   readonly publicHostedZone: route53.PublicHostedZone;
-  readonly privateHostedZone: route53.PrivateHostedZone;
+  readonly privateHostedZone?: route53.PrivateHostedZone;
   readonly certificate: certificatemanager.Certificate;
 
   constructor(scope: cdk.Construct, id: string, props: DnsStackProps) {

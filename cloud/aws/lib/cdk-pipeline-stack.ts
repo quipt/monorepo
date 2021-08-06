@@ -24,8 +24,8 @@ export class CdkPipelineStack extends Stack {
         actionName: 'GitHub',
         output: sourceArtifact,
         oauthToken: SecretValue.secretsManager('GITHUB_TOKEN'),
-        trigger: codepipeline_actions.GitHubTrigger.POLL,
-        owner: 'Quipt',
+        trigger: codepipeline_actions.GitHubTrigger.WEBHOOK,
+        owner: 'quipt',
         repo: 'monorepo',
         branch: 'master',
       }),
@@ -48,21 +48,21 @@ export class CdkPipelineStack extends Stack {
 
     // ciPipeline.addApplicationStage(props.ciAccount.stage(this));
 
-    props.applicationAccounts.forEach(applicationAccount => {
-      const applicationAccountPipeline = new CdkPipeline(
-        this,
-        `${applicationAccount.prefix}-pipeline`,
-        {
-          ...pipelineProps,
-          pipelineName: `${applicationAccount.prefix}-pipeline`,
-        }
-      );
+    // props.applicationAccounts.forEach(applicationAccount => {
+    //   const applicationAccountPipeline = new CdkPipeline(
+    //     this,
+    //     `${applicationAccount.prefix}-pipeline`,
+    //     {
+    //       ...pipelineProps,
+    //       pipelineName: `${applicationAccount.prefix}-pipeline`,
+    //     }
+    //   );
 
-      applicationAccount
-        .stages(this)
-        .forEach(stage =>
-          applicationAccountPipeline.addApplicationStage(stage)
-        );
-    });
+    //   applicationAccount
+    //     .stages(this)
+    //     .forEach(stage =>
+    //       applicationAccountPipeline.addApplicationStage(stage)
+    //     );
+    // });
   }
 }
