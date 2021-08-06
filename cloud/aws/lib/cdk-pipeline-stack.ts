@@ -48,21 +48,21 @@ export class CdkPipelineStack extends Stack {
 
     // ciPipeline.addApplicationStage(props.ciAccount.stage(this));
 
-    // props.applicationAccounts.forEach(applicationAccount => {
-    //   const applicationAccountPipeline = new CdkPipeline(
-    //     this,
-    //     `${applicationAccount.prefix}-pipeline`,
-    //     {
-    //       ...pipelineProps,
-    //       pipelineName: `${applicationAccount.prefix}-pipeline`,
-    //     }
-    //   );
+    props.applicationAccounts.forEach(applicationAccount => {
+      const applicationAccountPipeline = new CdkPipeline(
+        this,
+        `${applicationAccount.prefix}-pipeline`,
+        {
+          ...pipelineProps,
+          pipelineName: `${applicationAccount.prefix}-pipeline`,
+        }
+      );
 
-    //   applicationAccount
-    //     .stages(this)
-    //     .forEach(stage =>
-    //       applicationAccountPipeline.addApplicationStage(stage)
-    //     );
-    // });
+      applicationAccount
+        .stages(this)
+        .forEach(stage =>
+          applicationAccountPipeline.addApplicationStage(stage)
+        );
+    });
   }
 }
