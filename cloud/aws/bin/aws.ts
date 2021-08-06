@@ -11,6 +11,7 @@ import {CdkPipelineStack} from '../lib/cdk-pipeline-stack';
 
 const globalPrimaryAccountId = '204102652951'; // Quipt Primary
 const globalPrimaryRegion = 'us-east-1';
+const baseDomain = 'qui.pt';
 
 const applicationAccounts = [
   {
@@ -25,7 +26,7 @@ const applicationAccounts = [
         replicaRegions: [],
       },
     ],
-    baseDomain: 'dev.qui.pt',
+    baseDomain,
   },
   // {
   //   applicationAccountType: ApplicationAccountType.test,
@@ -37,7 +38,7 @@ const applicationAccounts = [
   //     primaryRegion: globalPrimaryRegion,
   //     replicaRegions: ['us-east-2', 'us-west-2'],
   //   }],
-  //   baseDomain: 'test.qui.pt',
+  //   baseDomain,
   // },
   // {
   //   applicationAccountType: ApplicationAccountType.prod,
@@ -49,7 +50,7 @@ const applicationAccounts = [
   //     primaryRegion: globalPrimaryRegion,
   //     replicaRegions: ['us-east-2', 'us-west-2'],
   //   }],
-  //   baseDomain: 'qui.pt',
+  //   baseDomain,
   // },
 ].map(
   props =>

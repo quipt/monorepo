@@ -39,9 +39,9 @@ export class DnsStack extends cdk.Stack {
 
     // Certificates
 
-    this.certificate = new certificatemanager.Certificate(this, 'Certificate', {
-      domainName: `*.${props.zoneName}`,
-      validationMethod: certificatemanager.ValidationMethod.DNS,
-    });
+    // this.certificate = new certificatemanager.Certificate(this, 'Certificate', {
+    //   domainName: `*.${props.zoneName}`,
+    //   validationMethod: certificatemanager.ValidationMethod.DNS,
+    // });
   }
 }
