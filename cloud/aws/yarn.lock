@@ -514,6 +514,15 @@
     "@aws-cdk/cx-api" "1.117.0"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-lambda-nodejs@1.117.0":
+  version "1.117.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-lambda-nodejs/-/aws-lambda-nodejs-1.117.0.tgz#2fddfe22b711af32734cd75d5fa395da30db9474"
+  integrity sha512-0Idax1YsfPZsdLAvKtPZJo5r5FOrIqOmLoV0I3EckRcAPu8otJkRhoqfIJ5frgnJdZR9s3zg2srOMT1M0Ejurg==
+  dependencies:
+    "@aws-cdk/aws-lambda" "1.117.0"
+    "@aws-cdk/core" "1.117.0"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-lambda@1.117.0":
   version "1.117.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-lambda/-/aws-lambda-1.117.0.tgz#52cf78d2ff408905ae00a8c99b97613682c9deed"

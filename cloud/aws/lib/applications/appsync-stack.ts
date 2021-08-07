@@ -1,7 +1,7 @@
 import * as cdk from '@aws-cdk/core';
 import * as appsync from '@aws-cdk/aws-appsync';
 import * as dynamodb from '@aws-cdk/aws-dynamodb';
-import * as lambda from '@aws-cdk/aws-lambda';
+import * as lambda from '@aws-cdk/aws-lambda-nodejs';
 import * as path from 'path';
 
 export class AppsyncStack extends cdk.Stack {
@@ -34,11 +34,13 @@ export class AppsyncStack extends cdk.Stack {
       value: api.apiKey || '',
     });
 
-    const boardsLambda = new lambda.Function(this, 'AppSyncBoardsHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'main.handler',
-      code: lambda.Code.fromAsset('lambda'),
-      memorySize: 1024,
+    const boardsLambda = new lambda.NodejsFunction(this, 'AppSyncHandler', {
+      entry: path.join(__dirname, '../../lambda/main.ts'),
+      bundling: {
+        externalModules: [
+          'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
+        ],
+      },
     });
 
     // set the new Lambda function as a data source for the AppSync API
