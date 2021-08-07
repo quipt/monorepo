@@ -53,6 +53,6 @@ export class ApplicationStage extends cdk.Stage {
     //   ...props.web,
     // });
 
-    // const appsync = new AppsyncStack(this, 'Appsync', {});
+    const appsync = new AppsyncStack(this, 'Appsync', {});
   }
 }
