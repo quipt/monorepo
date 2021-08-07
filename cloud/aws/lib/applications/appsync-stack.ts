@@ -1,7 +1,7 @@
 import * as cdk from '@aws-cdk/core';
 import * as appsync from '@aws-cdk/aws-appsync';
-import * as ddb from '@aws-cdk/aws-dynamodb';
-import * as lambda from '@aws-cdk/aws-lambda';
+// import * as ddb from '@aws-cdk/aws-dynamodb';
+// import * as lambda from '@aws-cdk/aws-lambda';
 import * as path from 'path';
 
 export class AppsyncStack extends cdk.Stack {
@@ -34,54 +34,54 @@ export class AppsyncStack extends cdk.Stack {
       value: api.apiKey || '',
     });
 
-    const boardsLambda = new lambda.Function(this, 'AppSyncBoardsHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'main.handler',
-      code: lambda.Code.fromAsset('lambda'),
-      memorySize: 1024,
-    });
+    // const boardsLambda = new lambda.Function(this, 'AppSyncBoardsHandler', {
+    //   runtime: lambda.Runtime.NODEJS_14_X,
+    //   handler: 'main.handler',
+    //   code: lambda.Code.fromAsset('lambda'),
+    //   memorySize: 1024,
+    // });
 
-    // set the new Lambda function as a data source for the AppSync API
-    const lambdaDs = api.addLambdaDataSource('lambdaDatasource', boardsLambda);
+    // // set the new Lambda function as a data source for the AppSync API
+    // const lambdaDs = api.addLambdaDataSource('lambdaDatasource', boardsLambda);
 
-    // create resolvers to match GraphQL operations in schema
-    lambdaDs.createResolver({
-      typeName: 'Query',
-      fieldName: 'getBoardById',
-    });
+    // // create resolvers to match GraphQL operations in schema
+    // lambdaDs.createResolver({
+    //   typeName: 'Query',
+    //   fieldName: 'getBoardById',
+    // });
 
-    lambdaDs.createResolver({
-      typeName: 'Query',
-      fieldName: 'listBoards',
-    });
+    // lambdaDs.createResolver({
+    //   typeName: 'Query',
+    //   fieldName: 'listBoards',
+    // });
 
-    lambdaDs.createResolver({
-      typeName: 'Mutation',
-      fieldName: 'createBoard',
-    });
+    // lambdaDs.createResolver({
+    //   typeName: 'Mutation',
+    //   fieldName: 'createBoard',
+    // });
 
-    lambdaDs.createResolver({
-      typeName: 'Mutation',
-      fieldName: 'deleteBoard',
-    });
+    // lambdaDs.createResolver({
+    //   typeName: 'Mutation',
+    //   fieldName: 'deleteBoard',
+    // });
 
-    lambdaDs.createResolver({
-      typeName: 'Mutation',
-      fieldName: 'updateBoard',
-    });
+    // lambdaDs.createResolver({
+    //   typeName: 'Mutation',
+    //   fieldName: 'updateBoard',
+    // });
 
-    // create DynamoDB table
-    const boardsTable = new ddb.Table(this, 'CDKBoardsTable', {
-      billingMode: ddb.BillingMode.PAY_PER_REQUEST,
-      partitionKey: {
-        name: 'id',
-        type: ddb.AttributeType.STRING,
-      },
-    });
+    // // create DynamoDB table
+    // const boardsTable = new ddb.Table(this, 'CDKBoardsTable', {
+    //   billingMode: ddb.BillingMode.PAY_PER_REQUEST,
+    //   partitionKey: {
+    //     name: 'id',
+    //     type: ddb.AttributeType.STRING,
+    //   },
+    // });
 
-    // enable the Lambda function to access the DynamoDB table (using IAM)
-    boardsTable.grantReadWriteData(boardsLambda);
+    // // enable the Lambda function to access the DynamoDB table (using IAM)
+    // boardsTable.grantReadWriteData(boardsLambda);
 
-    boardsLambda.addEnvironment('BOARDS_TABLE', boardsTable.tableName);
+    // boardsLambda.addEnvironment('BOARDS_TABLE', boardsTable.tableName);
   }
 }
