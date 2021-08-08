@@ -15,7 +15,7 @@ type AppSyncEvent = {
   };
 };
 
-export default async function handler(event: AppSyncEvent) {
+export async function handler(event: AppSyncEvent) {
   switch (event.info.fieldName) {
     case 'getBoardById':
       return await getBoardById(event.arguments.boardId);
