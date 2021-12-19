@@ -45,7 +45,7 @@ type Query {
 type Mutation {
   createBoard(board: BoardInput!): Board
   updateBoard(board: UpdateBoardInput!): Board
-  deleteBoard(boardId: String!): String
+  deleteBoard(id: ID!): ID
 }
 
 type Subscription {
