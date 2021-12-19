@@ -38,7 +38,7 @@ input UpdateBoardInput {
 }
 
 type Query {
-  getBoardById(boardId: String!): Board
+  getBoardById(id: String!): Board
   listBoards: [Board]
 }
 
