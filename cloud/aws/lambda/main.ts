@@ -16,6 +16,8 @@ type AppSyncEvent = {
 };
 
 export async function handler(event: AppSyncEvent) {
+  console.log(event);
+
   switch (event.info.fieldName) {
     case 'getBoardById':
       return await getBoardById(event.arguments.boardId);
