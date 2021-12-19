@@ -12,11 +12,11 @@ export default async function createBoard(board: Board) {
 
   const params: AWS.DynamoDB.DocumentClient.PutItemInput = {
     TableName: process.env.BOARDS_TABLE!,
-    Item: board,
+    Item,
   };
   try {
     await docClient.put(params).promise();
-    return board;
+    return Item;
   } catch (err) {
     console.log('DynamoDB error: ', err);
     return null;
