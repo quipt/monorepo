@@ -12,4 +12,11 @@ export class BoardsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  boards = [{
+    title: 'test board',
+  }]
+
+  addBoard() {
+    console.log('test');
+  }
 }

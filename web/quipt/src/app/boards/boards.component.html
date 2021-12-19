@@ -2,8 +2,8 @@
 <!-- if no boards yet -->
 <p>Create your first board</p>
 
-<p></p>
+<p *ngFor="let board of boards;">{{ board.title }}</p>
 
-<button mat-fab color="primary">
+<button mat-fab color="primary" (click)="addBoard()">
   <mat-icon>add</mat-icon>
 </button>
