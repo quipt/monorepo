@@ -9,7 +9,7 @@ export default async function listBoards() {
     const data = await docClient.scan(params).promise();
     return data.Items;
   } catch (err) {
-    console.log('DynamoDB error: ', err);
+    console.error('DynamoDB error: ', err);
     return null;
   }
 }

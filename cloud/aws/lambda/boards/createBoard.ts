@@ -18,7 +18,7 @@ export default async function createBoard(board: Board) {
     await docClient.put(params).promise();
     return Item;
   } catch (err) {
-    console.log('DynamoDB error: ', err);
+    console.error('DynamoDB error: ', err);
     return null;
   }
 }

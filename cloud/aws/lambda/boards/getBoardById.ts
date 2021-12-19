@@ -10,7 +10,7 @@ export default async function getBoardById(id: String) {
     const {Item} = await docClient.get(params).promise();
     return Item;
   } catch (err) {
-    console.log('DynamoDB error: ', err);
+    console.error('DynamoDB error: ', err);
     return null;
   }
 }

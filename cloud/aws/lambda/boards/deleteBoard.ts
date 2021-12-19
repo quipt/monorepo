@@ -12,7 +12,7 @@ export default async function deleteBoard(id: String) {
     await docClient.delete(params).promise();
     return id;
   } catch (err) {
-    console.log('DynamoDB error: ', err);
+    console.error('DynamoDB error: ', err);
     return null;
   }
 }

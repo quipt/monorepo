@@ -30,7 +30,7 @@ async function updateNote(board: Board) {
     await docClient.update(params).promise();
     return board;
   } catch (err) {
-    console.log('DynamoDB error: ', err);
+    console.error('DynamoDB error: ', err);
     return null;
   }
 }
