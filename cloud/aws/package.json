@@ -21,7 +21,7 @@
     "@aws-cdk/assert": "1.119.0",
     "@types/jest": "^27.0.1",
     "@types/node": "^17.0.0",
-    "aws-cdk": "1.119.0",
+    "aws-cdk": "1.136.0",
     "esbuild": "0",
     "gts": "^3.1.0",
     "jest": "^26.4.2",
