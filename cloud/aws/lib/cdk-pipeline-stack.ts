@@ -27,7 +27,6 @@ export class CdkPipelineStack extends cdk.Stack {
     };
 
     const pipeline = new CodePipeline(this, 'Pipeline', {
-      pipelineName: 'CI-pipeline',
       ...pipelineProps,
     });
 
@@ -37,7 +36,6 @@ export class CdkPipelineStack extends cdk.Stack {
         `${applicationAccount.prefix}-pipeline`,
         {
           ...pipelineProps,
-          pipelineName: `${applicationAccount.prefix}-pipeline`,
         }
       );
 
