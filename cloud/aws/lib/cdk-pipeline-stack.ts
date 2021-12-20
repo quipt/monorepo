@@ -21,7 +21,9 @@ export class CdkPipelineStack extends cdk.Stack {
     const pipelineProps: CodePipelineProps = {
       crossAccountKeys: true,
       synth: new ShellStep('Synth', {
-        input: CodePipelineSource.gitHub('quipt/monorepo', 'master'),
+        input: CodePipelineSource.gitHub('quipt/monorepo', 'master', {
+          authentication: cdk.SecretValue.secretsManager('GITHUB_TOKEN'),
+        }),
         commands: ['cd cloud/aws', 'npm ci', 'npm run build', 'npx cdk synth'],
       }),
     };
