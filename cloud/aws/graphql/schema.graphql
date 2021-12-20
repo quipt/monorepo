@@ -56,3 +56,8 @@ type Subscription {
   onUpdateBoard: Board
     @aws_subscribe(mutations: ["updateBoard"])
 }
+
+type Schema {
+  query: Query
+  mutation: Mutation
+}
