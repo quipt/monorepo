@@ -1,73 +1,97 @@
-import * as cdk from '@aws-cdk/core';
-import * as appsync from '@aws-cdk/aws-appsync';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
-import * as lambda from '@aws-cdk/aws-lambda-nodejs';
+import * as cdk from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+
+import * as appsync from 'aws-cdk-lib/aws-appsync';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as path from 'path';
 
-export class AppsyncStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+export interface AppsyncStackProps extends cdk.StackProps {
+  clientId: string;
+  issuer: string;
+}
 
-    const api = new appsync.GraphqlApi(this, 'Api', {
+export class AppsyncStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: AppsyncStackProps) {
+    super(scope, id);
+
+    // const api = new appsync.GraphqlApi(this, 'Api', {
+    //   name: 'cdk-appsync-api',
+    //   schema: appsync.Schema.fromAsset(
+    //     path.join(__dirname, '../../graphql/schema.graphql')
+    //   ),
+    //   authorizationConfig: {
+    //     defaultAuthorization: {
+    //       authorizationType: appsync.AuthorizationType.API_KEY,
+    //       apiKeyConfig: {
+    //         expires: cdk.Expiration.after(cdk.Duration.days(365)),
+    //       },
+    //     },
+    //   },
+    //   xrayEnabled: true,
+    // });
+
+    const api = new appsync.CfnGraphQLApi(this, 'Api', {
       name: 'cdk-appsync-api',
-      schema: appsync.Schema.fromAsset(
-        path.join(__dirname, '../../graphql/schema.graphql')
-      ),
-      authorizationConfig: {
-        defaultAuthorization: {
-          authorizationType: appsync.AuthorizationType.API_KEY,
-          apiKeyConfig: {
-            expires: cdk.Expiration.after(cdk.Duration.days(365)),
-          },
-        },
+      authenticationType: 'OPENID_CONNECT',
+      openIdConnectConfig: {
+        clientId: props.clientId,
+        issuer: props.issuer,
       },
       xrayEnabled: true,
     });
 
     // print out the AppSync GraphQL endpoint to the terminal
     new cdk.CfnOutput(this, 'GraphQLAPIURL', {
-      value: api.graphqlUrl,
+      value: api.attrGraphQlUrl,
     });
 
-    // print out the AppSync API Key to the terminal
-    new cdk.CfnOutput(this, 'GraphQLAPIKey', {
-      value: api.apiKey || '',
+    const boardsLambda = new lambda.Function(this, 'AppSyncHandler', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/')),
+      handler: 'main.handler',
     });
 
-    const boardsLambda = new lambda.NodejsFunction(this, 'AppSyncHandler', {
-      entry: path.join(__dirname, '../../lambda/main.ts'),
-      bundling: {
-        externalModules: [
-          'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
-        ],
+    const dataSource = new appsync.CfnDataSource(this, 'lambdaDatasource', {
+      apiId: api.attrApiId,
+      name: 'lambdaDatasource',
+      type: 'AWS_LAMBDA',
+      lambdaConfig: {
+        lambdaFunctionArn: boardsLambda.functionArn,
       },
     });
 
-    // set the new Lambda function as a data source for the AppSync API
-    const lambdaDs = api.addLambdaDataSource('lambdaDatasource', boardsLambda);
-
-    // create resolvers to match GraphQL operations in schema
-    lambdaDs.createResolver({
+    new appsync.CfnResolver(this, 'getBoardByIdResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
       typeName: 'Query',
       fieldName: 'getBoardById',
     });
 
-    lambdaDs.createResolver({
+    new appsync.CfnResolver(this, 'listBoardsResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
       typeName: 'Query',
       fieldName: 'listBoards',
     });
 
-    lambdaDs.createResolver({
+    new appsync.CfnResolver(this, 'createBoardResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
       typeName: 'Mutation',
       fieldName: 'createBoard',
     });
 
-    lambdaDs.createResolver({
+    new appsync.CfnResolver(this, 'deleteBoardResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
       typeName: 'Mutation',
       fieldName: 'deleteBoard',
     });
 
-    lambdaDs.createResolver({
+    new appsync.CfnResolver(this, 'updateBoardResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
       typeName: 'Mutation',
       fieldName: 'updateBoard',
     });

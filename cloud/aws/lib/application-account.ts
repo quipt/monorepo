@@ -1,4 +1,4 @@
-import * as cdk from '@aws-cdk/core';
+import {Construct} from 'constructs';
 import {WebStackProps} from './applications/web-stack';
 import {ApplicationStage} from './application-stage';
 
@@ -32,6 +32,7 @@ export class ApplicationAccount {
   baseDomain: string;
   regionGroups: RegionGroup[];
   auth0ClientId: string;
+  auth0Issuer: string;
 
   constructor(props: {
     applicationAccountType: ApplicationAccountType;
@@ -41,6 +42,7 @@ export class ApplicationAccount {
     brand: Brand;
     baseDomain: string;
     auth0ClientId: string;
+    auth0Issuer: string;
   }) {
     this.applicationAccountType = props.applicationAccountType;
     this.accountId = props.accountId;
@@ -55,6 +57,7 @@ export class ApplicationAccount {
     this.brand = props.brand;
     this.baseDomain = props.baseDomain;
     this.auth0ClientId = props.auth0ClientId;
+    this.auth0Issuer = props.auth0Issuer;
   }
 
   get allRegions() {
@@ -111,7 +114,7 @@ export class ApplicationAccount {
     };
   }
 
-  stages(construct: cdk.Construct) {
+  stages(construct: Construct) {
     return this.regionGroups
       .map(regionGroup =>
         [regionGroup.primaryRegion, ...regionGroup.replicaRegions].map(
@@ -136,6 +139,8 @@ export class ApplicationAccount {
                 ciAccountId: this.ciAccountId,
                 imageTag: this.imageTag,
                 web: this.webConfig,
+                auth0ClientId: this.auth0ClientId,
+                auth0Issuer: this.auth0Issuer,
               }
             )
         )

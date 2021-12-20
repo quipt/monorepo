@@ -1,6 +1,7 @@
-import * as cdk from '@aws-cdk/core';
-import * as route53 from '@aws-cdk/aws-route53';
-import * as ec2 from '@aws-cdk/aws-ec2';
+import * as cdk from 'aws-cdk-lib';
+import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import {Construct} from 'constructs';
 // import * as certificatemanager from '@aws-cdk/aws-certificatemanager';
 
 export interface DnsStackProps extends cdk.StackProps {
@@ -13,7 +14,7 @@ export class DnsStack extends cdk.Stack {
   readonly privateHostedZone?: route53.PrivateHostedZone;
   // readonly certificate: certificatemanager.Certificate;
 
-  constructor(scope: cdk.Construct, id: string, props: DnsStackProps) {
+  constructor(scope: Construct, id: string, props: DnsStackProps) {
     super(scope, id, props);
 
     // Hosted Zones

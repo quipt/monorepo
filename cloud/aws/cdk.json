@@ -1,10 +1,5 @@
 {
   "app": "yarn run ts-node bin/aws.ts",
   "context": {
-    "@aws-cdk/core:newStyleStackSynthesis": "true",
-    "@aws-cdk/core:enableStackNameDuplicates": "true",
-    "aws-cdk:enableDiffNoFail": "true",
-    "@aws-cdk/core:stackRelativeExports": "true",
-    "@aws-cdk/aws-ecr-assets:dockerIgnoreSupport": true
   }
 }

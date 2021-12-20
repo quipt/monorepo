@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import {
   ApplicationAccountType,
   ApplicationAccount,
@@ -18,7 +18,8 @@ const applicationAccounts = [
     applicationAccountType: ApplicationAccountType.dev,
     brand: Brand.Quipt,
     accountId: '264149948773',
-    auth0ClientId: '',
+    auth0ClientId: 'IKpf5U5a5Ms1LcncPNctYxDwlrAEAbsI',
+    auth0Issuer: 'https://quipt.us.auth0.com/',
     regionGroups: [
       {
         name: 'US',

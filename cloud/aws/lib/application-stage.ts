@@ -1,6 +1,6 @@
-import * as cdk from '@aws-cdk/core';
-import {NetworkBuilder} from '@aws-cdk/aws-ec2/lib/network-util';
-import {NetworkStack} from './network-stack';
+import * as cdk from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+// import {NetworkStack} from './network-stack';
 import {DnsStack} from './dns-stack';
 import {WebStack, WebStackProps} from './applications/web-stack';
 import {RegionGroup} from './application-account';
@@ -15,10 +15,12 @@ export interface ApplicationStageProps extends cdk.StageProps {
   imageTag: string;
   regionGroup: RegionGroup;
   web: Pick<WebStackProps, 'configJson'>;
+  auth0ClientId: string;
+  auth0Issuer: string;
 }
 
 export class ApplicationStage extends cdk.Stage {
-  constructor(scope: cdk.Construct, id: string, props: ApplicationStageProps) {
+  constructor(scope: Construct, id: string, props: ApplicationStageProps) {
     super(scope, id, props);
 
     // const network = new NetworkStack(this, 'Network', {
@@ -53,6 +55,9 @@ export class ApplicationStage extends cdk.Stage {
     //   ...props.web,
     // });
 
-    const appsync = new AppsyncStack(this, 'Appsync', {});
+    const appsync = new AppsyncStack(this, 'Appsync', {
+      clientId: props.auth0ClientId,
+      issuer: props.auth0Issuer,
+    });
   }
 }

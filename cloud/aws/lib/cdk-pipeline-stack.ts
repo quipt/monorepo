@@ -1,55 +1,38 @@
-import {Stack, StackProps, Construct, SecretValue} from '@aws-cdk/core';
-import {CdkPipeline, SimpleSynthAction} from '@aws-cdk/pipelines';
-import * as codepipeline from '@aws-cdk/aws-codepipeline';
-import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
+import * as cdk from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+import {
+  CodePipeline,
+  CodePipelineProps,
+  CodePipelineSource,
+  ShellStep,
+} from 'aws-cdk-lib/pipelines';
 import {ApplicationAccount} from './application-account';
 // import { CIAccount } from './ci-account';
 
-interface CdkPipelineStackProps extends StackProps {
+interface CdkPipelineStackProps extends cdk.StackProps {
   applicationAccounts: ApplicationAccount[];
   // ciAccount: CIAccount;
 }
 
-export class CdkPipelineStack extends Stack {
+export class CdkPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: CdkPipelineStackProps) {
     super(scope, id, props);
 
-    const sourceArtifact = new codepipeline.Artifact();
-    const cloudAssemblyArtifact = new codepipeline.Artifact();
-
-    const pipelineProps = {
-      cloudAssemblyArtifact,
-
-      sourceAction: new codepipeline_actions.GitHubSourceAction({
-        actionName: 'GitHub',
-        output: sourceArtifact,
-        oauthToken: SecretValue.secretsManager('GITHUB_TOKEN'),
-        trigger: codepipeline_actions.GitHubTrigger.WEBHOOK,
-        owner: 'quipt',
-        repo: 'monorepo',
-        branch: 'master',
-      }),
-
-      synthAction: SimpleSynthAction.standardYarnSynth({
-        sourceArtifact,
-        cloudAssemblyArtifact,
-        subdirectory: './cloud/aws/',
-
-        // Use this if you need a build step (if you're not using ts-node
-        // or if you have TypeScript Lambdas that need to be compiled).
-        // buildCommand: 'yarn build',
+    const pipelineProps: CodePipelineProps = {
+      crossAccountKeys: true,
+      synth: new ShellStep('Synth', {
+        input: CodePipelineSource.gitHub('quipt/monorepo', 'master'),
+        commands: ['cd cloud/aws', 'npm ci', 'npm run build', 'npx cdk synth'],
       }),
     };
 
-    const ciPipeline = new CdkPipeline(this, 'CI-Pipeline', {
-      ...pipelineProps,
+    const pipeline = new CodePipeline(this, 'Pipeline', {
       pipelineName: 'CI-pipeline',
+      ...pipelineProps,
     });
 
-    // ciPipeline.addApplicationStage(props.ciAccount.stage(this));
-
     props.applicationAccounts.forEach(applicationAccount => {
-      const applicationAccountPipeline = new CdkPipeline(
+      const applicationAccountPipeline = new CodePipeline(
         this,
         `${applicationAccount.prefix}-pipeline`,
         {
@@ -60,8 +43,8 @@ export class CdkPipelineStack extends Stack {
 
       applicationAccount
         .stages(this)
-        .forEach(stage =>
-          applicationAccountPipeline.addApplicationStage(stage)
+        .forEach((stage: cdk.Stage) =>
+          applicationAccountPipeline.addStage(stage)
         );
     });
   }
