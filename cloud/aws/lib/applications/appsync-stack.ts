@@ -67,40 +67,40 @@ export class AppsyncStack extends cdk.Stack {
       },
     });
 
-    // new appsync.CfnResolver(this, 'getBoardByIdResolver', {
-    //   apiId: api.attrApiId,
-    //   dataSourceName: dataSource.name,
-    //   typeName: 'Query',
-    //   fieldName: 'getBoardById',
-    // });
+    new appsync.CfnResolver(this, 'getBoardByIdResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Query',
+      fieldName: 'getBoardById',
+    });
 
-    // new appsync.CfnResolver(this, 'listBoardsResolver', {
-    //   apiId: api.attrApiId,
-    //   dataSourceName: dataSource.name,
-    //   typeName: 'Query',
-    //   fieldName: 'listBoards',
-    // });
+    new appsync.CfnResolver(this, 'listBoardsResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Query',
+      fieldName: 'listBoards',
+    });
 
-    // new appsync.CfnResolver(this, 'createBoardResolver', {
-    //   apiId: api.attrApiId,
-    //   dataSourceName: dataSource.name,
-    //   typeName: 'Mutation',
-    //   fieldName: 'createBoard',
-    // });
+    new appsync.CfnResolver(this, 'createBoardResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Mutation',
+      fieldName: 'createBoard',
+    });
 
-    // new appsync.CfnResolver(this, 'deleteBoardResolver', {
-    //   apiId: api.attrApiId,
-    //   dataSourceName: dataSource.name,
-    //   typeName: 'Mutation',
-    //   fieldName: 'deleteBoard',
-    // });
+    new appsync.CfnResolver(this, 'deleteBoardResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Mutation',
+      fieldName: 'deleteBoard',
+    });
 
-    // new appsync.CfnResolver(this, 'updateBoardResolver', {
-    //   apiId: api.attrApiId,
-    //   dataSourceName: dataSource.name,
-    //   typeName: 'Mutation',
-    //   fieldName: 'updateBoard',
-    // });
+    new appsync.CfnResolver(this, 'updateBoardResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Mutation',
+      fieldName: 'updateBoard',
+    });
 
     // create DynamoDB table
     const boardsTable = new dynamodb.Table(this, 'CDKBoardsTable', {
