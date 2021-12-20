@@ -5,6 +5,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as appsync from 'aws-cdk-lib/aws-appsync';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as path from 'path';
+import * as fs from 'fs';
 
 export interface AppsyncStackProps extends cdk.StackProps {
   clientId: string;
@@ -39,6 +40,11 @@ export class AppsyncStack extends cdk.Stack {
         issuer: props.issuer,
       },
       xrayEnabled: true,
+    });
+
+    const schema = new appsync.CfnGraphQLSchema(this, 'Schema', {
+      apiId: api.attrApiId,
+      definition: fs.readFileSync(path.join(__dirname, '../../graphql/schema.graphql')).toString(),
     });
 
     // print out the AppSync GraphQL endpoint to the terminal
