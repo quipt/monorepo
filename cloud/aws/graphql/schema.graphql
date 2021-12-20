@@ -48,17 +48,17 @@ type Mutation {
   deleteBoard(id: ID!): ID
 }
 
-type Subscription {
-  onCreateBoard: Board
-    @aws_subscribe(mutations: ["createBoard"])
-  onDeleteBoard: String
-    @aws_subscribe(mutations: ["deleteBoard"])
-  onUpdateBoard: Board
-    @aws_subscribe(mutations: ["updateBoard"])
-}
+# type Subscription {
+#   onCreateBoard: Board
+#     @aws_subscribe(mutations: ["createBoard"])
+#   onDeleteBoard: String
+#     @aws_subscribe(mutations: ["deleteBoard"])
+#   onUpdateBoard: Board
+#     @aws_subscribe(mutations: ["updateBoard"])
+# }
 
 type Schema {
   query: Query
   mutation: Mutation
-  subscription: Subscription
+  # subscription: Subscription
 }
