@@ -24,7 +24,8 @@ export class CdkPipelineStack extends cdk.Stack {
         input: CodePipelineSource.gitHub('quipt/monorepo', 'master', {
           authentication: cdk.SecretValue.secretsManager('GITHUB_TOKEN'),
         }),
-        commands: ['cd cloud/aws', 'npm ci', 'npm run build', 'npx cdk synth'],
+        commands: ['cd cloud/aws', 'yarn', 'yarn build', 'yarn cdk synth'],
+        primaryOutputDirectory: 'cloud/aws/cdk.out',
       }),
     };
 
