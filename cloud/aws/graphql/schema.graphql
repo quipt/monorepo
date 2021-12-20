@@ -60,4 +60,5 @@ type Subscription {
 type Schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }
