@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as appsync from 'aws-cdk-lib/aws-appsync';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as path from 'path';
@@ -32,6 +32,29 @@ export class AppsyncStack extends cdk.Stack {
     //   xrayEnabled: true,
     // });
 
+    const apiLogsRole = new iam.Role(this, 'CloudWatchLogsRole', {
+      assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
+      inlinePolicies: {
+        cloudwatchLogs: new iam.PolicyDocument({
+          statements: [
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                'logs:CreateLogGroup',
+                'logs:CreateLogStream',
+                'logs:PutLogEvents',
+              ],
+              resources: [
+                `arn:${cdk.Stack.of(this).partition}:logs:${
+                  cdk.Stack.of(this).region
+                }:${cdk.Stack.of(this).account}:*`,
+              ],
+            }),
+          ],
+        }),
+      },
+    });
+
     const api = new appsync.CfnGraphQLApi(this, 'Api', {
       name: 'cdk-appsync-api',
       authenticationType: 'OPENID_CONNECT',
@@ -40,11 +63,18 @@ export class AppsyncStack extends cdk.Stack {
         issuer: props.issuer,
       },
       xrayEnabled: true,
+      logConfig: {
+        cloudWatchLogsRoleArn: apiLogsRole.roleArn,
+        excludeVerboseContent: false,
+        fieldLogLevel: 'ALL',
+      },
     });
 
     const schema = new appsync.CfnGraphQLSchema(this, 'Schema', {
       apiId: api.attrApiId,
-      definition: fs.readFileSync(path.join(__dirname, '../../graphql/schema.graphql')).toString(),
+      definition: fs
+        .readFileSync(path.join(__dirname, '../../graphql/schema.graphql'))
+        .toString(),
     });
 
     // print out the AppSync GraphQL endpoint to the terminal
@@ -58,6 +88,21 @@ export class AppsyncStack extends cdk.Stack {
       handler: 'main.handler',
     });
 
+    const serviceRole = new iam.Role(this, 'DataSourceServiceRole', {
+      assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
+      inlinePolicies: {
+        lambdaInvoke: new iam.PolicyDocument({
+          statements: [
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: ['lambda:InvokeFunction'],
+              resources: [boardsLambda.functionArn],
+            }),
+          ],
+        }),
+      },
+    });
+
     const dataSource = new appsync.CfnDataSource(this, 'lambdaDatasource', {
       apiId: api.attrApiId,
       name: 'lambdaDatasource',
@@ -65,6 +110,7 @@ export class AppsyncStack extends cdk.Stack {
       lambdaConfig: {
         lambdaFunctionArn: boardsLambda.functionArn,
       },
+      serviceRoleArn: serviceRole.roleArn,
     });
 
     new appsync.CfnResolver(this, 'getBoardByIdResolver', {

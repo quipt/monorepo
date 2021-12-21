@@ -15,8 +15,8 @@ type AppSyncEvent = {
   };
 };
 
-export async function handler(event: AppSyncEvent) {
-  console.log(event);
+export async function handler(event: AppSyncEvent, context: any) {
+  console.log(event, context);
 
   switch (event.info.fieldName) {
     case 'getBoardById':
