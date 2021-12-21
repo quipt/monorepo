@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as lambda from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as appsync from 'aws-cdk-lib/aws-appsync';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
@@ -16,24 +16,8 @@ export class AppsyncStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: AppsyncStackProps) {
     super(scope, id);
 
-    // const api = new appsync.GraphqlApi(this, 'Api', {
-    //   name: 'cdk-appsync-api',
-    //   schema: appsync.Schema.fromAsset(
-    //     path.join(__dirname, '../../graphql/schema.graphql')
-    //   ),
-    //   authorizationConfig: {
-    //     defaultAuthorization: {
-    //       authorizationType: appsync.AuthorizationType.API_KEY,
-    //       apiKeyConfig: {
-    //         expires: cdk.Expiration.after(cdk.Duration.days(365)),
-    //       },
-    //     },
-    //   },
-    //   xrayEnabled: true,
-    // });
-
     const apiLogsRole = new iam.Role(this, 'CloudWatchLogsRole', {
-      assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
+      assumedBy: new iam.ServicePrincipal(`appsync.${cdk.Stack.of(this).urlSuffix}`),
       inlinePolicies: {
         cloudwatchLogs: new iam.PolicyDocument({
           statements: [
@@ -82,10 +66,13 @@ export class AppsyncStack extends cdk.Stack {
       value: api.attrGraphQlUrl,
     });
 
-    const boardsLambda = new lambda.Function(this, 'AppSyncHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/')),
-      handler: 'main.handler',
+    const boardsLambda = new lambda.NodejsFunction(this, 'AppSyncHandler', {
+      entry: path.join(__dirname, '../../lambda/main.ts'),
+      bundling: {
+        externalModules: [
+          'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
+        ],
+      },
     });
 
     const serviceRole = new iam.Role(this, 'DataSourceServiceRole', {
