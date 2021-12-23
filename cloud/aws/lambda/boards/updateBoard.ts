@@ -2,20 +2,30 @@ import * as AWS from 'aws-sdk';
 const docClient = new AWS.DynamoDB.DocumentClient();
 import Board from './Board';
 
-async function updateNote(board: Board) {
+export type UpdateBoardInput = Pick<Board, 'id' | 'title'>;
+
+async function updateBoard(board: UpdateBoardInput, owner: string) {
   const params: AWS.DynamoDB.DocumentClient.UpdateItemInput = {
     TableName: process.env.BOARDS_TABLE!,
     Key: {
       id: board.id,
     },
-    ExpressionAttributeValues: {},
+    ExpressionAttributeValues: {
+      ':owner': owner,
+    },
     ExpressionAttributeNames: {},
     UpdateExpression: '',
+    ConditionExpression: 'owner = :owner',
     ReturnValues: 'UPDATED_NEW',
   };
   let prefix = 'set ';
 
-  for (const [key, value] of Object.entries(board)) {
+  const updatedBoard = {
+    ...board,
+    updated: Date.now(),
+  };
+
+  for (const [key, value] of Object.entries(updatedBoard)) {
     if (key === 'id') {
       continue;
     }
@@ -25,14 +35,13 @@ async function updateNote(board: Board) {
     params.ExpressionAttributeValues![`:${key}`] = value;
     prefix = ', ';
   }
-  console.log('params: ', params);
+
   try {
-    await docClient.update(params).promise();
-    return board;
+    return await docClient.update(params).promise();
   } catch (err) {
     console.error('DynamoDB error: ', err);
     return null;
   }
 }
 
-export default updateNote;
+export default updateBoard;

@@ -4,10 +4,20 @@ import Board from './Board';
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-export default async function createBoard(board: Board) {
+export type CreateBoardInput = Pick<Board, 'title'>;
+
+export default async function createBoard(
+  input: CreateBoardInput,
+  owner: string
+) {
+  const now = Date.now();
+
   const Item = {
-    ...board,
+    ...input,
     id: nanoid(),
+    owner,
+    created: now,
+    updated: now,
   };
 
   const params: AWS.DynamoDB.DocumentClient.PutItemInput = {

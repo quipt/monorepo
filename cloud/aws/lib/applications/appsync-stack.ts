@@ -17,7 +17,9 @@ export class AppsyncStack extends cdk.Stack {
     super(scope, id);
 
     const apiLogsRole = new iam.Role(this, 'CloudWatchLogsRole', {
-      assumedBy: new iam.ServicePrincipal(`appsync.${cdk.Stack.of(this).urlSuffix}`),
+      assumedBy: new iam.ServicePrincipal(
+        `appsync.${cdk.Stack.of(this).urlSuffix}`
+      ),
       inlinePolicies: {
         cloudwatchLogs: new iam.PolicyDocument({
           statements: [
@@ -40,7 +42,7 @@ export class AppsyncStack extends cdk.Stack {
     });
 
     const api = new appsync.CfnGraphQLApi(this, 'Api', {
-      name: 'cdk-appsync-api',
+      name: 'api',
       authenticationType: 'OPENID_CONNECT',
       openIdConnectConfig: {
         clientId: props.clientId,
@@ -76,7 +78,9 @@ export class AppsyncStack extends cdk.Stack {
     });
 
     const serviceRole = new iam.Role(this, 'DataSourceServiceRole', {
-      assumedBy: new iam.ServicePrincipal('appsync.amazonaws.com'),
+      assumedBy: new iam.ServicePrincipal(
+        `appsync.${cdk.Stack.of(this).urlSuffix}`
+      ),
       inlinePolicies: {
         lambdaInvoke: new iam.PolicyDocument({
           statements: [
@@ -136,13 +140,17 @@ export class AppsyncStack extends cdk.Stack {
     });
 
     // create DynamoDB table
-    const boardsTable = new dynamodb.Table(this, 'CDKBoardsTable', {
+    const boardsTable = new dynamodb.Table(this, 'BoardsTable', {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       partitionKey: {
         name: 'id',
         type: dynamodb.AttributeType.STRING,
       },
     });
+
+    // boardsTable.addGlobalSecondaryIndex({
+
+    // })
 
     // enable the Lambda function to access the DynamoDB table (using IAM)
     boardsTable.grantReadWriteData(boardsLambda);

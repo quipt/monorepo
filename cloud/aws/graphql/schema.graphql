@@ -22,12 +22,15 @@
 type Board {
   id: ID!
   title: String
+  owner: String
+  created: Int
+  updated: Int
   # favorites: Number
   # favorited: Boolean
   # clips: [Clip]
 }
 
-input BoardInput {
+input CreateBoardInput {
   title: String
   # clips: [Clip]
 }
@@ -39,11 +42,11 @@ input UpdateBoardInput {
 
 type Query {
   getBoardById(id: String!): Board
-  listBoards: [Board]
+  listBoards(nextToken: String): [Board]
 }
 
 type Mutation {
-  createBoard(board: BoardInput!): Board
+  createBoard(board: CreateBoardInput!): Board
   updateBoard(board: UpdateBoardInput!): Board
   deleteBoard(id: ID!): ID
 }
