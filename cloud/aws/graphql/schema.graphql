@@ -23,8 +23,8 @@ type Board {
   id: ID!
   title: String
   owner: String
-  created: Int
-  updated: Int
+  created: AWSTimestamp
+  updated: AWSTimestamp
   # favorites: Number
   # favorited: Boolean
   # clips: [Clip]
