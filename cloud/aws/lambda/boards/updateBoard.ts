@@ -22,7 +22,7 @@ async function updateBoard(board: UpdateBoardInput, owner: string) {
 
   const updatedBoard = {
     ...board,
-    updated: Date.now(),
+    updated: new Date().toISOString(),
   };
 
   for (const [key, value] of Object.entries(updatedBoard)) {

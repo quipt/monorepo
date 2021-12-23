@@ -10,7 +10,7 @@ export default async function createBoard(
   input: CreateBoardInput,
   owner: string
 ) {
-  const now = Date.now();
+  const now = new Date().toISOString();
 
   const Item = {
     ...input,
