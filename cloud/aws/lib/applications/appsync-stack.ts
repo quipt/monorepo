@@ -80,10 +80,16 @@ export class AppsyncStack extends cdk.Stack {
       },
     });
 
-    const mediaHandlerLambda = new lambda.DockerImageFunction(this, 'MediaHandler', {
-      code: path.join(__dirname, '../../lambda/mediaHandler/'),
-      timeout: cdk.Duration.minutes(15),
-    });
+    const mediaHandlerLambda = new lambda.DockerImageFunction(
+      this,
+      'MediaHandler',
+      {
+        code: lambda.DockerImageCode.fromImageAsset(
+          path.join(__dirname, '../../lambda/mediaHandler/')
+        ),
+        timeout: cdk.Duration.minutes(15),
+      }
+    );
 
     const serviceRole = new iam.Role(this, 'DataSourceServiceRole', {
       assumedBy: new iam.ServicePrincipal(
@@ -178,7 +184,10 @@ export class AppsyncStack extends cdk.Stack {
     });
 
     uploadBucket.grantWrite(apiLambda);
-    uploadBucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3_notifications.LambdaDestination(mediaHandlerLambda);
+    uploadBucket.addEventNotification(
+      s3.EventType.OBJECT_CREATED,
+      new s3_notifications.LambdaDestination(mediaHandlerLambda)
+    );
     uploadBucket.grantRead(mediaHandlerLambda);
     apiLambda.addEnvironment('UPLOAD_BUCKET_NAME', uploadBucket.bucketName);
 
@@ -189,6 +198,9 @@ export class AppsyncStack extends cdk.Stack {
     });
 
     processedBucket.grantWrite(mediaHandlerLambda);
-    mediaHandlerLambda.addEnvironment('PROCESSED_BUCKET', processedBucket.bucketName);
+    mediaHandlerLambda.addEnvironment(
+      'PROCESSED_BUCKET',
+      processedBucket.bucketName
+    );
   }
 }

@@ -20,7 +20,11 @@ async function checkIfExists(hash: string) {
   return resp.Item;
 }
 
-export default async function createToken(hash: string, size: number, originalUploader: string) {
+export default async function createToken(
+  hash: string,
+  size: number,
+  originalUploader: string
+) {
   const hashItem = await checkIfExists(hash);
 
   if (hashItem?.id && hashItem?.uploadPending === false) {
@@ -31,16 +35,17 @@ export default async function createToken(hash: string, size: number, originalUp
 
   const key = nanoid();
 
-  await docClient.put({
-    TableName: HASHES_TABLE!,
-    Item: {
-      hash: Buffer.from(hash, 'hex'),
-      id: key,
-      uploadPending: true,
-      originalUploader,
-    }
-  })
-  .promise()
+  await docClient
+    .put({
+      TableName: HASHES_TABLE!,
+      Item: {
+        hash: Buffer.from(hash, 'hex'),
+        id: key,
+        uploadPending: true,
+        originalUploader,
+      },
+    })
+    .promise();
 
   const params = {
     Bucket: UPLOAD_BUCKET_NAME,
