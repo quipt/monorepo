@@ -3,6 +3,7 @@ import deleteBoard from './boards/deleteBoard';
 import getBoardById from './boards/getBoardById';
 import listBoards from './boards/listBoards';
 import updateBoard, {UpdateBoardInput} from './boards/updateBoard';
+import createToken from './tokens/createToken';
 
 import {AppSyncResolverEvent, Context} from 'aws-lambda';
 
@@ -13,9 +14,11 @@ type Event = {
   identity: {
     sub: string;
   };
-  arguments: { 
+  arguments: {
     id: string;
     board: CreateBoardInput & UpdateBoardInput;
+    hash: string;
+    size: number;
   };
 };
 
@@ -35,6 +38,8 @@ export async function handler(event: Event, context: Context) {
       return await deleteBoard(event.arguments.id, sub);
     case 'updateBoard':
       return await updateBoard(event.arguments.board, sub);
+    case 'createToken':
+      return await createToken(event.arguments.hash, event.arguments.size, sub);
     default:
       return null;
   }

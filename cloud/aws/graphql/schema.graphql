@@ -19,6 +19,15 @@
 #   caption: String
 # }
 
+type Fields {
+
+}
+
+type Token {
+  key: String
+  fields: Fields
+}
+
 type Board {
   id: ID!
   title: String
@@ -49,6 +58,8 @@ type Mutation {
   createBoard(board: CreateBoardInput!): Board
   updateBoard(board: UpdateBoardInput!): Board
   deleteBoard(id: ID!): ID
+
+  createToken(hash: String, size: Int): Token
 }
 
 # type Subscription {

@@ -1,9 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-import * as lambda from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as lambda_nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as appsync from 'aws-cdk-lib/aws-appsync';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3_notifications from 'aws-cdk-lib/aws-s3-notifications';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -68,13 +71,18 @@ export class AppsyncStack extends cdk.Stack {
       value: api.attrGraphQlUrl,
     });
 
-    const boardsLambda = new lambda.NodejsFunction(this, 'AppSyncHandler', {
-      entry: path.join(__dirname, '../../lambda/main.ts'),
+    const apiLambda = new lambda_nodejs.NodejsFunction(this, 'AppSyncHandler', {
+      entry: path.join(__dirname, '../../lambda/api/main.ts'),
       bundling: {
         externalModules: [
           'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
         ],
       },
+    });
+
+    const mediaHandlerLambda = new lambda.DockerImageFunction(this, 'MediaHandler', {
+      code: path.join(__dirname, '../../lambda/mediaHandler/'),
+      timeout: cdk.Duration.minutes(15),
     });
 
     const serviceRole = new iam.Role(this, 'DataSourceServiceRole', {
@@ -87,7 +95,7 @@ export class AppsyncStack extends cdk.Stack {
             new iam.PolicyStatement({
               effect: iam.Effect.ALLOW,
               actions: ['lambda:InvokeFunction'],
-              resources: [boardsLambda.functionArn],
+              resources: [apiLambda.functionArn],
             }),
           ],
         }),
@@ -99,7 +107,7 @@ export class AppsyncStack extends cdk.Stack {
       name: 'lambdaDatasource',
       type: 'AWS_LAMBDA',
       lambdaConfig: {
-        lambdaFunctionArn: boardsLambda.functionArn,
+        lambdaFunctionArn: apiLambda.functionArn,
       },
       serviceRoleArn: serviceRole.roleArn,
     });
@@ -139,7 +147,6 @@ export class AppsyncStack extends cdk.Stack {
       fieldName: 'updateBoard',
     });
 
-    // create DynamoDB table
     const boardsTable = new dynamodb.Table(this, 'BoardsTable', {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       partitionKey: {
@@ -148,13 +155,40 @@ export class AppsyncStack extends cdk.Stack {
       },
     });
 
-    // boardsTable.addGlobalSecondaryIndex({
+    const hashesTable = new dynamodb.Table(this, 'HashesTable', {
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      partitionKey: {
+        name: 'hash',
+        type: dynamodb.AttributeType.BINARY,
+      },
+    });
 
-    // })
+    boardsTable.grantReadWriteData(apiLambda);
+    hashesTable.grantReadWriteData(apiLambda);
+    hashesTable.grantReadWriteData(mediaHandlerLambda);
 
-    // enable the Lambda function to access the DynamoDB table (using IAM)
-    boardsTable.grantReadWriteData(boardsLambda);
+    apiLambda.addEnvironment('BOARDS_TABLE', boardsTable.tableName);
+    apiLambda.addEnvironment('HASHES_TABLE', hashesTable.tableName);
+    mediaHandlerLambda.addEnvironment('HASHES_TABLE', hashesTable.tableName);
 
-    boardsLambda.addEnvironment('BOARDS_TABLE', boardsTable.tableName);
+    const uploadBucket = new s3.Bucket(this, 'UploadBucket', {
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      accessControl: s3.BucketAccessControl.PRIVATE,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+    });
+
+    uploadBucket.grantWrite(apiLambda);
+    uploadBucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3_notifications.LambdaDestination(mediaHandlerLambda);
+    uploadBucket.grantRead(mediaHandlerLambda);
+    apiLambda.addEnvironment('UPLOAD_BUCKET_NAME', uploadBucket.bucketName);
+
+    const processedBucket = new s3.Bucket(this, 'ProcessedBucket', {
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      accessControl: s3.BucketAccessControl.PRIVATE,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+    });
+
+    processedBucket.grantWrite(mediaHandlerLambda);
+    mediaHandlerLambda.addEnvironment('PROCESSED_BUCKET', processedBucket.bucketName);
   }
 }
