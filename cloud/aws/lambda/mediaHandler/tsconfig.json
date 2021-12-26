@@ -1,0 +1,12 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "lib": ["es2019"],
+    "rootDir": ".",
+    "outDir": "build"
+  },
+  "include": [
+    "main.ts"
+  ]
+}
