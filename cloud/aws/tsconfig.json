@@ -10,5 +10,8 @@
     "lambda/**/*.ts",
     "src/**/*.ts",
     "test/**/*.ts"
+  ],
+  "exclude": [
+    "lambda/mediaHandler/**/*"
   ]
 }
