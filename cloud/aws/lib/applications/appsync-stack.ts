@@ -88,6 +88,7 @@ export class AppsyncStack extends cdk.Stack {
           path.join(__dirname, '../../lambda/mediaHandler/')
         ),
         timeout: cdk.Duration.minutes(15),
+        memorySize: 1024,
       }
     );
 
@@ -188,6 +189,7 @@ export class AppsyncStack extends cdk.Stack {
       s3.EventType.OBJECT_CREATED,
       new s3_notifications.LambdaDestination(mediaHandlerLambda)
     );
+
     uploadBucket.grantRead(mediaHandlerLambda);
     apiLambda.addEnvironment('UPLOAD_BUCKET_NAME', uploadBucket.bucketName);
 
