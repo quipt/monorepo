@@ -35,7 +35,7 @@ const download = path.join(tempDir, 'download');
 async function downloadFile(Bucket: string, Key: string) {
   const contents = await s3.getObject({Bucket, Key});
 
-  fs.writeFileSync(download, contents.Body);
+  fs.writeFileSync(download, contents.Body!.toString());
 }
 
 /**
