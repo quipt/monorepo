@@ -93,7 +93,7 @@ export class AppsyncStack extends cdk.Stack {
           FFMPEG_ARGS:
             "-c:a copy -vf scale='min(320\\,iw):-2' -movflags +faststart out.mp4 -vf thumbnail -vf scale='min(320\\,iw):-2' -vframes 1 out.png",
           MIME_TYPES: JSON.stringify({png: 'image/png', mp4: 'video/mp4'}),
-          VIDEO_MAX_DURATION: '30',
+          VIDEO_MAX_DURATION: '120',
         },
       }
     );
