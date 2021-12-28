@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as util from 'util';
-import { Readable } from "stream";
+import {Readable} from 'stream';
 
 import {S3} from '@aws-sdk/client-s3';
 import {S3Event, S3Handler} from 'aws-lambda';
@@ -18,9 +18,9 @@ type env = {
 
 const {
   PROCESSED_BUCKET,
-  FFMPEG_ARGS,
-  MIME_TYPES,
-  VIDEO_MAX_DURATION,
+  FFMPEG_ARGS = "-c:a copy -vf scale='min(320\\,iw):-2' -movflags +faststart out.mp4 -vf thumbnail -vf scale='min(320\\,iw):-2' -vframes 1 out.png",
+  MIME_TYPES = '{"png":"image/png","mp4":"video/mp4"}',
+  VIDEO_MAX_DURATION = '120',
   ENDPOINT_URL,
 } = process.env as env;
 
@@ -28,8 +28,9 @@ const opts = ENDPOINT_URL ? {endpoint: ENDPOINT_URL} : {};
 
 const s3 = new S3(opts);
 
-const tempDir = process.env['TEMP'] || os.tmpdir();
+const tempDir = os.tmpdir();
 const download = path.join(tempDir, 'download');
+console.log(download);
 
 /**
  * Creates a readable stream from an S3 Object reference
@@ -37,13 +38,12 @@ const download = path.join(tempDir, 'download');
 async function downloadFile(Bucket: string, Key: string) {
   const {Body} = await s3.getObject({Bucket, Key});
 
-  // fs.writeFileSync(download, contents.Body!.toString());
-
   await new Promise<void>((resolve, reject) => {
-    (Body as Readable).pipe(fs.createWriteStream(download))
+    (Body as Readable)
+      .pipe(fs.createWriteStream(download))
       .on('error', err => reject(err))
-      .on('close', () => resolve())
-  })  
+      .on('close', () => resolve());
+  });
 }
 
 /**
@@ -92,7 +92,7 @@ async function ffprobe(): Promise<void> {
   console.log('Starting FFprobe');
 
   return new Promise((resolve, reject) => {
-    const args = [
+    const args: string[] = [
       '-v',
       'quiet',
       '-print_format',
@@ -103,35 +103,30 @@ async function ffprobe(): Promise<void> {
       'download',
     ];
     const opts = {
-      cwd: os.tmpdir(),
-    };
-    const cb = (error: string | null, stdout: string) => {
-      if (error) {
-        reject(error);
-      }
-
-      console.log(stdout);
-
-      const {streams, format} = JSON.parse(stdout);
-
-      const hasVideoStream = streams.some(
-        ({codec_type, duration}: {codec_type: string; duration: number}) =>
-          codec_type === 'video' &&
-          (duration || format.duration) <= videoMaxDuration
-      );
-
-      if (!hasVideoStream) {
-        reject('FFprobe: no valid video stream found');
-      } else {
-        console.log('Valid video stream found. FFprobe finished.');
-        resolve();
-      }
+      cwd: tempDir,
     };
 
-    child_process
-      .execFile('ffprobe', args, opts)
-      .on('error', reject)
-      .on('close', cb);
+    const output = child_process
+      .execSync(['ffprobe', ...args].join(' '), opts);
+
+    const stdout = output.toString();
+
+    console.log(stdout);
+
+    const {streams, format} = JSON.parse(stdout);
+
+    const hasVideoStream = streams.some(
+      ({codec_type, duration}: {codec_type: string; duration: number}) =>
+        codec_type === 'video' &&
+        (duration || format.duration) <= videoMaxDuration
+    );
+
+    if (!hasVideoStream) {
+      reject('FFprobe: no valid video stream found');
+    } else {
+      console.log('Valid video stream found. FFprobe finished.');
+      resolve();
+    }
   });
 }
 

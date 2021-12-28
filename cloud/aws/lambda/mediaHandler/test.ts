@@ -1,6 +1,7 @@
-docker build -t myfunction:latest .
-docker run -p 9000:8080 myfunction:latest
-curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{
+import {handler} from './main';
+import {Context} from 'aws-lambda';
+
+const event = {
   "Records": [
     {
       "eventVersion": "2.0",
@@ -22,14 +23,14 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
         "s3SchemaVersion": "1.0",
         "configurationId": "testConfigRule",
         "bucket": {
-          "name": "example-bucket",
+          "name": "quipt-dev-us-us-east-1-appsy-uploadbucketd2c1da78-19gcoqwfgf3a",
           "ownerIdentity": {
             "principalId": "EXAMPLE"
           },
-          "arn": "arn:aws:s3:::example-bucket"
+          "arn": "arn:aws:s3:::quipt-dev-us-us-east-1-appsy-uploadbucketd2c1da78-19gcoqwfgf3a"
         },
         "object": {
-          "key": "test%2Fkey",
+          "key": "SampleVideo_1280x720_10mb.mp4",
           "size": 1024,
           "eTag": "0123456789abcdef0123456789abcdef",
           "sequencer": "0A1B2C3D4E5F678901"
@@ -37,4 +38,6 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
       }
     }
   ]
-}'
+}
+
+handler(event, {} as Context, () => {});
