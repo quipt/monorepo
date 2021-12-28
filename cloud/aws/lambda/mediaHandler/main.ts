@@ -2,6 +2,8 @@ import * as child_process from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
+import * as util from 'util';
+import { Readable } from "stream";
 
 import {S3} from '@aws-sdk/client-s3';
 import {S3Event, S3Handler} from 'aws-lambda';
@@ -33,9 +35,15 @@ const download = path.join(tempDir, 'download');
  * Creates a readable stream from an S3 Object reference
  */
 async function downloadFile(Bucket: string, Key: string) {
-  const contents = await s3.getObject({Bucket, Key});
+  const {Body} = await s3.getObject({Bucket, Key});
 
-  fs.writeFileSync(download, contents.Body!.toString());
+  // fs.writeFileSync(download, contents.Body!.toString());
+
+  await new Promise<void>((resolve, reject) => {
+    (Body as Readable).pipe(fs.createWriteStream(download))
+      .on('error', err => reject(err))
+      .on('close', () => resolve())
+  })  
 }
 
 /**
@@ -205,6 +213,7 @@ async function uploadFiles(keyPrefix: string) {
  * The Lambda Function handler
  */
 export const handler: S3Handler = async event => {
+  console.log(util.inspect(event, {depth: 10}));
   const sourceLocation = getFileLocation(event);
   const keyPrefix = sourceLocation.key.replace(/\.[^/.]+$/, '');
 
