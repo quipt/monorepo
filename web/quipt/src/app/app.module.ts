@@ -12,6 +12,7 @@ import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { GraphQLModule } from './graphql.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConfigService } from './config.service';
@@ -21,7 +22,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { BoardsComponent } from './boards/boards.component';
-import { BoardComponent } from './board/board.component'
+import { BoardComponent } from './board/board.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BoardComponent } from './board/board.component'
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    GraphQLModule,
     HttpClientModule,
     AuthModule.forRoot(),
     FlexLayoutModule,
