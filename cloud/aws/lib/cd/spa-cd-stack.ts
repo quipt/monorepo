@@ -1,27 +1,30 @@
-import * as cdk from '@aws-cdk/core';
-import * as ecr from '@aws-cdk/aws-ecr';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as iam from '@aws-cdk/aws-iam';
-import * as events from '@aws-cdk/aws-events';
-import * as events_targets from '@aws-cdk/aws-events-targets';
-import * as codebuild from '@aws-cdk/aws-codebuild';
-import * as codepipeline from '@aws-cdk/aws-codepipeline';
-import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
+import * as cdk from 'aws-cdk-lib/core';
+import {Construct} from 'constructs';
+import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as events_targets from 'aws-cdk-lib/aws-events-targets';
+import * as codebuild from 'aws-cdk-lib/aws-codebuild';
+import * as codepipeline from 'aws-cdk-lib/aws-codepipeline';
+import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions';
 
-export interface StackProps extends cdk.NestedStackProps {
+export interface StackProps extends cdk.StackProps {
   imageTag: string;
   repository: ecr.Repository;
   bucket: s3.Bucket;
   configJson: string;
 }
 
-export class SpaCdStack extends cdk.NestedStack {
-  constructor(scope: cdk.Construct, id: string, props: StackProps) {
+export class SpaCdStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
     const codebuildServiceRole = new iam.Role(this, 'CodeBuildServiceRole', {
       description: 'CodeBuild Project role',
-      assumedBy: new iam.ServicePrincipal('codebuild.amazonaws.com'),
+      assumedBy: new iam.ServicePrincipal(
+        `codebuild.${cdk.Stack.of(this).urlSuffix}`
+      ),
       managedPolicies: [
         iam.ManagedPolicy.fromAwsManagedPolicyName(
           'AmazonEC2ContainerRegistryReadOnly'

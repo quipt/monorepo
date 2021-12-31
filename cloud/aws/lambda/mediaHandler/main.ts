@@ -106,8 +106,7 @@ async function ffprobe(): Promise<void> {
       cwd: tempDir,
     };
 
-    const output = child_process
-      .execSync(['ffprobe', ...args].join(' '), opts);
+    const output = child_process.execSync(['ffprobe', ...args].join(' '), opts);
 
     const stdout = output.toString();
 

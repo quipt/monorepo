@@ -1,10 +1,11 @@
-import * as cdk from '@aws-cdk/core';
-import * as iam from '@aws-cdk/aws-iam';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as cloudfront from '@aws-cdk/aws-cloudfront';
-import * as route53 from '@aws-cdk/aws-route53';
-import * as route53_targets from '@aws-cdk/aws-route53-targets';
-import * as ecr from '@aws-cdk/aws-ecr';
+import * as cdk from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
+import * as ecr from 'aws-cdk-lib/aws-ecr';
 import {DnsStack} from '../dns-stack';
 import {SpaCdStack} from '../cd/spa-cd-stack';
 import {RegionGroup} from '../application-account';
@@ -19,7 +20,7 @@ export interface WebStackProps extends cdk.StackProps {
 }
 
 export class WebStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props: WebStackProps) {
+  constructor(scope: Construct, id: string, props: WebStackProps) {
     super(scope, id, props);
 
     const applicationName = 'web';
@@ -71,7 +72,7 @@ export class WebStack extends cdk.Stack {
       })
     );
 
-    if (this.region === props.regionGroup.primaryRegion) {
+    if (cdk.Stack.of(this).region === props.regionGroup.primaryRegion) {
       const distribution = new cloudfront.CloudFrontWebDistribution(
         this,
         'Distribution',
@@ -91,15 +92,15 @@ export class WebStack extends cdk.Stack {
           ],
           priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
           enableIpV6: true,
-          viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(
-            props.dns.certificate,
-            {
-              securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2019,
-              aliases: [
-                `${applicationName}.${props.dns.publicHostedZone.zoneName}`,
-              ],
-            }
-          ),
+          // viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(
+          //   props.dns.certificate,
+          //   {
+          //     securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+          //     aliases: [
+          //       `${applicationName}.${props.dns.publicHostedZone.zoneName}`,
+          //     ],
+          //   }
+          // ),
         }
       );
 
