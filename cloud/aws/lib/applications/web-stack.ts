@@ -7,8 +7,12 @@ import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
 import {DnsStack} from '../dns-stack';
-import {SpaCdStack} from '../cd/spa-cd-stack';
 import {RegionGroup} from '../application-account';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as events_targets from 'aws-cdk-lib/aws-events-targets';
+import * as codebuild from 'aws-cdk-lib/aws-codebuild';
+import * as codepipeline from 'aws-cdk-lib/aws-codepipeline';
+import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions';
 
 export interface WebStackProps extends cdk.StackProps {
   repositoryNamespace: string;
@@ -114,11 +118,179 @@ export class WebStack extends cdk.Stack {
       });
     }
 
-    const cd = new SpaCdStack(this, 'CD', {
-      imageTag: props.imageTag,
-      repository,
-      bucket,
-      configJson: props.configJson,
+    const codebuildServiceRole = new iam.Role(this, 'CodeBuildServiceRole', {
+      description: 'CodeBuild Project role',
+      assumedBy: new iam.ServicePrincipal(
+        `codebuild.${cdk.Stack.of(this).urlSuffix}`
+      ),
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName(
+          'AmazonEC2ContainerRegistryReadOnly'
+        ),
+      ],
+    });
+
+    const project = new codebuild.PipelineProject(this, 'CodeBuildProject', {
+      role: codebuildServiceRole,
+      buildSpec: codebuild.BuildSpec.fromObject({
+        version: '0.2',
+        phases: {
+          pre_build: {
+            commands: [
+              '$(aws ecr get-login --registry-ids ${ECR_ACCOUNT} --no-include-email)',
+            ],
+          },
+          build: {
+            commands: [
+              'set -e',
+              'RELEASE_IMAGE="${REGISTRY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG}"',
+              'docker run --name release ${RELEASE_IMAGE}',
+              'docker cp release:/usr/src/app/dist ./',
+              'echo "${CONFIG_JSON}" > dist/assets/config.json',
+            ],
+          },
+          post_build: {
+            commands: ['docker container rm release'],
+          },
+        },
+        artifacts: {
+          'base-directory': 'dist',
+          files: ['**/*'],
+        },
+      }),
+      environment: {
+        buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
+        privileged: true,
+        environmentVariables: {
+          REPOSITORY_NAME: {
+            type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
+            value: repository.repositoryName,
+          },
+          ECR_ACCOUNT: {
+            type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
+            value: cdk.Stack.of(this).account,
+          },
+          IMAGE_TAG: {
+            type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
+            value: props.imageTag,
+          },
+          REGISTRY_URI: {
+            type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
+            value: `${cdk.Stack.of(this).account}.dkr.ecr.${cdk.Stack.of(this).region}.${cdk.Stack.of(this).urlSuffix}`,
+          },
+          CONFIG_JSON: {
+            type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
+            value: props.configJson,
+          },
+        },
+      },
+    });
+
+    const codepipelineServiceRole = new iam.Role(
+      this,
+      'CodePipelineServiceRole',
+      {
+        description: 'CodePipeline Service role',
+        assumedBy: new iam.ServicePrincipal(`codepipeline.${cdk.Stack.of(this).urlSuffix}`),
+        managedPolicies: [
+          iam.ManagedPolicy.fromAwsManagedPolicyName(
+            'AmazonEC2ContainerRegistryReadOnly'
+          ),
+        ],
+        inlinePolicies: {
+          CodeBuild: new iam.PolicyDocument({
+            statements: [
+              new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                actions: ['codebuild:StartBuild', 'codebuild:BatchGetBuilds'],
+                resources: ['*'],
+              }),
+            ],
+          }),
+          S3: new iam.PolicyDocument({
+            statements: [
+              new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                actions: ['s3:GetObject*', 's3:PutObject*'],
+                resources: [bucket.arnForObjects('*')],
+              }),
+            ],
+          }),
+        },
+      }
+    );
+
+    const sourceOutput = new codepipeline.Artifact();
+    const artifact = new codepipeline.Artifact();
+
+    const pipeline = new codepipeline.Pipeline(this, 'Pipeline', {
+      role: codepipelineServiceRole,
+      stages: [
+        {
+          stageName: 'Source',
+          actions: [
+            new codepipeline_actions.EcrSourceAction({
+              actionName: 'ECR',
+              repository,
+              imageTag: props.imageTag,
+              output: sourceOutput,
+            }),
+          ],
+        },
+        {
+          stageName: 'Build',
+          actions: [
+            new codepipeline_actions.CodeBuildAction({
+              actionName: 'CodeBuild',
+              project,
+              input: sourceOutput,
+              outputs: [artifact],
+            }),
+          ],
+        },
+        {
+          stageName: 'Deploy',
+          actions: [
+            new codepipeline_actions.S3DeployAction({
+              actionName: 'Bucket',
+              runOrder: 1,
+              input: artifact,
+              bucket,
+            }),
+          ],
+        },
+      ],
+    });
+
+    const eventRole = new iam.Role(this, 'CloudWatchEventRole', {
+      description: `CloudWatch Event role for ${repository.repositoryName}:${props.imageTag}`,
+      assumedBy: new iam.ServicePrincipal('events.amazonaws.com'),
+      inlinePolicies: {
+        'cwe-pipeline-execution': new iam.PolicyDocument({
+          statements: [
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: ['codepipeline:StartPipelineExecution'],
+              resources: [pipeline.pipelineArn],
+            }),
+          ],
+        }),
+      },
+    });
+
+    const rule = new events.Rule(this, 'CloudWatchEventRule', {
+      description: `${repository.repositoryName}:${props.imageTag} to ${pipeline.pipelineName}`,
+      eventPattern: {
+        detail: {
+          'action-type': ['PUSH'],
+          'image-tag': [props.imageTag],
+          'repository-name': [repository.repositoryName],
+          result: ['SUCCESS'],
+        },
+        detailType: ['ECR Image Action'],
+        source: ['aws.ecr'],
+      },
+      targets: [new events_targets.CodePipeline(pipeline, {eventRole})],
     });
   }
 }

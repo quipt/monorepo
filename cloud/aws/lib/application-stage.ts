@@ -50,10 +50,10 @@ export class ApplicationStage extends cdk.Stage {
     //   isProduction: props.isProduction,
     // });
 
-    // const web = new WebStack(this, 'Web', {
-    //   ...applicationProps,
-    //   ...props.web,
-    // });
+    const web = new WebStack(this, 'Web', {
+      ...applicationProps,
+      ...props.web,
+    });
 
     const appsync = new AppsyncStack(this, 'Appsync', {
       clientId: props.auth0ClientId,
