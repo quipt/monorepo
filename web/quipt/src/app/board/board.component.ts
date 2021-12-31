@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
   username = '';
@@ -14,16 +14,15 @@ export class BoardComponent implements OnInit {
   favorited = false;
 
   constructor(private route: ActivatedRoute) {
-    this.route.params.subscribe( params => this.username = params.username );
+    this.route.params.subscribe(params => (this.username = params.username));
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onFavoriteClick() {
     // API Call
 
     this.favorited = !this.favorited;
-    this.favorites += this.favorited ? 1 : -1
+    this.favorites += this.favorited ? 1 : -1;
   }
 }
