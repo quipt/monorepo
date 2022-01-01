@@ -24,7 +24,7 @@ export class CdkPipelineStack extends cdk.Stack {
         input: CodePipelineSource.gitHub('quipt/monorepo', 'master', {
           authentication: cdk.SecretValue.secretsManager('GITHUB_TOKEN'),
         }),
-        commands: ['cd cloud/aws', 'yarn', 'yarn build', 'yarn cdk synth'],
+        commands: ['cd cloud/aws', 'yarn --frozen-lockfile', 'yarn build', 'yarn cdk synth'],
         primaryOutputDirectory: 'cloud/aws/cdk.out',
       }),
     };
@@ -34,19 +34,9 @@ export class CdkPipelineStack extends cdk.Stack {
     });
 
     props.applicationAccounts.forEach(applicationAccount => {
-      const applicationAccountPipeline = new CodePipeline(
-        this,
-        `${applicationAccount.prefix}-pipeline`,
-        {
-          ...pipelineProps,
-        }
-      );
-
       applicationAccount
         .stages(this)
-        .forEach((stage: cdk.Stage) =>
-          applicationAccountPipeline.addStage(stage)
-        );
+        .forEach((stage: cdk.Stage) => pipeline.addStage(stage));
     });
   }
 }

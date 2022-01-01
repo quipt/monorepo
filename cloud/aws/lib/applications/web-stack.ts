@@ -176,7 +176,9 @@ export class WebStack extends cdk.Stack {
           },
           REGISTRY_URI: {
             type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
-            value: `${cdk.Stack.of(this).account}.dkr.ecr.${cdk.Stack.of(this).region}.${cdk.Stack.of(this).urlSuffix}`,
+            value: `${cdk.Stack.of(this).account}.dkr.ecr.${
+              cdk.Stack.of(this).region
+            }.${cdk.Stack.of(this).urlSuffix}`,
           },
           CONFIG_JSON: {
             type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
@@ -191,7 +193,9 @@ export class WebStack extends cdk.Stack {
       'CodePipelineServiceRole',
       {
         description: 'CodePipeline Service role',
-        assumedBy: new iam.ServicePrincipal(`codepipeline.${cdk.Stack.of(this).urlSuffix}`),
+        assumedBy: new iam.ServicePrincipal(
+          `codepipeline.${cdk.Stack.of(this).urlSuffix}`
+        ),
         managedPolicies: [
           iam.ManagedPolicy.fromAwsManagedPolicyName(
             'AmazonEC2ContainerRegistryReadOnly'

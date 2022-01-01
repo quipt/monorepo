@@ -6,7 +6,6 @@ import {
   ApplicationAccount,
   Brand,
 } from '../lib/application-account';
-// import { CIAccount } from '../lib/ci-account';
 import {CdkPipelineStack} from '../lib/cdk-pipeline-stack';
 
 const globalPrimaryAccountId = '204102652951'; // Quipt Primary
@@ -61,12 +60,6 @@ const applicationAccounts = [
     })
 );
 
-// const ciAccount = new CIAccount({
-//   accountId: globalPrimaryAccountId,
-//   region: globalPrimaryRegion,
-//   applicationAccounts,
-// });
-
 const app = new cdk.App();
 
 const cdkPipelineStack = new CdkPipelineStack(app, 'CdkPipelineStack', {
@@ -75,7 +68,6 @@ const cdkPipelineStack = new CdkPipelineStack(app, 'CdkPipelineStack', {
     region: globalPrimaryRegion,
   },
   applicationAccounts,
-  // ciAccount,
 });
 
 app.synth();
