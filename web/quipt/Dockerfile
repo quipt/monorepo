@@ -20,8 +20,12 @@ FROM base as test
 
 CMD ["yarn", "test", "--watch=false"]
 
-FROM base AS release
+FROM base AS production
 
 LABEL org.opencontainers.image.source https://github.com/quipt/monorepo
 
 RUN yarn build --configuration production
+
+FROM base as release
+
+COPY --from=production /opt/app/dist/ /opt/app/dist/

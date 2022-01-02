@@ -11,9 +11,12 @@ export interface CIStackProps extends cdk.StackProps {
 
 export class CIStack extends cdk.NestedStack {
   buildAction: codepipeline_actions.CodeBuildAction;
+  outputArtifact: codepipeline.Artifact;
 
   constructor(scope: Construct, id: string, props: CIStackProps) {
     super(scope, id);
+
+    this.outputArtifact = new codepipeline.Artifact();
 
     const project = new codebuild.PipelineProject(this, 'CodeBuildProject', {
       cache: codebuild.Cache.local(
@@ -31,8 +34,8 @@ export class CIStack extends cdk.NestedStack {
         phases: {
           pre_build: {
             commands: [
-              'docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD'
-            ]
+              'docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD',
+            ],
           },
           build: {
             commands: [
@@ -57,15 +60,20 @@ export class CIStack extends cdk.NestedStack {
     const dockerCredsPolicyStatement = new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: ['secretsmanager:GetSecretValue'],
-      resources: [`arn:${cdk.Stack.of(this).partition}:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:DOCKERHUB*`]
+      resources: [
+        `arn:${cdk.Stack.of(this).partition}:secretsmanager:${
+          cdk.Stack.of(this).region
+        }:${cdk.Stack.of(this).account}:secret:DOCKERHUB*`,
+      ],
     });
 
-    project.role?.addToPrincipalPolicy(dockerCredsPolicyStatement)
+    project.role?.addToPrincipalPolicy(dockerCredsPolicyStatement);
 
     this.buildAction = new codepipeline_actions.CodeBuildAction({
       actionName: 'Web',
       project,
       input: props.input,
+      outputs: [this.outputArtifact],
     });
   }
 }

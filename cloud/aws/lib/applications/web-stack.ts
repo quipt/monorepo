@@ -35,20 +35,20 @@ export class WebStack extends cdk.Stack {
       imageScanOnPush: true,
     });
 
-    // repository.addToResourcePolicy(
-    //   new iam.PolicyStatement({
-    //     sid: 'AllowPushFromCIAccount',
-    //     effect: iam.Effect.ALLOW,
-    //     principals: [new iam.AccountPrincipal(props.ciAccount)],
-    //     actions: [
-    //       'ecr:PutImage',
-    //       'ecr:InitiateLayerUpload',
-    //       'ecr:UploadLayerPart',
-    //       'ecr:CompleteLayerUpload',
-    //       'ecr:BatchCheckLayerAvailability',
-    //     ],
-    //   })
-    // );
+    repository.addToResourcePolicy(
+      new iam.PolicyStatement({
+        sid: 'AllowPushFromCIAccount',
+        effect: iam.Effect.ALLOW,
+        principals: [new iam.AccountPrincipal(props.ciAccount)],
+        actions: [
+          'ecr:PutImage',
+          'ecr:InitiateLayerUpload',
+          'ecr:UploadLayerPart',
+          'ecr:CompleteLayerUpload',
+          'ecr:BatchCheckLayerAvailability',
+        ],
+      })
+    );
 
     const bucket = new s3.Bucket(this, 'Bucket', {
       encryption: s3.BucketEncryption.S3_MANAGED,
@@ -145,7 +145,7 @@ export class WebStack extends cdk.Stack {
               'set -e',
               'RELEASE_IMAGE="${REGISTRY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG}"',
               'docker run --name release ${RELEASE_IMAGE}',
-              'docker cp release:/usr/src/app/dist ./',
+              'docker cp release:/opt/app/dist ./',
               'echo "${CONFIG_JSON}" > dist/assets/config.json',
             ],
           },

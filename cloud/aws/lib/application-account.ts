@@ -114,6 +114,15 @@ export class ApplicationAccount {
     };
   }
 
+  stageName(regionGroupName: string, region: string) {
+    return [
+      this.brand,
+      this.applicationAccountType,
+      regionGroupName,
+      region,
+    ].join('-');
+  }
+
   stages(construct: Construct) {
     return this.regionGroups
       .map(regionGroup =>
@@ -121,12 +130,7 @@ export class ApplicationAccount {
           region =>
             new ApplicationStage(
               construct,
-              [
-                this.brand,
-                this.applicationAccountType,
-                regionGroup.name,
-                region,
-              ].join('-'),
+              this.stageName(regionGroup.name, region),
               {
                 env: {account: this.accountId, region},
                 isProduction: this.isProduction,

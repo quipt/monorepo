@@ -9,7 +9,8 @@ import {
   ShellStep,
 } from 'aws-cdk-lib/pipelines';
 import {ApplicationAccount} from './application-account';
-import { CIStack } from './ci-stack';
+import {CIStack} from './ci-stack';
+import {CDStack} from './cd-stack';
 
 interface CdkPipelineStackProps extends cdk.StackProps {
   applicationAccounts: ApplicationAccount[];
@@ -62,6 +63,25 @@ export class CdkPipelineStack extends cdk.Stack {
       placement: {
         justAfter: updatePiplineStage,
       },
+    });
+
+    props.applicationAccounts.forEach(applicationAccount => {
+      applicationAccount.regionGroups.forEach(regionGroup => {
+        [regionGroup.primaryRegion, ...regionGroup.replicaRegions].forEach(
+          region => {
+            const stageName = applicationAccount.stageName(
+              regionGroup.name,
+              region
+            );
+            const stage = cdkPipeline.pipeline.stage(stageName);
+
+            const cdStack = new CDStack(this, `${stageName}-cd`, {
+              input: ciStack.outputArtifact,
+            });
+            stage.addAction(cdStack.buildAction);
+          }
+        );
+      });
     });
   }
 }
