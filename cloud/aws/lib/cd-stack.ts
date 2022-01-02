@@ -7,6 +7,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 
 export interface CDStackProps extends cdk.StackProps {
   input: codepipeline.Artifact;
+  runOrder: number;
 }
 
 export class CDStack extends cdk.NestedStack {
@@ -39,9 +40,10 @@ export class CDStack extends cdk.NestedStack {
     });
 
     this.buildAction = new codepipeline_actions.CodeBuildAction({
-      actionName: 'WebDeploy',
+      actionName: 'Web.Deploy.App',
       project,
       input: props.input,
+      runOrder: props.runOrder,
     });
   }
 }

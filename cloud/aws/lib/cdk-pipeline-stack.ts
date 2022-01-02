@@ -75,9 +75,18 @@ export class CdkPipelineStack extends cdk.Stack {
             );
             const stage = cdkPipeline.pipeline.stage(stageName);
 
+            const runOrder =
+              stage.actions.reduce(
+                (acc, action) =>
+                  Math.max(action.actionProperties.runOrder!, acc),
+                0
+              ) + 1;
+
             const cdStack = new CDStack(this, `${stageName}-cd`, {
               input: ciStack.outputArtifact,
+              runOrder,
             });
+
             stage.addAction(cdStack.buildAction);
           }
         );

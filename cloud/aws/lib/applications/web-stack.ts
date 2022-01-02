@@ -24,6 +24,8 @@ export interface WebStackProps extends cdk.StackProps {
 }
 
 export class WebStack extends cdk.Stack {
+  bucket: s3.Bucket;
+
   constructor(scope: Construct, id: string, props: WebStackProps) {
     super(scope, id, props);
 
@@ -50,7 +52,7 @@ export class WebStack extends cdk.Stack {
       })
     );
 
-    const bucket = new s3.Bucket(this, 'Bucket', {
+    this.bucket = new s3.Bucket(this, 'Bucket', {
       encryption: s3.BucketEncryption.S3_MANAGED,
       accessControl: s3.BucketAccessControl.PRIVATE,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -64,7 +66,7 @@ export class WebStack extends cdk.Stack {
       }
     );
 
-    bucket.addToResourcePolicy(
+    this.bucket.addToResourcePolicy(
       new iam.PolicyStatement({
         principals: [
           new iam.CanonicalUserPrincipal(
@@ -72,7 +74,7 @@ export class WebStack extends cdk.Stack {
           ),
         ],
         actions: ['s3:GetObject'],
-        resources: [bucket.arnForObjects('*')],
+        resources: [this.bucket.arnForObjects('*')],
       })
     );
 
@@ -84,7 +86,7 @@ export class WebStack extends cdk.Stack {
           originConfigs: [
             {
               s3OriginSource: {
-                s3BucketSource: bucket,
+                s3BucketSource: this.bucket,
                 originAccessIdentity,
               },
               behaviors: [
@@ -216,7 +218,7 @@ export class WebStack extends cdk.Stack {
               new iam.PolicyStatement({
                 effect: iam.Effect.ALLOW,
                 actions: ['s3:GetObject*', 's3:PutObject*'],
-                resources: [bucket.arnForObjects('*')],
+                resources: [this.bucket.arnForObjects('*')],
               }),
             ],
           }),
@@ -259,7 +261,7 @@ export class WebStack extends cdk.Stack {
               actionName: 'Bucket',
               runOrder: 1,
               input: artifact,
-              bucket,
+              bucket: this.bucket,
             }),
           ],
         },
