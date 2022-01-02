@@ -6,6 +6,7 @@ import * as util from 'util';
 import {Readable} from 'stream';
 
 import {S3} from '@aws-sdk/client-s3';
+import {DynamoDBClient} from '@aws-sdk/client-dynamodb';
 import {S3Event, S3Handler} from 'aws-lambda';
 
 type env = {
@@ -14,6 +15,7 @@ type env = {
   MIME_TYPES: string;
   VIDEO_MAX_DURATION: string;
   ENDPOINT_URL?: string;
+  HASHES_TABLE: string;
 };
 
 const {
@@ -22,11 +24,13 @@ const {
   MIME_TYPES = '{"png":"image/png","mp4":"video/mp4"}',
   VIDEO_MAX_DURATION = '120',
   ENDPOINT_URL,
+  HASHES_TABLE,
 } = process.env as env;
 
 const opts = ENDPOINT_URL ? {endpoint: ENDPOINT_URL} : {};
 
 const s3 = new S3(opts);
+const docClient = new DynamoDBClient({});
 
 const tempDir = os.tmpdir();
 const download = path.join(tempDir, 'download');
