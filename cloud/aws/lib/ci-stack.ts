@@ -15,13 +15,35 @@ export class CIStack extends cdk.NestedStack {
     super(scope, id);
 
     const project = new codebuild.PipelineProject(this, 'CodeBuildProject', {
+      cache: codebuild.Cache.local(
+        codebuild.LocalCacheMode.SOURCE,
+        codebuild.LocalCacheMode.DOCKER_LAYER
+      ),
+      buildSpec: codebuild.BuildSpec.fromObject({
+        version: '0.2',
+        phases: {
+          build: {
+            commands: [
+              'set -e',
+              'cd web/quipt',
+              'docker build . --target test --tag image:test',
+              'docker run image:test',
+              'docker build . --target release --tag image:release',
+              'docker save -o image.tar image:release',
+            ],
+          },
+        },
+        artifacts: {
+          files: ['image.tar'],
+        },
+      }),
       environment: {
         privileged: true
       }
     });
 
     this.buildAction = new codepipeline_actions.CodeBuildAction({
-      actionName: 'BuildWeb',
+      actionName: 'Web',
       project,
       input: props.input,
     });
