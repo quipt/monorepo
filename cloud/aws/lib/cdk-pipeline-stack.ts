@@ -11,6 +11,7 @@ import {
 import {ApplicationAccount} from './application-account';
 import {CIStack} from './ci-stack';
 import {CDStack} from './cd-stack';
+import { Stage } from 'aws-cdk-lib';
 
 interface CdkPipelineStackProps extends cdk.StackProps {
   applicationAccounts: ApplicationAccount[];
@@ -49,7 +50,7 @@ export class CdkPipelineStack extends cdk.Stack {
     cdkPipeline.buildPipeline();
 
     const sourceStage = cdkPipeline.pipeline.stage('Source');
-    const updatePiplineStage = cdkPipeline.pipeline.stage('UpdatePipeline');
+    const assetsStage = cdkPipeline.pipeline.stage('Assets');
 
     const sourceOutput = sourceStage.actions[0].actionProperties.outputs![0];
 
@@ -57,13 +58,7 @@ export class CdkPipelineStack extends cdk.Stack {
       input: sourceOutput,
     });
 
-    cdkPipeline.pipeline.addStage({
-      stageName: 'BuildApps',
-      actions: [ciStack.buildAction],
-      placement: {
-        justAfter: updatePiplineStage,
-      },
-    });
+    assetsStage.addAction(ciStack.buildAction);
 
     props.applicationAccounts.forEach(applicationAccount => {
       applicationAccount.regionGroups.forEach(regionGroup => {
