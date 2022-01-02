@@ -12,7 +12,6 @@ import {AuthHttpInterceptor, AuthModule} from '@auth0/auth0-angular';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
-import {GraphQLModule} from './graphql.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConfigService} from './config.service';
@@ -39,7 +38,6 @@ import {BoardComponent} from './board/board.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    GraphQLModule,
     HttpClientModule,
     AuthModule.forRoot(),
     FlexLayoutModule,

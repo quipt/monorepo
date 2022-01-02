@@ -60,14 +60,14 @@ export class BoardsComponent implements OnInit {
   async addBoard() {
     const client = await this.api.hc();
 
-    await client.mutate({
-      mutation: CreateBoard,
-      variables: {
-        board: {
-          title: 'My new board - test',
-        },
-      },
-    });
+    // await client.mutate({
+    //   mutation: CreateBoard,
+    //   variables: {
+    //     board: {
+    //       title: 'My new board - test',
+    //     },
+    //   },
+    // });
 
     await this.ngOnInit();
   }

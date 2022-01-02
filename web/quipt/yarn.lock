@@ -224,7 +224,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/localize@13.1.1":
+"@angular/localize@~13.1.1":
   version "13.1.1"
   resolved "https://registry.yarnpkg.com/@angular/localize/-/localize-13.1.1.tgz#0e86fa8c511f4e2c84b11839ccd1050c4d98ff08"
   integrity sha512-R3DJaDDl+IMo0JbNtU4bgVGT4poavHGvg8E2q9xausn0jtkKY8MLa231a1MWlrc/lLVhX1M0sEr+X3CG/lRqhw==
@@ -6915,7 +6915,7 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4, 
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.8.tgz#e412b8d33f5e006593cbd3cee6df9f2cebbe802a"
   integrity sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==
 
-graphql-tag@^2.12.3:
+graphql-tag@^2.12.3, graphql-tag@^2.12.6:
   version "2.12.6"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.6.tgz#d441a569c1d2537ef10ca3d1633b48725329b5f1"
   integrity sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==
