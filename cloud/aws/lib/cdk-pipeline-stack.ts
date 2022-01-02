@@ -11,7 +11,7 @@ import {
 import {ApplicationAccount} from './application-account';
 import {CIStack} from './ci-stack';
 import {CDStack} from './cd-stack';
-import { Stage } from 'aws-cdk-lib';
+import {Stage} from 'aws-cdk-lib';
 
 interface CdkPipelineStackProps extends cdk.StackProps {
   applicationAccounts: ApplicationAccount[];
@@ -80,6 +80,10 @@ export class CdkPipelineStack extends cdk.Stack {
             const cdStack = new CDStack(this, `${stageName}-cd`, {
               input: ciStack.outputArtifact,
               runOrder,
+              ecrAccount: applicationAccount.accountId,
+              region,
+              repositoryName: 'quipt/web',
+              imageTag: applicationAccount.imageTag,
             });
 
             stage.addAction(cdStack.buildAction);

@@ -29,3 +29,5 @@ RUN yarn build --configuration production
 FROM base as release
 
 COPY --from=production /opt/app/dist/ /opt/app/dist/
+
+CMD ["sh"]

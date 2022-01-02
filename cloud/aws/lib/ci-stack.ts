@@ -18,7 +18,7 @@ export class CIStack extends cdk.NestedStack {
 
     this.outputArtifact = new codepipeline.Artifact();
 
-    const dir = 'web/quipt'
+    const dir = 'web/quipt';
 
     const project = new codebuild.PipelineProject(this, 'CodeBuildProject', {
       cache: codebuild.Cache.local(
@@ -46,12 +46,13 @@ export class CIStack extends cdk.NestedStack {
               'docker build . --target test --tag image:test',
               'docker run image:test',
               'docker build . --target release --tag image:release',
+              'cd -',
               'docker save -o image.tar image:release',
             ],
           },
         },
         artifacts: {
-          files: [`${dir}/image.tar`],
+          files: ['image.tar'],
         },
       }),
       environment: {
