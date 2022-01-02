@@ -48,7 +48,7 @@ export class CdkPipelineStack extends cdk.Stack {
     cdkPipeline.buildPipeline();
 
     const sourceStage = cdkPipeline.pipeline.stage('Source');
-    const buildStage = cdkPipeline.pipeline.stage('Build');
+    const updatePiplineStage = cdkPipeline.pipeline.stage('UpdatePipeline');
 
     const sourceOutput = sourceStage.actions[0].actionProperties.outputs![0];
 
@@ -56,6 +56,12 @@ export class CdkPipelineStack extends cdk.Stack {
       input: sourceOutput,
     });
 
-    buildStage.addAction(ciStack.buildAction);
+    cdkPipeline.pipeline.addStage({
+      stageName: 'BuildApps',
+      actions: [ciStack.buildAction],
+      placement: {
+        justAfter: updatePiplineStage,
+      },
+    });
   }
 }

@@ -6,7 +6,7 @@ import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions';
 
 export interface CIStackProps extends cdk.StackProps {
   input: codepipeline.Artifact;
-};
+}
 
 export class CIStack extends cdk.NestedStack {
   buildAction: codepipeline_actions.CodeBuildAction;
@@ -38,8 +38,8 @@ export class CIStack extends cdk.NestedStack {
         },
       }),
       environment: {
-        privileged: true
-      }
+        privileged: true,
+      },
     });
 
     this.buildAction = new codepipeline_actions.CodeBuildAction({
