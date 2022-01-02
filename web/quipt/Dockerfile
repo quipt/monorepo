@@ -24,4 +24,4 @@ FROM base AS release
 
 LABEL org.opencontainers.image.source https://github.com/quipt/monorepo
 
-RUN yarn build --configure production
+RUN yarn build --configuration production
