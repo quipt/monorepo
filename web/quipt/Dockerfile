@@ -18,7 +18,7 @@ CMD ["yarn", "start"]
 
 FROM base as test
 
-CMD ["yarn", "test"]
+CMD ["yarn", "test", "--watch=false"]
 
 FROM base AS release
 

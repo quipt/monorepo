@@ -8,7 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-import {AuthHttpInterceptor, AuthModule} from '@auth0/auth0-angular';
+import {AuthModule} from '@auth0/auth0-angular';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -19,7 +19,7 @@ import {ApiService} from './api.service';
 import {AuthButtonComponent} from './auth-button/auth-button.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {NavigationComponent} from './navigation/navigation.component';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
 import {BoardsComponent} from './boards/boards.component';
 import {BoardComponent} from './board/board.component';
@@ -56,7 +56,6 @@ import {BoardComponent} from './board/board.component';
       deps: [ConfigService],
       useFactory: (configService: ConfigService) => () => configService.load(),
     },
-    {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true},
     ApiService,
   ],
   bootstrap: [AppComponent],
