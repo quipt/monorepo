@@ -98,21 +98,18 @@ export class WebStack extends cdk.Stack {
           ],
           priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
           enableIpV6: true,
-          // viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(
-          //   props.dns.certificate,
-          //   {
-          //     securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
-          //     aliases: [
-          //       `${applicationName}.${props.dns.publicHostedZone.zoneName}`,
-          //     ],
-          //   }
-          // ),
+          viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(
+            props.dns.certificate,
+            {
+              securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+              aliases: [props.dns.publicHostedZone.zoneName],
+            }
+          ),
         }
       );
 
       const recordSet = new route53.RecordSet(this, 'RecordSet', {
         zone: props.dns.publicHostedZone,
-        recordName: applicationName,
         recordType: route53.RecordType.A,
         target: route53.RecordTarget.fromAlias(
           new route53_targets.CloudFrontTarget(distribution)
