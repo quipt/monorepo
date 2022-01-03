@@ -110,6 +110,11 @@ export class ApplicationAccount {
         },
         theme: this.brand.toLowerCase(),
         brand: this.brand,
+        awsmobile: {
+          aws_appsync_graphqlEndpoint: `${audience}graphql`,
+          aws_appsync_region: 'us-east-1',
+          aws_appsync_authenticationType: 'OPENID_CONNECT',
+        },
       }),
     };
   }
