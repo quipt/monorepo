@@ -77,14 +77,12 @@ export class AppsyncStack extends cdk.Stack {
       }
     );
 
-    // const recordSet = new route53.RecordSet(this, 'RecordSet', {
-    //   zone: props.dns.publicHostedZone,
-    //   recordName: 'api',
-    //   recordType: route53.RecordType.A,
-    //   target: route53.RecordTarget.fromAlias(
-    //     new route53_targets
-    //   ),
-    // });
+    const recordSet = new route53.RecordSet(this, 'RecordSet', {
+      zone: props.dns.publicHostedZone,
+      recordName: 'api',
+      recordType: route53.RecordType.CNAME,
+      target: route53.RecordTarget.fromValues(domainName.attrAppSyncDomainName),
+    });
 
     const schema = new appsync.CfnGraphQLSchema(this, 'Schema', {
       apiId: api.attrApiId,
