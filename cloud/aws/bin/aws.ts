@@ -18,7 +18,7 @@ const applicationAccounts = [
     brand: Brand.Quipt,
     accountId: '264149948773',
     auth0Issuer: 'https://quipt.us.auth0.com/',
-    auth0ClientId: '',
+    auth0ClientId: 'CYJFCD8djT400wpCS57Sn1E2799jx9fm',
     regionGroups: [
       {
         name: 'US',
