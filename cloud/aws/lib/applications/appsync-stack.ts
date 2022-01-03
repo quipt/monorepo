@@ -7,10 +7,14 @@ import * as appsync from 'aws-cdk-lib/aws-appsync';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3_notifications from 'aws-cdk-lib/aws-s3-notifications';
+import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
 import * as path from 'path';
 import * as fs from 'fs';
+import {DnsStack} from '../dns-stack';
 
 export interface AppsyncStackProps extends cdk.StackProps {
+  dns: DnsStack;
   clientId: string;
   issuer: string;
 }
@@ -58,6 +62,29 @@ export class AppsyncStack extends cdk.Stack {
         fieldLogLevel: 'ALL',
       },
     });
+
+    const domainName = new appsync.CfnDomainName(this, 'DomainName', {
+      certificateArn: props.dns.certificate.certificateArn,
+      domainName: `api.${props.dns.publicHostedZone.zoneName}`,
+    });
+
+    const domainNameApiAssociation = new appsync.CfnDomainNameApiAssociation(
+      this,
+      'DomainNameApiAssociation',
+      {
+        apiId: api.attrApiId,
+        domainName: domainName.attrDomainName,
+      }
+    );
+
+    // const recordSet = new route53.RecordSet(this, 'RecordSet', {
+    //   zone: props.dns.publicHostedZone,
+    //   recordName: 'api',
+    //   recordType: route53.RecordType.A,
+    //   target: route53.RecordTarget.fromAlias(
+    //     new route53_targets
+    //   ),
+    // });
 
     const schema = new appsync.CfnGraphQLSchema(this, 'Schema', {
       apiId: api.attrApiId,

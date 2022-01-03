@@ -58,6 +58,7 @@ export class ApplicationStage extends cdk.Stage {
     const appsync = new AppsyncStack(this, 'Appsync', {
       clientId: props.auth0ClientId,
       issuer: props.auth0Issuer,
+      dns,
     });
   }
 }
