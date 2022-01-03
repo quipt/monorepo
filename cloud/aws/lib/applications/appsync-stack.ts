@@ -52,7 +52,7 @@ export class AppsyncStack extends cdk.Stack {
       name: 'api',
       authenticationType: 'OPENID_CONNECT',
       openIdConnectConfig: {
-        clientId: props.clientId,
+        // clientId: props.clientId,
         issuer: props.issuer,
       },
       xrayEnabled: true,

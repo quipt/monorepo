@@ -1,13 +1,13 @@
 {
-    "apiUri": "https://hf2lisisufdi7n6hvek25gn3xe.appsync-api.us-east-1.amazonaws.com/graphql",
+    "apiUri": "https://api.dev.qui.pt/graphql",
     "auth0": {
       "domain": "quipt.us.auth0.com",
       "clientId": "WDPoz59KiHRXNrYKyfCGsKiSymPH7J7b",
-      "audience": "https://hf2lisisufdi7n6hvek25gn3xe.appsync-api.us-east-1.amazonaws.com/"
+      "audience": "https://api.dev.qui.pt/"
     },
     "brand": "Quipt",
     "awsmobile": {
-      "aws_appsync_graphqlEndpoint": "https://hf2lisisufdi7n6hvek25gn3xe.appsync-api.us-east-1.amazonaws.com/graphql",
+      "aws_appsync_graphqlEndpoint": "https://api.dev.qui.pt/graphql",
       "aws_appsync_region": "us-east-1",
       "aws_appsync_authenticationType": "OPENID_CONNECT",
       "aws_appsync_apiKey": "null"
