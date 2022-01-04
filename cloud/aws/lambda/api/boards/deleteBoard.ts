@@ -7,7 +7,10 @@ export default async function deleteBoard(id: string, owner: string) {
     Key: {
       id,
     },
-    ConditionExpression: 'owner = :0',
+    ConditionExpression: '#0 = :0',
+    ExpressionAttributeNames: {
+      '#0': 'owner',
+    },
     ExpressionAttributeValues: {
       ':0': owner,
     },
