@@ -7,9 +7,9 @@ export default async function deleteBoard(id: string, owner: string) {
     Key: {
       id,
     },
-    ConditionExpression: 'owner = :owner',
+    ConditionExpression: 'owner = :0',
     ExpressionAttributeValues: {
-      ':owner': owner,
+      ':0': owner,
     },
   };
   try {
