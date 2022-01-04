@@ -16,6 +16,11 @@
                 </button>
                 <div>{{favorites}}</div>
             </mat-card>
+            <mat-card fxLayout="row" fxLayoutAlign="center">
+                <button mat-button (click)="onDeleteClick()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card>
         </div>
     </div>
 </div>

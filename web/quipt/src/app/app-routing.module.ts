@@ -15,6 +15,11 @@ const routes: Routes = [
     component: BoardComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'myboards/:boardId',
+    component: BoardComponent,
+    canActivate: [AuthGuard],
+  },
   {path: 'myboards', component: BoardsComponent, canActivate: [AuthGuard]},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},
