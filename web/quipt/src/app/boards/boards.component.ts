@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import gql from 'graphql-tag';
 import {ApiService} from '../api.service';
+import {NewBoardModalComponent} from '../new-board-modal/new-board-modal.component';
 
 const ListBoards = gql`
   query ListBoards {
@@ -38,7 +40,7 @@ interface listBoardsData {
   styleUrls: ['./boards.component.scss'],
 })
 export class BoardsComponent implements OnInit {
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, public dialog: MatDialog) {}
 
   async ngOnInit(): Promise<void> {
     const client = await this.api.hc();
@@ -59,16 +61,24 @@ export class BoardsComponent implements OnInit {
 
   async addBoard() {
     const client = await this.api.hc();
+    const dialogRef = this.dialog.open(NewBoardModalComponent, {
+      width: '250px',
+      data: {title: ''},
+    });
 
-    // await client.mutate({
-    //   mutation: CreateBoard,
-    //   variables: {
-    //     board: {
-    //       title: 'My new board - test',
-    //     },
-    //   },
-    // });
+    dialogRef.afterClosed().subscribe(async result => {
+      if (!result) return;
 
-    await this.ngOnInit();
+      await client.mutate({
+        mutation: CreateBoard,
+        variables: {
+          board: {
+            title: result,
+          },
+        },
+      });
+
+      await this.ngOnInit();
+    });
   }
 }
