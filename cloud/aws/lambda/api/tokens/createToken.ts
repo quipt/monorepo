@@ -64,6 +64,6 @@ export default async function createToken(
 
   return {
     key,
-    fields,
+    // fields,
   };
 }

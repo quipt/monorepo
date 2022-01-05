@@ -22,6 +22,14 @@ const DeleteBoardMutation = gql`
   }
 `;
 
+const CreateTokenMuation = gql`
+  mutation CreateTokenMuation($hash: String, $size: Int) {
+    createToken(hash: $hash, size: $size) {
+      key
+    }
+  }
+`;
+
 interface Board {
   id: string;
   owner: string;
@@ -39,7 +47,7 @@ interface GetBoardById {
 })
 export class BoardComponent implements OnInit {
   username = '';
-  title = 'Board Title';
+  title = '';
   clipCount = 0;
   favorites = 0;
   favorited = false;
@@ -91,5 +99,68 @@ export class BoardComponent implements OnInit {
     });
 
     this.router.navigate(['/myboards']);
+  }
+
+  toHex(buf: ArrayBuffer) {
+    const hashArray = Array.from(new Uint8Array(buf));
+    const hashHex = hashArray
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+    return hashHex;
+  }
+
+  async calculateHash(file: File) {
+    const client = await this.api.hc();
+
+    const reader = new FileReader();
+    reader.onload = async event => {
+      if (!event?.target?.result) {
+        return;
+      }
+
+      const hashBuf = await crypto.subtle.digest(
+        'SHA-256',
+        event.target.result as BufferSource
+      );
+      const hash = this.toHex(hashBuf);
+
+      console.log({hash}, {file});
+      const res = await client.mutate({
+        mutation: CreateTokenMuation,
+        variables: {
+          hash,
+          size: file.size,
+        },
+      });
+
+      console.log(res);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  async onFileDropped($event: DragEvent) {
+    $event.preventDefault();
+    const client = await this.api.hc();
+
+    const files = $event?.dataTransfer?.files;
+
+    if (!files?.length) {
+      return false;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i)!;
+
+      // calculate hash
+      await this.calculateHash(file);
+      // createToken
+    }
+
+    return false;
+  }
+
+  onDragOver($event: DragEvent) {
+    $event.preventDefault();
+    return false;
   }
 }

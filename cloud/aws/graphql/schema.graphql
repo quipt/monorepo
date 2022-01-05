@@ -19,13 +19,13 @@
 #   caption: String
 # }
 
-type Fields {
-
-}
+# type Fields {
+#  id
+# }
 
 type Token {
-  key: String
-  fields: Fields
+  key: String!
+#  fields: Fields
 }
 
 type Board {

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" (drop)="onFileDropped($event)" (dragover)="onDragOver($event)" style="background-color: lavender;">
     <div fxLayout="row wrap" fxLayoutAlign="space-around center">
         <div fxLayout="row" fxLayoutAlight="center">
             <span><a routerLink="/{{username}}">{{username}}</a></span>
