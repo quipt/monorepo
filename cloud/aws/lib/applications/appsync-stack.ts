@@ -185,6 +185,13 @@ export class AppsyncStack extends cdk.Stack {
       fieldName: 'updateBoard',
     });
 
+    new appsync.CfnResolver(this, 'createTokenResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Mutation',
+      fieldName: 'createToken',
+    });
+
     const boardsTable = new dynamodb.Table(this, 'BoardsTable', {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       partitionKey: {
