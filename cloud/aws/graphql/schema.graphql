@@ -35,7 +35,7 @@ type Token {
 }
 
 type Duplicate {
-  duplicate: Boolean!
+  duplicate: ID!
 }
 
 union TokenResult = Token | Duplicate

@@ -75,7 +75,7 @@ interface CreateToken {
 }
 
 interface Duplicate {
-  duplicate: boolean;
+  duplicate: string;
 }
 
 @Component({
