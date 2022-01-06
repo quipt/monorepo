@@ -71,7 +71,7 @@ type Mutation {
   updateBoard(board: UpdateBoardInput!): Board
   deleteBoard(id: ID!): ID
 
-  createToken(hash: String, size: Int): TokenResult
+  createToken(hash: String, size: Int): TokenResult!
 }
 
 # type Subscription {

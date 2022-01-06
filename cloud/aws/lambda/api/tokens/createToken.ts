@@ -29,6 +29,7 @@ export default async function createToken(
 
   if (hashItem?.id && hashItem?.uploadPending === false) {
     return {
+      __typename: 'Duplicate',
       duplicate: hashItem.id,
     };
   }
@@ -66,6 +67,7 @@ export default async function createToken(
   );
 
   return {
+    __typename: 'Token',
     key,
     fields: fields_,
   };
