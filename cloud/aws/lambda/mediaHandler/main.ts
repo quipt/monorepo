@@ -252,6 +252,8 @@ async function addHashForNewFile(file: string, id: string) {
       processed: true,
     },
   };
+
+  await docClient.send(new PutCommand(params));
 }
 
 /**
