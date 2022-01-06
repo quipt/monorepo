@@ -19,13 +19,19 @@
 #   caption: String
 # }
 
-# type Fields {
-#  id
-# }
+type Fields {
+  bucket: String!
+  X_Amz_Algorithm: String!
+  X_Amz_Credential: String!
+  X_Amz_Date: String!
+  X_Amz_Security_Token: String!
+  Policy: String!
+  X_Amz_Signature: String!
+}
 
 type Token {
   key: String!
-#  fields: Fields
+  fields: Fields!
 }
 
 type Board {

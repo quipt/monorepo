@@ -26,6 +26,15 @@ const CreateTokenMuation = gql`
   mutation CreateTokenMuation($hash: String, $size: Int) {
     createToken(hash: $hash, size: $size) {
       key
+      fields {
+        bucket
+        X_Amz_Algorithm
+        X_Amz_Credential
+        X_Amz_Date
+        X_Amz_Security_Token
+        Policy
+        X_Amz_Signature
+      }
     }
   }
 `;

@@ -60,10 +60,13 @@ export default async function createToken(
 
   const {fields} = s3.createPresignedPost(params);
 
-  console.log({key, fields});
+  const fields_ = Object.entries(fields).reduce(
+    (acc, [key, val]) => ({...acc, [key.replace('-', '_')]: val}),
+    {}
+  );
 
   return {
     key,
-    // fields,
+    fields: fields_,
   };
 }

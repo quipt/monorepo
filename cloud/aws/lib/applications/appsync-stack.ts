@@ -8,7 +8,6 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3_notifications from 'aws-cdk-lib/aws-s3-notifications';
 import * as route53 from 'aws-cdk-lib/aws-route53';
-import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
 import * as path from 'path';
 import * as fs from 'fs';
 import {DnsStack} from '../dns-stack';
