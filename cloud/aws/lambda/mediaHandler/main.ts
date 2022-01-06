@@ -8,7 +8,12 @@ import {Readable} from 'stream';
 
 import {S3} from '@aws-sdk/client-s3';
 import {DynamoDBClient} from '@aws-sdk/client-dynamodb';
-import {UpdateCommand, UpdateCommandInput} from '@aws-sdk/lib-dynamodb';
+import {
+  UpdateCommand,
+  UpdateCommandInput,
+  PutCommand,
+  PutCommandInput,
+} from '@aws-sdk/lib-dynamodb';
 import {S3Event, S3Handler} from 'aws-lambda';
 
 type env = {
@@ -209,10 +214,10 @@ async function uploadFiles(keyPrefix: string) {
   );
 }
 
-async function confirmUpload() {
+async function confirmUpload(file: string) {
   const hash = crypto
     .createHash('sha256')
-    .update(fs.readFileSync(download))
+    .update(fs.readFileSync(file))
     .digest();
 
   const params: UpdateCommandInput = {
@@ -232,6 +237,23 @@ async function confirmUpload() {
   await docClient.send(new UpdateCommand(params));
 }
 
+async function addHashForNewFile(file: string, id: string) {
+  const hash = crypto
+    .createHash('sha256')
+    .update(fs.readFileSync(file))
+    .digest();
+
+  const params: PutCommandInput = {
+    TableName: HASHES_TABLE,
+    Item: {
+      hash,
+      id,
+      uploadPending: false,
+      processed: true,
+    },
+  };
+}
+
 /**
  * The Lambda Function handler
  */
@@ -245,8 +267,9 @@ export const handler: S3Handler = async event => {
   await downloadFile(s3Record.bucket.name, s3Record.object.key);
   checkM3u(download);
   await ffprobe();
-  await confirmUpload();
+  await confirmUpload(download);
   await ffmpeg(keyPrefix);
   removeFile(download);
+  await addHashForNewFile(path.join(outputDir, 'out.mp4'), sourceLocation.key);
   await Promise.all([uploadFiles(keyPrefix)]);
 };
