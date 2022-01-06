@@ -34,6 +34,10 @@ type Token {
   fields: Fields!
 }
 
+type Duplicate {
+  duplicate: Boolean!
+}
+
 type Board {
   id: ID!
   title: String
@@ -65,7 +69,7 @@ type Mutation {
   updateBoard(board: UpdateBoardInput!): Board
   deleteBoard(id: ID!): ID
 
-  createToken(hash: String, size: Int): Token
+  createToken(hash: String, size: Int): Token | Duplicate
 }
 
 # type Subscription {

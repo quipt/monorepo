@@ -66,6 +66,10 @@ interface CreateToken {
   };
 }
 
+interface Duplicate {
+  duplicate: boolean;
+}
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -172,9 +176,7 @@ export class BoardComponent implements OnInit {
         event.target.result as BufferSource
       );
       const hash = this.toHex(hashBuf);
-
-      console.log({hash}, {file});
-      const res = await client.mutate<CreateToken>({
+      const res = await client.mutate<CreateToken & Duplicate>({
         mutation: CreateTokenMuation,
         variables: {
           hash,
@@ -182,7 +184,11 @@ export class BoardComponent implements OnInit {
         },
       });
 
-      console.log(res);
+      if (res.data?.duplicate) {
+        // TODO: Add it to the UI
+        console.log('Duplicate found');
+        return;
+      }
 
       await this.uploadFile(
         file,
