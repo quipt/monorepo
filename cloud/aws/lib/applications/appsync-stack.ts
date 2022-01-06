@@ -221,6 +221,11 @@ export class AppsyncStack extends cdk.Stack {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     });
 
+    uploadBucket.addCorsRule({
+      allowedOrigins: ['*'],
+      allowedMethods: [s3.HttpMethods.POST],
+    });
+
     uploadBucket.grantWrite(apiLambda);
     uploadBucket.addEventNotification(
       s3.EventType.OBJECT_CREATED,

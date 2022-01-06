@@ -49,6 +49,23 @@ interface GetBoardById {
   getBoardById: Board;
 }
 
+interface Fields {
+  bucket: string;
+  X_Amz_Algorithm: string;
+  X_Amz_Credential: string;
+  X_Amz_Date: string;
+  X_Amz_Security_Token: string;
+  Policy: string;
+  X_Amz_Signature: string;
+}
+
+interface CreateToken {
+  createToken: {
+    key: string;
+    fields: Fields;
+  };
+}
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -118,6 +135,29 @@ export class BoardComponent implements OnInit {
     return hashHex;
   }
 
+  async uploadFile(file: File, hash: string, key: string, fields: Fields) {
+    const form = new FormData();
+
+    form.append('key', key);
+    form.append('acl', 'private');
+    form.append('Content-Type', file.type);
+    form.append('x-amz-content-sha256', hash);
+    form.append('x-amz-credential', fields.X_Amz_Credential);
+    form.append('x-amz-algorithm', fields.X_Amz_Algorithm);
+    form.append('x-amz-date', fields.X_Amz_Date);
+    form.append('policy', fields.Policy);
+    form.append('x-amz-signature', fields.X_Amz_Signature);
+    form.append('x-amz-security-token', fields.X_Amz_Security_Token);
+    form.append('file', file);
+
+    const res = await fetch(`https://${fields.bucket}.s3.amazonaws.com/`, {
+      method: 'POST',
+      body: form,
+    });
+
+    console.log(res);
+  }
+
   async calculateHash(file: File) {
     const client = await this.api.hc();
 
@@ -134,7 +174,7 @@ export class BoardComponent implements OnInit {
       const hash = this.toHex(hashBuf);
 
       console.log({hash}, {file});
-      const res = await client.mutate({
+      const res = await client.mutate<CreateToken>({
         mutation: CreateTokenMuation,
         variables: {
           hash,
@@ -143,6 +183,13 @@ export class BoardComponent implements OnInit {
       });
 
       console.log(res);
+
+      await this.uploadFile(
+        file,
+        hash,
+        res.data!.createToken.key,
+        res.data!.createToken.fields
+      );
     };
     reader.readAsArrayBuffer(file);
   }
