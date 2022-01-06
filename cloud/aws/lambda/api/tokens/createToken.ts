@@ -33,7 +33,7 @@ export default async function createToken(
     };
   }
 
-  const key = nanoid();
+  const key = hashItem?.id || nanoid();
 
   await docClient
     .put({

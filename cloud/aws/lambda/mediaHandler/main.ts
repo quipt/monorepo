@@ -3,10 +3,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as util from 'util';
+import * as crypto from 'crypto';
 import {Readable} from 'stream';
 
 import {S3} from '@aws-sdk/client-s3';
 import {DynamoDBClient} from '@aws-sdk/client-dynamodb';
+import {UpdateCommand, UpdateCommandInput} from '@aws-sdk/lib-dynamodb';
 import {S3Event, S3Handler} from 'aws-lambda';
 
 type env = {
@@ -207,6 +209,29 @@ async function uploadFiles(keyPrefix: string) {
   );
 }
 
+async function confirmUpload() {
+  const hash = crypto
+    .createHash('sha256')
+    .update(fs.readFileSync(download))
+    .digest();
+
+  const params: UpdateCommandInput = {
+    TableName: HASHES_TABLE,
+    Key: {
+      hash,
+    },
+    UpdateExpression: 'set #0 = :0',
+    ExpressionAttributeNames: {
+      '#0': 'uploadPending',
+    },
+    ExpressionAttributeValues: {
+      ':0': false,
+    },
+  };
+
+  await docClient.send(new UpdateCommand(params));
+}
+
 /**
  * The Lambda Function handler
  */
@@ -220,6 +245,7 @@ export const handler: S3Handler = async event => {
   await downloadFile(s3Record.bucket.name, s3Record.object.key);
   checkM3u(download);
   await ffprobe();
+  await confirmUpload();
   await ffmpeg(keyPrefix);
   removeFile(download);
   await Promise.all([uploadFiles(keyPrefix)]);
