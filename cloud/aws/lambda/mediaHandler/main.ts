@@ -195,7 +195,7 @@ async function uploadFile(keyPrefix: string, filename: string) {
   await s3.putObject({
     Bucket: PROCESSED_BUCKET,
     Key: `${keyPrefix}.${extension}`,
-    Body: fs.readFileSync(fileFullPath).toString(),
+    Body: fs.readFileSync(fileFullPath),
     ContentType: mimeType,
     CacheControl: 'max-age=31536000',
   });
