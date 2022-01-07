@@ -8,6 +8,8 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3_notifications from 'aws-cdk-lib/aws-s3-notifications';
 import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as route53_targets from 'aws-cdk-lib/aws-route53-targets';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as path from 'path';
 import * as fs from 'fs';
 import {DnsStack} from '../dns-stack';
@@ -246,5 +248,61 @@ export class AppsyncStack extends cdk.Stack {
       'PROCESSED_BUCKET',
       processedBucket.bucketName
     );
+
+    const originAccessIdentity = new cloudfront.OriginAccessIdentity(
+      this,
+      'OriginAccessIdentity',
+      {}
+    );
+
+    processedBucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        principals: [
+          new iam.CanonicalUserPrincipal(
+            originAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId
+          ),
+        ],
+        actions: ['s3:GetObject'],
+        resources: [processedBucket.arnForObjects('*')],
+      })
+    );
+
+    const distribution = new cloudfront.CloudFrontWebDistribution(
+      this,
+      'Distribution',
+      {
+        originConfigs: [
+          {
+            s3OriginSource: {
+              s3BucketSource: processedBucket,
+              originAccessIdentity,
+            },
+            behaviors: [
+              {
+                isDefaultBehavior: true,
+              },
+            ],
+          },
+        ],
+        priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
+        enableIpV6: true,
+        viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(
+          props.dns.certificate,
+          {
+            securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+            aliases: [`media.${props.dns.publicHostedZone.zoneName}`],
+          }
+        ),
+      }
+    );
+
+    new route53.RecordSet(this, 'CloudFrontRecordSet', {
+      zone: props.dns.publicHostedZone,
+      recordName: 'media',
+      recordType: route53.RecordType.A,
+      target: route53.RecordTarget.fromAlias(
+        new route53_targets.CloudFrontTarget(distribution)
+      ),
+    });
   }
 }
