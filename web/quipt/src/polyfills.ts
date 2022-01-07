@@ -55,6 +55,7 @@ import 'zone.js'; // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 (window as any).global = window;
 (window as any).process = {
   env: {DEBUG: undefined},

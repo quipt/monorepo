@@ -75,7 +75,9 @@ interface CreateToken {
 }
 
 interface Duplicate {
-  duplicate: string;
+  createToken: {
+    duplicate: string;
+  };
 }
 
 @Component({
@@ -192,7 +194,7 @@ export class BoardComponent implements OnInit {
         },
       });
 
-      if (res.data?.duplicate) {
+      if (res.data!.createToken.duplicate) {
         // TODO: Add it to the UI
         console.log('Duplicate found');
         return;
@@ -210,7 +212,6 @@ export class BoardComponent implements OnInit {
 
   async onFileDropped($event: DragEvent) {
     $event.preventDefault();
-    const client = await this.api.hc();
 
     const files = $event?.dataTransfer?.files;
 
