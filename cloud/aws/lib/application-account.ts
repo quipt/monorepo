@@ -103,6 +103,7 @@ export class ApplicationAccount {
     return {
       configJson: JSON.stringify({
         apiUri: `${audience}graphql`,
+        mediaUri: `https://media.${this.zoneName}/`,
         auth0: {
           domain: `${this.brand.toLowerCase()}.us.auth0.com`,
           clientId: this.auth0ClientId,

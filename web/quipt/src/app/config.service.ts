@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpBackend} from '@angular/common/http';
 import {AuthClientConfig} from '@auth0/auth0-angular';
-import {Amplify} from 'aws-amplify';
 
 interface AwsMobile {
   aws_appsync_graphqlEndpoint: string;
@@ -11,6 +10,7 @@ interface AwsMobile {
 
 interface Config {
   apiUri: string;
+  mediaUri: string;
   auth0: {
     domain: string;
     clientId: string;
@@ -43,17 +43,12 @@ export class ConfigService {
     });
   }
 
-  private configureAmplify(): void {
-    Amplify.configure(this.config.awsmobile);
-  }
-
   public async load(): Promise<void> {
     this.config = await this.http
       .get<Config>('/assets/config.json')
       .toPromise();
 
     this.configureAuth0();
-    this.configureAmplify();
   }
 
   public get apiUri(): string {
@@ -70,5 +65,9 @@ export class ConfigService {
 
   public get aws_mobile(): AwsMobile {
     return this.config.awsmobile;
+  }
+
+  public get mediaUri(): string {
+    return this.config.mediaUri;
   }
 }

@@ -1,4 +1,4 @@
-<div class="container" (drop)="onFileDropped($event)" (dragover)="onDragOver($event)" style="background-color: lavender;">
+<div class="container" (drop)="onFileDropped($event)" (dragover)="onDragOver($event)">
     <div fxLayout="row wrap" fxLayoutAlign="space-around center">
         <div fxLayout="row" fxLayoutAlight="center">
             <span><a routerLink="/{{username}}">{{username}}</a></span>
@@ -22,5 +22,9 @@
                 </button>
             </mat-card>
         </div>
+    </div>
+    <div *ngFor="let clip of clips;" fxLayout="row">
+        <app-video-card source="{{clip.source}}" caption="{{clip.caption}}" poster="{{clip.poster}}">
+        </app-video-card>
     </div>
 </div>

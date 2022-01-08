@@ -1,0 +1,9 @@
+<header fxLayout="row">
+    <mat-icon>info</mat-icon>
+    <div>{{caption}}</div>
+    <mat-icon>delete</mat-icon>
+</header>
+<div>
+    <video width="320" [src]="sanitizeUrl(source)" (click)="onClick($event)">
+    </video>
+</div>

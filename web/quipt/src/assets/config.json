@@ -1,5 +1,6 @@
 {
     "apiUri": "https://api.dev.qui.pt/graphql",
+    "mediaUri": "https://media.dev.qui.pt/",
     "auth0": {
       "domain": "quipt.us.auth0.com",
       "clientId": "WDPoz59KiHRXNrYKyfCGsKiSymPH7J7b",

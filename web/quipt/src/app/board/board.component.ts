@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
 
 import gql from 'graphql-tag';
+import {ConfigService} from '../config.service';
 
 const GetBoardByIdQuery = gql`
   query GetBoardById($id: String!) {
@@ -23,7 +24,7 @@ const DeleteBoardMutation = gql`
 `;
 
 const CreateTokenMuation = gql`
-  mutation CreateTokenMuation($hash: String, $size: Int) {
+  mutation CreateTokenMuation($hash: String!, $size: Int!) {
     createToken(hash: $hash, size: $size) {
       __typename
 
@@ -80,27 +81,39 @@ interface Duplicate {
   };
 }
 
+export interface Clip {
+  clipId: string;
+  caption: string;
+  source: string;
+  poster?: string;
+}
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
+  mediaUri = '';
   username = '';
   title = '';
   clipCount = 0;
   favorites = 0;
   favorited = false;
   boardId = '';
+  clips: Clip[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private config: ConfigService
   ) {
     this.route.params.subscribe(params => {
       this.boardId = params.boardId;
     });
+
+    this.mediaUri = config.mediaUri;
   }
 
   async ngOnInit(): Promise<void> {
@@ -164,12 +177,10 @@ export class BoardComponent implements OnInit {
     form.append('x-amz-security-token', fields.X_Amz_Security_Token);
     form.append('file', file);
 
-    const res = await fetch(`https://${fields.bucket}.s3.amazonaws.com/`, {
+    await fetch(`https://${fields.bucket}.s3.amazonaws.com/`, {
       method: 'POST',
       body: form,
     });
-
-    console.log(res);
   }
 
   async calculateHash(file: File) {
@@ -194,18 +205,36 @@ export class BoardComponent implements OnInit {
         },
       });
 
-      if (res.data!.createToken.duplicate) {
-        // TODO: Add it to the UI
-        console.log('Duplicate found');
+      const clipId = res.data!.createToken.duplicate;
+      const caption = file.name.replace(/\.[^/.]+$/, '');
+      const source = `${this.mediaUri}${clipId}.mp4`;
+      const poster = `${this.mediaUri}${clipId}.png`;
+
+      if (clipId) {
+        this.clips.push({
+          caption,
+          clipId,
+          source,
+          poster,
+        });
         return;
       }
 
-      await this.uploadFile(
-        file,
-        hash,
-        res.data!.createToken.key,
-        res.data!.createToken.fields
-      );
+      const blob = new Blob([event.target.result], {type: file.type});
+      const src = window.URL.createObjectURL(blob);
+
+      this.clips.push({
+        caption,
+        clipId: res.data!.createToken.key,
+        source: src,
+      });
+
+      // await this.uploadFile(
+      //   file,
+      //   hash,
+      //   res.data!.createToken.key,
+      //   res.data!.createToken.fields
+      // );
     };
     reader.readAsArrayBuffer(file);
   }
