@@ -9,6 +9,11 @@ type Clip {
   caption: String!
 }
 
+input ClipsInput {
+  clipId: ID!
+  caption: String!
+}
+
 type Fields {
   bucket: String!
   X_Amz_Algorithm: String!
@@ -63,7 +68,7 @@ type Mutation {
 
   createToken(hash: String!, size: Int!): TokenResult!
 
-  createClips(boardId: String!, clips: [Clip])
+  createClips(boardId: ID!, clips: [ClipsInput!]): [Clip]
 }
 
 # type Subscription {
