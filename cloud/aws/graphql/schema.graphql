@@ -2,22 +2,12 @@
 #   id: ID!
 #   username: String
 #   boards: [Board]
-#   originals: [Media]
 # }
 
-# type Medium {
-#   user: User
-#   id: String
-#   format: String
-#   width: Number
-#   height: Number
-#   sha256: String
-# }
-
-# type Clip {
-#   media: [Medium]
-#   caption: String
-# }
+type Clip {
+  clipId: ID!
+  caption: String!
+}
 
 type Fields {
   bucket: String!
@@ -71,7 +61,9 @@ type Mutation {
   updateBoard(board: UpdateBoardInput!): Board
   deleteBoard(id: ID!): ID
 
-  createToken(hash: String, size: Int): TokenResult!
+  createToken(hash: String!, size: Int!): TokenResult!
+
+  createClips(boardId: String!, clips: [Clip])
 }
 
 # type Subscription {

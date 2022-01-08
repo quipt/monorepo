@@ -4,6 +4,7 @@ import getBoardById from './boards/getBoardById';
 import listBoards from './boards/listBoards';
 import updateBoard, {UpdateBoardInput} from './boards/updateBoard';
 import createToken from './tokens/createToken';
+import createClips, {CreateClipsInput} from './clips/createClips';
 
 import {AppSyncResolverEvent, Context} from 'aws-lambda';
 
@@ -19,6 +20,8 @@ type Event = {
     board: CreateBoardInput & UpdateBoardInput;
     hash: string;
     size: number;
+    boardId: string;
+    clips: CreateClipsInput;
   };
 };
 
@@ -40,6 +43,12 @@ export async function handler(event: Event, context: Context) {
       return await updateBoard(event.arguments.board, sub);
     case 'createToken':
       return await createToken(event.arguments.hash, event.arguments.size, sub);
+    case 'createClips':
+      return await createClips(
+        event.arguments.boardId,
+        event.arguments.clips,
+        sub
+      );
     default:
       return null;
   }

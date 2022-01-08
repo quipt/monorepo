@@ -193,6 +193,13 @@ export class AppsyncStack extends cdk.Stack {
       fieldName: 'createToken',
     });
 
+    new appsync.CfnResolver(this, 'createClipsResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Mutation',
+      fieldName: 'createClips',
+    });
+
     const boardsTable = new dynamodb.Table(this, 'BoardsTable', {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       partitionKey: {
@@ -209,12 +216,28 @@ export class AppsyncStack extends cdk.Stack {
       },
     });
 
+    const clipsTable = new dynamodb.Table(this, 'ClipsTable', {
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      partitionKey: {
+        name: 'boardId',
+        type: dynamodb.AttributeType.STRING,
+      },
+      sortKey: {
+        name: 'clipId',
+        type: dynamodb.AttributeType.STRING,
+      },
+    });
+
     boardsTable.grantReadWriteData(apiLambda);
     hashesTable.grantReadWriteData(apiLambda);
+    clipsTable.grantReadWriteData(apiLambda);
+
     hashesTable.grantReadWriteData(mediaHandlerLambda);
 
     apiLambda.addEnvironment('BOARDS_TABLE', boardsTable.tableName);
     apiLambda.addEnvironment('HASHES_TABLE', hashesTable.tableName);
+    apiLambda.addEnvironment('CLIPS_TABLE', clipsTable.tableName);
+
     mediaHandlerLambda.addEnvironment('HASHES_TABLE', hashesTable.tableName);
 
     const uploadBucket = new s3.Bucket(this, 'UploadBucket', {
