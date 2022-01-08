@@ -43,7 +43,7 @@ type Board {
   updated: AWSDateTime
   # favorites: Number
   # favorited: Boolean
-  # clips: [Clip]
+  clips: [Clip]
 }
 
 input CreateBoardInput {

@@ -8,7 +8,24 @@ export default async function getBoardById(id: String) {
   };
   try {
     const {Item} = await docClient.get(params).promise();
-    return Item;
+
+    const clips = await docClient
+      .query({
+        TableName: process.env.CLIPS_TABLE!,
+        KeyConditionExpression: '#0 = :0',
+        ExpressionAttributeNames: {
+          '#0': 'boardId',
+        },
+        ExpressionAttributeValues: {
+          ':0': id,
+        },
+      })
+      .promise();
+
+    return {
+      ...Item,
+      clips: clips.Items,
+    };
   } catch (err) {
     console.error('DynamoDB error: ', err);
     return null;

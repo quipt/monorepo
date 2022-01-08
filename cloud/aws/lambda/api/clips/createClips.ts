@@ -44,4 +44,6 @@ export default async function createClips(
       },
     })
     .promise();
+
+  return clips;
 }
