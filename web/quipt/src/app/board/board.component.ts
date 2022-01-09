@@ -14,6 +14,10 @@ const GetBoardByIdQuery = gql`
       owner
       created
       updated
+      clips {
+        caption
+        clipId
+      }
     }
   }
 `;
@@ -49,10 +53,25 @@ const CreateTokenMuation = gql`
   }
 `;
 
+const CreateClipsMutation = gql`
+  mutation CreateClipsMutation($boardId: ID!, $clips: [ClipsInput!]) {
+    createClips(boardId: $boardId, clips: $clips) {
+      clipId
+      caption
+    }
+  }
+`;
+
+interface Clip {
+  clipId: string;
+  caption: string;
+}
+
 interface Board {
   id: string;
   owner: string;
   title: string;
+  clips: Clip[];
 }
 
 interface GetBoardById {
@@ -82,12 +101,12 @@ interface Duplicate {
   };
 }
 
-export interface Clip {
+export interface Video {
   clipId?: string;
   caption: string;
   source: string | SafeUrl;
   poster?: string;
-  hash: string;
+  hash?: string;
 }
 
 @Component({
@@ -103,7 +122,7 @@ export class BoardComponent implements OnInit {
   favorites = 0;
   favorited = false;
   boardId = '';
-  clips: Clip[] = [];
+  clips: Video[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -130,7 +149,7 @@ export class BoardComponent implements OnInit {
       variables: {
         id: this.boardId,
       },
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: 'network-only',
     });
 
     observable.subscribe(({data}) => {
@@ -138,6 +157,12 @@ export class BoardComponent implements OnInit {
         return console.log('GetBoardById - no data');
       }
       this.title = data.getBoardById.title;
+
+      this.clips = data.getBoardById.clips!.map(clip => ({
+        ...clip,
+        source: `${this.mediaUri}${clip.clipId}.mp4`,
+        poster: `${this.mediaUri}${clip.clipId}.png`,
+      }));
     });
   }
 
@@ -204,6 +229,11 @@ export class BoardComponent implements OnInit {
     const caption = file.name.replace(/\.[^/.]+$/, '');
 
     if (clipId) {
+      // No duplicates allowed
+      if (this.clips.some(clip => clip.clipId === clipId)) {
+        return;
+      }
+
       this.clips.push({
         caption,
         clipId,
@@ -211,6 +241,20 @@ export class BoardComponent implements OnInit {
         poster: `${this.mediaUri}${clipId}.png`,
         hash,
       });
+
+      await client.mutate({
+        mutation: CreateClipsMutation,
+        variables: {
+          boardId: this.boardId,
+          clips: [
+            {
+              caption,
+              clipId,
+            },
+          ],
+        },
+      });
+
       return;
     }
 
@@ -223,12 +267,25 @@ export class BoardComponent implements OnInit {
       hash,
     });
 
-    // await this.uploadFile(
-    //   file,
-    //   hash,
-    //   res.data!.createToken.key,
-    //   res.data!.createToken.fields
-    // );
+    await this.uploadFile(
+      file,
+      hash,
+      res.data!.createToken.key,
+      res.data!.createToken.fields
+    );
+
+    await client.mutate({
+      mutation: CreateClipsMutation,
+      variables: {
+        boardId: this.boardId,
+        clips: [
+          {
+            caption,
+            clipId: res.data!.createToken.key,
+          },
+        ],
+      },
+    });
   }
 
   async calculateHash(file: File) {
