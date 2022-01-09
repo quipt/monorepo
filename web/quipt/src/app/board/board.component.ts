@@ -267,7 +267,7 @@ export class BoardComponent implements OnInit {
 
       if (this.clips.some(clip => clip.hash === hash)) {
         // Show snackbar message saying duplicate found
-        return;
+        continue;
       }
 
       await this.getIdOrUpload(file, hash);
