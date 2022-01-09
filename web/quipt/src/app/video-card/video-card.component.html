@@ -1,7 +1,7 @@
 <header fxLayout="row">
     <div><mat-icon>info</mat-icon></div>
     <div fxFlex>{{caption}}</div>
-    <div><mat-icon>delete</mat-icon></div>
+    <div><mat-icon (click)="onDelete($event)">delete</mat-icon></div>
 </header>
 <div>
     <video height="240" width="320" [src]="source" (click)="onClick($event)" style="border: 1px solid red">

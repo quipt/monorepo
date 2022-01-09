@@ -10,7 +10,6 @@ export class VideoCardComponent implements OnInit {
   @Input() source: string | SafeUrl = '';
   @Input() poster = '';
   @Input() caption = '';
-  @Input() file?: File;
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -22,5 +21,9 @@ export class VideoCardComponent implements OnInit {
     ($event.target as HTMLVideoElement).play();
 
     return false;
+  }
+
+  onDelete($event: MouseEvent) {
+    console.log('Delete clicked', $event);
   }
 }
