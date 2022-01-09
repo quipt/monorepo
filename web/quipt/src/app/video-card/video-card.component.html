@@ -1,9 +1,9 @@
 <header fxLayout="row">
-    <mat-icon>info</mat-icon>
-    <div>{{caption}}</div>
-    <mat-icon>delete</mat-icon>
+    <div><mat-icon>info</mat-icon></div>
+    <div fxFlex>{{caption}}</div>
+    <div><mat-icon>delete</mat-icon></div>
 </header>
 <div>
-    <video width="320" [src]="sanitizeUrl(source)" (click)="onClick($event)">
+    <video height="240" width="320" [src]="source" (click)="onClick($event)" style="border: 1px solid red">
     </video>
 </div>

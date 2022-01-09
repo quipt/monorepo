@@ -7,9 +7,10 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
   styleUrls: ['./video-card.component.scss'],
 })
 export class VideoCardComponent implements OnInit {
-  @Input() source = '';
+  @Input() source: string | SafeUrl = '';
   @Input() poster = '';
   @Input() caption = '';
+  @Input() file?: File;
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -21,12 +22,5 @@ export class VideoCardComponent implements OnInit {
     ($event.target as HTMLVideoElement).play();
 
     return false;
-  }
-
-  sanitizeUrl(url: string): SafeUrl | string {
-    if (!url.startsWith('blob')) {
-      return url;
-    }
-    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

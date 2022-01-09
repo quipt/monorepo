@@ -26,8 +26,9 @@
 
     <div fxLayout="row wrap" fxLayoutAlign="center">
         <div *ngFor="let clip of clips;">
-            <app-video-card source="{{clip.source}}" caption="{{clip.caption}}" poster="{{clip.poster}}">
-            </app-video-card>
+            <app-video-card [source]="clip.source" [caption]="clip.caption"></app-video-card>
         </div>
     </div>
+
+    
 </div>

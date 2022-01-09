@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
 
@@ -82,10 +83,11 @@ interface Duplicate {
 }
 
 export interface Clip {
-  clipId: string;
+  clipId?: string;
   caption: string;
-  source: string;
+  source: string | SafeUrl;
   poster?: string;
+  hash: string;
 }
 
 @Component({
@@ -107,13 +109,18 @@ export class BoardComponent implements OnInit {
     private route: ActivatedRoute,
     private api: ApiService,
     private router: Router,
-    private config: ConfigService
+    private config: ConfigService,
+    public sanitizer: DomSanitizer
   ) {
     this.route.params.subscribe(params => {
       this.boardId = params.boardId;
     });
 
     this.mediaUri = config.mediaUri;
+  }
+
+  play($event: MouseEvent) {
+    ($event.target as HTMLVideoElement).play();
   }
 
   async ngOnInit(): Promise<void> {
@@ -183,60 +190,66 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  async calculateHash(file: File) {
+  async getIdOrUpload(file: File, hash: string) {
     const client = await this.api.hc();
+    const res = await client.mutate<CreateToken & Duplicate>({
+      mutation: CreateTokenMuation,
+      variables: {
+        hash,
+        size: file.size,
+      },
+    });
 
-    const reader = new FileReader();
-    reader.onload = async event => {
-      if (!event?.target?.result) {
-        return;
-      }
+    const clipId = res.data!.createToken.duplicate;
+    const caption = file.name.replace(/\.[^/.]+$/, '');
 
-      const hashBuf = await crypto.subtle.digest(
-        'SHA-256',
-        event.target.result as BufferSource
-      );
-      const hash = this.toHex(hashBuf);
-      const res = await client.mutate<CreateToken & Duplicate>({
-        mutation: CreateTokenMuation,
-        variables: {
-          hash,
-          size: file.size,
-        },
-      });
-
-      const clipId = res.data!.createToken.duplicate;
-      const caption = file.name.replace(/\.[^/.]+$/, '');
-      const source = `${this.mediaUri}${clipId}.mp4`;
-      const poster = `${this.mediaUri}${clipId}.png`;
-
-      if (clipId) {
-        this.clips.push({
-          caption,
-          clipId,
-          source,
-          poster,
-        });
-        return;
-      }
-
-      const blob = new Blob([event.target.result], {type: file.type});
-      const src = window.URL.createObjectURL(blob);
-
+    if (clipId) {
       this.clips.push({
         caption,
-        clipId: res.data!.createToken.key,
-        source: src,
+        clipId,
+        source: `${this.mediaUri}${clipId}.mp4`,
+        poster: `${this.mediaUri}${clipId}.png`,
+        hash,
       });
+      return;
+    }
 
-      // await this.uploadFile(
-      //   file,
-      //   hash,
-      //   res.data!.createToken.key,
-      //   res.data!.createToken.fields
-      // );
-    };
-    reader.readAsArrayBuffer(file);
+    this.clips.push({
+      caption,
+      clipId: res.data!.createToken.key,
+      source: this.sanitizer.bypassSecurityTrustUrl(
+        window.URL.createObjectURL(file)
+      ),
+      hash,
+    });
+
+    // await this.uploadFile(
+    //   file,
+    //   hash,
+    //   res.data!.createToken.key,
+    //   res.data!.createToken.fields
+    // );
+  }
+
+  async calculateHash(file: File) {
+    const result = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = event => {
+        if (!event?.target?.result) {
+          return reject();
+        }
+
+        return resolve(event.target.result);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+
+    const hashBuf = await crypto.subtle.digest(
+      'SHA-256',
+      result as BufferSource
+    );
+
+    return this.toHex(hashBuf);
   }
 
   async onFileDropped($event: DragEvent) {
@@ -250,10 +263,14 @@ export class BoardComponent implements OnInit {
 
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i)!;
+      const hash = await this.calculateHash(file);
 
-      // calculate hash
-      await this.calculateHash(file);
-      // createToken
+      if (this.clips.some(clip => clip.hash === hash)) {
+        // Show snackbar message saying duplicate found
+        return;
+      }
+
+      await this.getIdOrUpload(file, hash);
     }
 
     return false;
