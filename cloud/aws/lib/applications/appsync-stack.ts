@@ -208,6 +208,18 @@ export class AppsyncStack extends cdk.Stack {
       },
     });
 
+    boardsTable.addGlobalSecondaryIndex({
+      indexName: 'owner-id',
+      partitionKey: {
+        name: 'owner',
+        type: dynamodb.AttributeType.STRING,
+      },
+      sortKey: {
+        name: 'id',
+        type: dynamodb.AttributeType.STRING,
+      },
+    });
+
     const hashesTable = new dynamodb.Table(this, 'HashesTable', {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       partitionKey: {
