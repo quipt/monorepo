@@ -41,7 +41,7 @@ type Board {
   owner: String
   created: AWSDateTime
   updated: AWSDateTime
-  favorites: Number
+  favorites: Int
   # favorited: Boolean
   clips: [Clip]
 }
