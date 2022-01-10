@@ -1,3 +1,5 @@
+import {AppSyncResolverEvent, Context} from 'aws-lambda';
+
 import createBoard, {CreateBoardInput} from './boards/createBoard';
 import deleteBoard from './boards/deleteBoard';
 import getBoardById from './boards/getBoardById';
@@ -5,8 +7,8 @@ import listBoards from './boards/listBoards';
 import updateBoard, {UpdateBoardInput} from './boards/updateBoard';
 import createToken from './tokens/createToken';
 import createClips, {CreateClipsInput} from './clips/createClips';
-
-import {AppSyncResolverEvent, Context} from 'aws-lambda';
+import createFavorite from './favorites/createFavorite';
+import deleteFavorite from './favorites/deleteFavorite';
 
 type Event = {
   info: {
@@ -49,6 +51,10 @@ export async function handler(event: Event, context: Context) {
         event.arguments.clips,
         sub
       );
+    case 'createFavorite':
+      return await createFavorite(event.arguments.boardId, sub);
+    case 'deleteFavorite':
+      return await deleteFavorite(event.arguments.boardId, sub);
     default:
       return null;
   }

@@ -22,9 +22,23 @@ export default async function getBoardById(id: String) {
       })
       .promise();
 
+    const favorites = await docClient
+      .query({
+        TableName: process.env.FAVORITES_TABLE!,
+        KeyConditionExpression: '#0 = :0',
+        ExpressionAttributeNames: {
+          '#0': 'boardId',
+        },
+        ExpressionAttributeValues: {
+          ':0': id,
+        },
+      })
+      .promise();
+
     return {
       ...Item,
       clips: clips.Items,
+      favorites: favorites.Count,
     };
   } catch (err) {
     console.error('DynamoDB error: ', err);

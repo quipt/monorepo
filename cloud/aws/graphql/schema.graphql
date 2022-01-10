@@ -41,7 +41,7 @@ type Board {
   owner: String
   created: AWSDateTime
   updated: AWSDateTime
-  # favorites: Number
+  favorites: Number
   # favorited: Boolean
   clips: [Clip]
 }
@@ -54,6 +54,12 @@ input CreateBoardInput {
 input UpdateBoardInput {
   id: ID!
   title: String
+}
+
+type Favorite {
+  boardId: ID!
+  userId: String
+  created: AWSDateTime
 }
 
 type Query {
@@ -69,6 +75,8 @@ type Mutation {
   createToken(hash: String!, size: Int!): TokenResult!
 
   createClips(boardId: ID!, clips: [ClipsInput!]): [Clip]
+  createFavorite(boardId: ID!): Favorite
+  deleteFavorite(boardId: ID!): Favorite
 }
 
 # type Subscription {
