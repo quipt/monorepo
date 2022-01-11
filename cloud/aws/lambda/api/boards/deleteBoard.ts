@@ -16,7 +16,40 @@ export default async function deleteBoard(id: string, owner: string) {
     },
   };
   try {
+    const clips = await docClient
+      .query({
+        TableName: process.env.CLIPS_TABLE!,
+        KeyConditionExpression: '#0 = :0',
+        ExpressionAttributeNames: {
+          '#0': 'boardId',
+        },
+        ExpressionAttributeValues: {
+          ':0': id,
+        },
+      })
+      .promise();
+
+    if (clips.Items?.length) {
+      await docClient
+        .batchWrite({
+          RequestItems: {
+            [process.env.CLIPS_TABLE!]: clips.Items.map(clip => {
+              return {
+                DeleteRequest: {
+                  Key: {
+                    boardId: clip.boardId,
+                    clipId: clip.clipId,
+                  },
+                },
+              };
+            }),
+          },
+        })
+        .promise();
+    }
+
     await docClient.delete(params).promise();
+
     return id;
   } catch (err) {
     console.error('DynamoDB error: ', err);
