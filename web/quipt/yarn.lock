@@ -284,15 +284,15 @@
   resolved "https://registry.yarnpkg.com/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-"@auth0/auth0-angular@^1.6.0":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-angular/-/auth0-angular-1.8.1.tgz#70ed6e0c017638beafccd6e596b2513a4a3d0b14"
-  integrity sha512-IP5910NwXo2GMVP5nt8yHFAhgLpQ00nDfFl7nnrtOk2Hcllb9xsvwENnvT0DYu4MITttkiepe4uj5rzbfLfwOQ==
+"@auth0/auth0-angular@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-angular/-/auth0-angular-1.8.2.tgz#685a649b46fd4ee4486fbab14262b517e661e804"
+  integrity sha512-4SQI+nk6VSsmRe7V7RXWRq1JeV9LTpIVXInNNnRgwTGwaSFOW7d17Svs4KWwgUYBCKDg1lH2jmKMjSSOyQHvxg==
   dependencies:
-    "@auth0/auth0-spa-js" "^1.16.0"
+    "@auth0/auth0-spa-js" "^1.19.3"
     tslib "^2.0.0"
 
-"@auth0/auth0-spa-js@^1.16.0":
+"@auth0/auth0-spa-js@^1.19.3":
   version "1.19.3"
   resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.19.3.tgz#74c2791d49e809da803e9aca183880b0e238cd79"
   integrity sha512-w6GzjgbktbdDDpkH5ZuHe/lcVrP0dfkW+398zPErk4VBpcGLhiHOp1AwrF6QE8K0anX8O05nqgEPLbKzrgnYPQ==
