@@ -16,6 +16,8 @@ export default async function deleteBoard(id: string, owner: string) {
     },
   };
   try {
+    await docClient.delete(params).promise();
+
     const clips = await docClient
       .query({
         TableName: process.env.CLIPS_TABLE!,
@@ -47,8 +49,6 @@ export default async function deleteBoard(id: string, owner: string) {
         })
         .promise();
     }
-
-    await docClient.delete(params).promise();
 
     return id;
   } catch (err) {
