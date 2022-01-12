@@ -221,6 +221,20 @@ export class AppsyncStack extends cdk.Stack {
       fieldName: 'deleteFavorite',
     });
 
+    new appsync.CfnResolver(this, 'updateClipResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Mutation',
+      fieldName: 'updateClip',
+    });
+
+    new appsync.CfnResolver(this, 'deleteClipResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Mutation',
+      fieldName: 'deleteClip',
+    });
+
     const boardsTable = new dynamodb.Table(this, 'BoardsTable', {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       partitionKey: {

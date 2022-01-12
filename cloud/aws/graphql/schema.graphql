@@ -76,6 +76,9 @@ type Mutation {
   createToken(hash: String!, size: Int!): TokenResult!
 
   createClips(boardId: ID!, clips: [ClipsInput!]): [Clip]
+  updateClip(boardId: ID!, clip: ClipsInput!): Clip
+  deleteClip(boardId: ID!, clipId: ID!): ID
+
   createFavorite(boardId: ID!): Favorite
   deleteFavorite(boardId: ID!): Favorite
 }

@@ -10,6 +10,8 @@ import createClips, {CreateClipsInput} from './clips/createClips';
 import createFavorite from './favorites/createFavorite';
 import deleteFavorite from './favorites/deleteFavorite';
 import getFavorite from './favorites/getFavorite';
+import updateClip from './clips/updateClip';
+import deleteClip from './clips/deleteClip';
 
 type Event = {
   info: {
@@ -25,6 +27,11 @@ type Event = {
     size: number;
     boardId: string;
     clips: CreateClipsInput;
+    clip: {
+      clipId: string;
+      caption: string;
+    };
+    clipId: string;
   };
 };
 
@@ -50,6 +57,18 @@ export async function handler(event: Event, context: Context) {
       return await createClips(
         event.arguments.boardId,
         event.arguments.clips,
+        sub
+      );
+    case 'updateClip':
+      return await updateClip(
+        event.arguments.boardId,
+        event.arguments.clip,
+        sub
+      );
+    case 'deleteClip':
+      return await deleteClip(
+        event.arguments.boardId,
+        event.arguments.clipId,
         sub
       );
     case 'createFavorite':
