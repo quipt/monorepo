@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {SafeUrl} from '@angular/platform-browser';
 
 @Component({
@@ -11,6 +11,7 @@ export class VideoCardComponent implements OnInit {
   @Input() source: string | SafeUrl = '';
   @Input() poster = '';
   @Input() caption = '';
+  @Output() deleteEvent = new EventEmitter<string>();
 
   constructor() {}
 
@@ -25,6 +26,7 @@ export class VideoCardComponent implements OnInit {
   }
 
   onDelete($event: MouseEvent, clipId: string) {
+    this.deleteEvent.emit(clipId);
     console.log('Delete clicked', $event, clipId);
   }
 }

@@ -71,6 +71,12 @@ const CreateClipsMutation = gql`
   }
 `;
 
+const DeleteClipMutation = gql`
+  mutation DeleteClipMutation($boardId: ID!, $clipId: ID!) {
+    deleteClip(boardId: $boardId, clipId: $clipId)
+  }
+`
+
 const CreateFavoriteMutation = gql`
   mutation CreateFavoriteMutation($boardId: ID!) {
     createFavorite(boardId: $boardId) {
@@ -401,5 +407,19 @@ export class BoardComponent implements OnInit {
   onDragOver($event: DragEvent) {
     $event.preventDefault();
     return false;
+  }
+
+  async deleteClip(clipId: string) {
+    const client = await this.api.hc();
+    const index = this.clips.findIndex(clip => clip.clipId === clipId);
+    this.clips.splice(index, 1);
+
+    await client.mutate({
+      mutation: DeleteClipMutation,
+      variables: {
+        boardId: this.boardId,
+        clipId,
+      },
+    });
   }
 }

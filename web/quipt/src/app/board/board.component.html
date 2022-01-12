@@ -26,7 +26,7 @@
 
     <div fxLayout="row wrap" fxLayoutAlign="center">
         <div *ngFor="let clip of clips;">
-            <app-video-card [source]="clip.source" [caption]="clip.caption" [clipId]="clip.clipId"></app-video-card>
+            <app-video-card [source]="clip.source" [caption]="clip.caption" [clipId]="clip.clipId" (deleteEvent)="deleteClip($event)"></app-video-card>
         </div>
     </div>
 
