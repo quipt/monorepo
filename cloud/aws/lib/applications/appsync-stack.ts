@@ -165,6 +165,13 @@ export class AppsyncStack extends cdk.Stack {
       fieldName: 'listBoards',
     });
 
+    new appsync.CfnResolver(this, 'getFavoriteResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Query',
+      fieldName: 'getFavorite',
+    });
+
     new appsync.CfnResolver(this, 'createBoardResolver', {
       apiId: api.attrApiId,
       dataSourceName: dataSource.name,
@@ -212,13 +219,6 @@ export class AppsyncStack extends cdk.Stack {
       dataSourceName: dataSource.name,
       typeName: 'Mutation',
       fieldName: 'deleteFavorite',
-    });
-
-    new appsync.CfnResolver(this, 'getFavoriteResolver', {
-      apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
-      typeName: 'Query',
-      fieldName: 'getFavorite',
     });
 
     const boardsTable = new dynamodb.Table(this, 'BoardsTable', {
