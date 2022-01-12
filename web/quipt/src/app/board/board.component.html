@@ -8,7 +8,7 @@
         <div fxLayout="row" fxLayoutAlign="space-around center">
             <mat-card fxLayout="row" fxLayoutAlign="center">
                 <mat-icon>movie</mat-icon>
-                <div>{{clipCount}}</div>
+                <div>{{clips.length}}</div>
             </mat-card>
             <mat-card fxLayout="row" fxLayoutAlign="center">
                 <button mat-button (click)="onFavoriteClick()">
@@ -26,7 +26,7 @@
 
     <div fxLayout="row wrap" fxLayoutAlign="center">
         <div *ngFor="let clip of clips;">
-            <app-video-card [source]="clip.source" [caption]="clip.caption"></app-video-card>
+            <app-video-card [source]="clip.source" [caption]="clip.caption" [clipId]="clip.clipId"></app-video-card>
         </div>
     </div>
 

@@ -14,10 +14,19 @@ const GetBoardByIdQuery = gql`
       owner
       created
       updated
+      favorites
       clips {
         caption
         clipId
       }
+    }
+  }
+`;
+
+const GetFavoriteQuery = gql`
+  query getFavorite($boardId: ID!) {
+    getFavorite(boardId: $boardId) {
+      created
     }
   }
 `;
@@ -62,6 +71,22 @@ const CreateClipsMutation = gql`
   }
 `;
 
+const CreateFavoriteMutation = gql`
+  mutation CreateFavoriteMutation($boardId: ID!) {
+    createFavorite(boardId: $boardId) {
+      created
+    }
+  }
+`;
+
+const DeleteFavoriteMutation = gql`
+  mutation DeleteFavoriteMutation($boardId: ID!) {
+    deleteFavorite(boardId: $boardId) {
+      created
+    }
+  }
+`;
+
 interface Clip {
   clipId: string;
   caption: string;
@@ -71,11 +96,20 @@ interface Board {
   id: string;
   owner: string;
   title: string;
+  favorites: number;
   clips: Clip[];
 }
 
 interface GetBoardById {
   getBoardById: Board;
+}
+
+interface Favorite {
+  created: string;
+}
+
+interface GetFavorite {
+  getFavorite: Favorite;
 }
 
 interface Fields {
@@ -156,7 +190,9 @@ export class BoardComponent implements OnInit {
       if (!data) {
         return console.log('GetBoardById - no data');
       }
+
       this.title = data.getBoardById.title;
+      this.favorites = data.getBoardById.favorites;
 
       this.clips = data.getBoardById.clips!.map(clip => ({
         ...clip,
@@ -164,10 +200,39 @@ export class BoardComponent implements OnInit {
         poster: `${this.mediaUri}${clip.clipId}.png`,
       }));
     });
+
+    const res = await client.query<GetFavorite>({
+      query: GetFavoriteQuery,
+      variables: {
+        boardId: this.boardId,
+      },
+      fetchPolicy: 'network-only',
+    });
+
+    if (res.data.getFavorite) {
+      this.favorited = true;
+    }
   }
 
-  onFavoriteClick() {
+  async onFavoriteClick() {
     // API Call
+    const client = await this.api.hc();
+
+    if (this.favorited) {
+      await client.mutate({
+        mutation: DeleteFavoriteMutation,
+        variables: {
+          boardId: this.boardId,
+        },
+      });
+    } else {
+      await client.mutate({
+        mutation: CreateFavoriteMutation,
+        variables: {
+          boardId: this.boardId,
+        },
+      });
+    }
 
     this.favorited = !this.favorited;
     this.favorites += this.favorited ? 1 : -1;
