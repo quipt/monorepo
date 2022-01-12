@@ -63,6 +63,7 @@ type Favorite {
 }
 
 type Query {
+  getFavorite(boardId: ID!): Favorite
   getBoardById(id: String!): Board
   listBoards(nextToken: String): [Board]
 }

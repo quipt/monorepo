@@ -9,6 +9,7 @@ import createToken from './tokens/createToken';
 import createClips, {CreateClipsInput} from './clips/createClips';
 import createFavorite from './favorites/createFavorite';
 import deleteFavorite from './favorites/deleteFavorite';
+import getFavorite from './favorites/getFavorite';
 
 type Event = {
   info: {
@@ -55,6 +56,8 @@ export async function handler(event: Event, context: Context) {
       return await createFavorite(event.arguments.boardId, sub);
     case 'deleteFavorite':
       return await deleteFavorite(event.arguments.boardId, sub);
+    case 'getFavorite':
+      return await getFavorite(event.arguments.boardId, sub);
     default:
       return null;
   }
