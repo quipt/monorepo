@@ -7,7 +7,9 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="space-around center">
             <mat-card fxLayout="row" fxLayoutAlign="center">
-                <mat-icon>movie</mat-icon>
+                <button mat-button>
+                    <mat-icon>movie</mat-icon>
+                </button>
                 <div>{{clips.length}}</div>
             </mat-card>
             <mat-card fxLayout="row" fxLayoutAlign="center">
@@ -16,7 +18,7 @@
                 </button>
                 <div>{{favorites}}</div>
             </mat-card>
-            <mat-card fxLayout="row" fxLayoutAlign="center">
+            <mat-card fxLayout="row" fxLayoutAlign="center" *ngIf="canEdit">
                 <button mat-button (click)="onDeleteClick()">
                     <mat-icon>delete</mat-icon>
                 </button>
