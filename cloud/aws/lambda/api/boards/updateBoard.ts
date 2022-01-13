@@ -10,12 +10,14 @@ async function updateBoard(board: UpdateBoardInput, owner: string) {
     Key: {
       id: board.id,
     },
-    ExpressionAttributeValues: {
-      ':owner': owner,
+    ExpressionAttributeNames: {
+      '#0': 'owner',
     },
-    ExpressionAttributeNames: {},
+    ExpressionAttributeValues: {
+      ':0': owner,
+    },
+    ConditionExpression: '#0 = :0',
     UpdateExpression: '',
-    ConditionExpression: 'owner = :owner',
     ReturnValues: 'UPDATED_NEW',
   };
   let prefix = 'set ';

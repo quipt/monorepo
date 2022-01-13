@@ -24,6 +24,14 @@ const GetBoardByIdQuery = gql`
   }
 `;
 
+const UpdateBoardMutation = gql`
+  mutation UpdateBoard($board: UpdateBoardInput!) {
+    updateBoard(board: $board) {
+      title
+    }
+  }
+`;
+
 const GetFavoriteQuery = gql`
   query getFavorite($boardId: ID!) {
     getFavorite(boardId: $boardId) {
@@ -447,6 +455,23 @@ export class BoardComponent implements OnInit {
       variables: {
         boardId: this.boardId,
         clip,
+      },
+    });
+  }
+
+  async titleChanged($event: FocusEvent) {
+    console.log($event);
+
+    const client = await this.api.hc();
+    const title = ($event.target as HTMLSpanElement).innerText;
+
+    await client.mutate({
+      mutation: UpdateBoardMutation,
+      variables: {
+        board: {
+          id: this.boardId,
+          title,
+        },
       },
     });
   }

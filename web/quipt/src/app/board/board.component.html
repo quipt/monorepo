@@ -3,7 +3,7 @@
         <div fxLayout="row" fxLayoutAlign="center">
             <span><a routerLink="/{{username}}">{{username}}</a></span>
             <mat-icon>chevron_right</mat-icon>
-            <span>{{title}}</span>
+            <span [attr.contenteditable]="canEdit" (blur)="titleChanged($event)">{{title}}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-around center">
             <mat-card fxLayout="row" fxLayoutAlign="center">
