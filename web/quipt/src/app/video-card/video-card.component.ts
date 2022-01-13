@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {SafeUrl} from '@angular/platform-browser';
+import {Clip} from '../board/board.component';
 
 @Component({
   selector: 'app-video-card',
@@ -7,11 +8,13 @@ import {SafeUrl} from '@angular/platform-browser';
   styleUrls: ['./video-card.component.scss'],
 })
 export class VideoCardComponent implements OnInit {
+  @Input() canEdit = false;
   @Input() clipId = '';
   @Input() source: string | SafeUrl = '';
   @Input() poster = '';
   @Input() caption = '';
   @Output() deleteEvent = new EventEmitter<string>();
+  @Output() captionChangedEvent = new EventEmitter<Clip>();
 
   constructor() {}
 
@@ -27,6 +30,13 @@ export class VideoCardComponent implements OnInit {
 
   onDelete($event: MouseEvent, clipId: string) {
     this.deleteEvent.emit(clipId);
-    console.log('Delete clicked', $event, clipId);
+  }
+
+  onBlur($event: FocusEvent) {
+    const text = ($event.target as HTMLDivElement).innerText;
+    this.captionChangedEvent.emit({
+      clipId: this.clipId,
+      caption: text,
+    });
   }
 }

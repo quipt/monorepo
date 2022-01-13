@@ -1,7 +1,7 @@
 <header fxLayout="row">
     <div><mat-icon>info</mat-icon></div>
-    <div fxFlex class="caption">{{caption}}</div>
-    <div><mat-icon (click)="onDelete($event, clipId)">delete</mat-icon></div>
+    <div fxFlex class="caption" [attr.contenteditable]="canEdit" (blur)="onBlur($event)">{{caption}}</div>
+    <div><mat-icon *ngIf="canEdit" (click)="onDelete($event, clipId)">delete</mat-icon></div>
 </header>
 <div>
     <video height="240" width="320" [src]="source" (click)="onClick($event)" style="border: 1px solid red" playsinline>

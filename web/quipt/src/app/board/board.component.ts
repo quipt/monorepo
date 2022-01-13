@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {AuthService} from '@auth0/auth0-angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
 
@@ -75,7 +76,15 @@ const DeleteClipMutation = gql`
   mutation DeleteClipMutation($boardId: ID!, $clipId: ID!) {
     deleteClip(boardId: $boardId, clipId: $clipId)
   }
-`
+`;
+
+const UpdateClipMutation = gql`
+  mutation UpdateClipMutation($boardId: ID!, $clip: ClipsInput!) {
+    updateClip(boardId: $boardId, clip: $clip) {
+      caption
+    }
+  }
+`;
 
 const CreateFavoriteMutation = gql`
   mutation CreateFavoriteMutation($boardId: ID!) {
@@ -93,7 +102,7 @@ const DeleteFavoriteMutation = gql`
   }
 `;
 
-interface Clip {
+export interface Clip {
   clipId: string;
   caption: string;
 }
@@ -161,7 +170,9 @@ export class BoardComponent implements OnInit {
   clipCount = 0;
   favorites = 0;
   favorited = false;
+  canEdit = false;
   boardId = '';
+  owner = '';
   clips: Video[] = [];
 
   constructor(
@@ -169,7 +180,8 @@ export class BoardComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private config: ConfigService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    public auth: AuthService
   ) {
     this.route.params.subscribe(params => {
       this.boardId = params.boardId;
@@ -199,6 +211,10 @@ export class BoardComponent implements OnInit {
 
       this.title = data.getBoardById.title;
       this.favorites = data.getBoardById.favorites;
+      this.owner = data.getBoardById.owner;
+      this.auth.user$.subscribe(
+        user => (this.canEdit = this.owner === user?.sub)
+      );
 
       this.clips = data.getBoardById.clips!.map(clip => ({
         ...clip,
@@ -419,6 +435,18 @@ export class BoardComponent implements OnInit {
       variables: {
         boardId: this.boardId,
         clipId,
+      },
+    });
+  }
+
+  async captionChanged(clip: Clip) {
+    const client = await this.api.hc();
+
+    await client.mutate({
+      mutation: UpdateClipMutation,
+      variables: {
+        boardId: this.boardId,
+        clip,
       },
     });
   }
