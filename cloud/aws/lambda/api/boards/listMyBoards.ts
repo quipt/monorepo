@@ -17,8 +17,8 @@ export default async function listMyBoards(sub: string, nextToken?: string) {
   if (nextToken) {
     params.ExclusiveStartKey = {
       owner: sub,
-      id: nextToken
-    }
+      id: nextToken,
+    };
   }
 
   try {
