@@ -165,6 +165,13 @@ export class AppsyncStack extends cdk.Stack {
       fieldName: 'listBoards',
     });
 
+    new appsync.CfnResolver(this, 'listMyBoardsResolver', {
+      apiId: api.attrApiId,
+      dataSourceName: dataSource.name,
+      typeName: 'Query',
+      fieldName: 'listMyBoards',
+    });
+
     new appsync.CfnResolver(this, 'getFavoriteResolver', {
       apiId: api.attrApiId,
       dataSourceName: dataSource.name,

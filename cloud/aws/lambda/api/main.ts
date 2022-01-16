@@ -12,6 +12,7 @@ import deleteFavorite from './favorites/deleteFavorite';
 import getFavorite from './favorites/getFavorite';
 import updateClip from './clips/updateClip';
 import deleteClip from './clips/deleteClip';
+import listMyBoards from './boards/listMyBoards';
 
 type Event = {
   info: {
@@ -32,6 +33,7 @@ type Event = {
       caption: string;
     };
     clipId: string;
+    nextToken?: string;
   };
 };
 
@@ -47,6 +49,8 @@ export async function handler(event: Event, context: Context) {
       return await createBoard(event.arguments.board, sub);
     case 'listBoards':
       return await listBoards();
+    case 'listMyBoards':
+      return await listMyBoards(sub, event.arguments.nextToken);
     case 'deleteBoard':
       return await deleteBoard(event.arguments.id, sub);
     case 'updateBoard':

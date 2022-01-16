@@ -62,10 +62,21 @@ type Favorite {
   created: AWSDateTime
 }
 
+type BoardKey {
+  owner: String
+  id: ID!
+}
+
+type BoardsList {
+  LastEvalulatedKey: BoardKey
+  Items: [Board]
+}
+
 type Query {
   getFavorite(boardId: ID!): Favorite
   getBoardById(id: String!): Board
   listBoards(nextToken: String): [Board]
+  listMyBoards(nextToken: String): BoardsList
 }
 
 type Mutation {
