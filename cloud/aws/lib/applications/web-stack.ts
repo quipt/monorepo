@@ -99,6 +99,11 @@ export class WebStack extends cdk.Stack {
           ],
           errorConfigurations: [
             {
+              errorCode: 403,
+              responseCode: 403,
+              responsePagePath: '/index.html',
+            },
+            {
               errorCode: 404,
               responseCode: 404,
               responsePagePath: '/index.html',
