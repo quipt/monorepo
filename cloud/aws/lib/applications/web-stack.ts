@@ -83,6 +83,7 @@ export class WebStack extends cdk.Stack {
         this,
         'Distribution',
         {
+          defaultRootObject: 'index.html',
           originConfigs: [
             {
               s3OriginSource: {
@@ -94,6 +95,13 @@ export class WebStack extends cdk.Stack {
                   isDefaultBehavior: true,
                 },
               ],
+            },
+          ],
+          errorConfigurations: [
+            {
+              errorCode: 404,
+              responseCode: 404,
+              responsePagePath: '/index.html',
             },
           ],
           priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
