@@ -412,8 +412,10 @@ export class BoardComponent implements OnInit {
   async onFileDropped($event: DragEvent) {
     $event.preventDefault();
 
-    const files = $event?.dataTransfer?.files;
+    return await this.processFiles($event?.dataTransfer?.files);
+  }
 
+  async processFiles(files?: FileList) {
     if (!files?.length) {
       return false;
     }
@@ -485,8 +487,6 @@ export class BoardComponent implements OnInit {
   }
 
   async titleChanged($event: FocusEvent) {
-    console.log($event);
-
     const client = await this.api.hc();
     const title = ($event.target as HTMLSpanElement).innerText;
 
@@ -499,5 +499,17 @@ export class BoardComponent implements OnInit {
         },
       },
     });
+  }
+
+  openFileDialog() {
+    (document.querySelector('#file') as HTMLInputElement).click();
+  }
+
+  async fileInputChanged($event: Event) {
+    const target = $event.target as HTMLInputElement;
+    if (!target.files) {
+      return false;
+    }
+    return await this.processFiles(target.files);
   }
 }
