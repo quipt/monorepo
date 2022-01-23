@@ -3,7 +3,7 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {AuthService} from '@auth0/auth0-angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 import gql from 'graphql-tag';
 import {ConfigService} from '../config.service';
 
@@ -182,6 +182,7 @@ export class BoardComponent implements OnInit {
   boardId = '';
   owner = '';
   clips: Video[] = [];
+  snackBarDuration = 3;
 
   constructor(
     private route: ActivatedRoute,
@@ -189,7 +190,8 @@ export class BoardComponent implements OnInit {
     private router: Router,
     private config: ConfigService,
     public sanitizer: DomSanitizer,
-    public auth: AuthService
+    public auth: AuthService,
+    private _snackBar: MatSnackBar
   ) {
     this.route.params.subscribe(params => {
       this.boardId = params.boardId;
@@ -326,6 +328,7 @@ export class BoardComponent implements OnInit {
     if (clipId) {
       // No duplicates allowed
       if (this.clips.some(clip => clip.clipId === clipId)) {
+        this._snackBar.open('Duplicate found', 'Close', { duration: this.snackBarDuration * 1000 });
         return;
       }
 
@@ -414,7 +417,9 @@ export class BoardComponent implements OnInit {
     }
 
     if (!this.canEdit) {
-      // TODO: Show snackbar message
+      this._snackBar.open('Cannot edit. Please choose one of your own boards to upload to', 'Close', {
+        duration: this.snackBarDuration * 1000,
+      });
       return false;
     }
 
@@ -423,12 +428,12 @@ export class BoardComponent implements OnInit {
       const hash = await this.calculateHash(file);
 
       if (file.size > 0x3200000) {
-        // TODO: Show snackbar message saying size is above 50 MB
+        this._snackBar.open('Size is above 50MB', 'Close', { duration: this.snackBarDuration * 1000 });
         continue;
       }
 
       if (this.clips.some(clip => clip.hash === hash)) {
-        // TODO: Show snackbar message saying duplicate found
+        this._snackBar.open('Duplicate found', 'Close', { duration: this.snackBarDuration * 1000 });
         continue;
       }
 

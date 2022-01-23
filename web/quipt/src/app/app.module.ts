@@ -9,6 +9,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
@@ -57,6 +58,7 @@ import {MyboardsComponent} from './myboards/myboards.component';
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
+    MatSnackBarModule,
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
