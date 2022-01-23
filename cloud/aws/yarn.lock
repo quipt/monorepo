@@ -1707,9 +1707,9 @@ configstore@^5.0.1:
     xdg-basedir "^4.0.0"
 
 constructs@^10.0.41:
-  version "10.0.41"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.41.tgz#4deeb04baf2502110807f2d028cedd5a18bf326a"
-  integrity sha512-h8HytpdxtuO9PPndcvZGX90Silp9lCWxf0XlzGhWOGpZchIyDFR+pqy4n0eiyEsPcclPF0CMfCA3UcGugu3+vw==
+  version "10.0.42"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.42.tgz#b7b5926a209b323e9a3712deef9428cbd41779aa"
+  integrity sha512-NC/OGRj9a+TCBAuJP6jV99CFMtKEhyRmfMmyKX2WDdbedmmjKk0C2TXgaqGUqsj9PbS0guGP8B4cMIRzmf/7Xg==
 
 convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   version "1.7.0"
