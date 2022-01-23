@@ -25,6 +25,16 @@ export default async function createToken(
   size: number,
   originalUploader: string
 ) {
+  // Validate hash
+  if (!/^[0-9a-f]{64}$/.test(hash)) {
+    return null;
+  }
+
+  // Validate size
+  if (size > 0x3200000) {
+    return null;
+  }
+
   const hashItem = await checkIfExists(hash);
 
   if (hashItem?.id && hashItem?.uploadPending === false) {
