@@ -328,7 +328,9 @@ export class BoardComponent implements OnInit {
     if (clipId) {
       // No duplicates allowed
       if (this.clips.some(clip => clip.clipId === clipId)) {
-        this._snackBar.open('Duplicate found', 'Close', { duration: this.snackBarDuration * 1000 });
+        this._snackBar.open('Duplicate found', 'Close', {
+          duration: this.snackBarDuration * 1000,
+        });
         return;
       }
 
@@ -417,9 +419,13 @@ export class BoardComponent implements OnInit {
     }
 
     if (!this.canEdit) {
-      this._snackBar.open('Cannot edit. Please choose one of your own boards to upload to', 'Close', {
-        duration: this.snackBarDuration * 1000,
-      });
+      this._snackBar.open(
+        'Cannot edit. Please choose one of your own boards to upload to',
+        'Close',
+        {
+          duration: this.snackBarDuration * 1000,
+        }
+      );
       return false;
     }
 
@@ -428,12 +434,16 @@ export class BoardComponent implements OnInit {
       const hash = await this.calculateHash(file);
 
       if (file.size > 0x3200000) {
-        this._snackBar.open('Size is above 50MB', 'Close', { duration: this.snackBarDuration * 1000 });
+        this._snackBar.open('Size is above 50MB', 'Close', {
+          duration: this.snackBarDuration * 1000,
+        });
         continue;
       }
 
       if (this.clips.some(clip => clip.hash === hash)) {
-        this._snackBar.open('Duplicate found', 'Close', { duration: this.snackBarDuration * 1000 });
+        this._snackBar.open('Duplicate found', 'Close', {
+          duration: this.snackBarDuration * 1000,
+        });
         continue;
       }
 
