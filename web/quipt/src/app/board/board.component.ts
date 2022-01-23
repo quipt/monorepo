@@ -417,6 +417,11 @@ export class BoardComponent implements OnInit {
       const file = files.item(i)!;
       const hash = await this.calculateHash(file);
 
+      if (file.size > 0x3200000) {
+        // Show toast saying size is above 50 MB
+        continue;
+      }
+
       if (this.clips.some(clip => clip.hash === hash)) {
         // Show snackbar message saying duplicate found
         continue;
