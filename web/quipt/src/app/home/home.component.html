@@ -1,6 +1,6 @@
 <p i18n>Welcome to Quipt</p>
 <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-  <p>You are logged in!</p>
+  <p>You are logged in! Check out your <a routerLink="/myboards">boards</a>.</p>
 </ng-container>
 <ng-template #loggedOut>
   <p>Please sign in to get started.</p>

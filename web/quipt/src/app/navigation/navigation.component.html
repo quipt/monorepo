@@ -3,7 +3,9 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar i18n>Quipt</mat-toolbar>
+    <mat-toolbar i18n>
+       <a routerLink="/" class="nounderline">Quipt</a>
+    </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/myboards" i18n>My Boards</a>
       <a mat-list-item routerLink="/allboards" i18n>All Boards</a>
