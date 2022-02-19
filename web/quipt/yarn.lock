@@ -284,10 +284,10 @@
   resolved "https://registry.yarnpkg.com/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-"@auth0/auth0-angular@^1.8.2":
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-angular/-/auth0-angular-1.8.2.tgz#685a649b46fd4ee4486fbab14262b517e661e804"
-  integrity sha512-4SQI+nk6VSsmRe7V7RXWRq1JeV9LTpIVXInNNnRgwTGwaSFOW7d17Svs4KWwgUYBCKDg1lH2jmKMjSSOyQHvxg==
+"@auth0/auth0-angular@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-angular/-/auth0-angular-1.9.0.tgz#9d7ef202ce5992602f4de729aebb89c0d760215e"
+  integrity sha512-KcNeNBvk6amj0an4XTzc88yaxPy1EfNwUXSij5uDyCzNh59cR/ZbWnuk7OIj38m7Q/jSoxHHFcgnBjL2AUs2BA==
   dependencies:
     "@auth0/auth0-spa-js" "^1.19.3"
     tslib "^2.0.0"
