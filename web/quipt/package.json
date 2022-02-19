@@ -30,7 +30,7 @@
     "@angular/router": "~13.1.1",
     "@apollo/client": "^3.5.8",
     "@auth0/auth0-angular": "^1.8.2",
-    "apollo-angular": "2.6.0",
+    "apollo-angular": "3.0.0",
     "aws-appsync": "^4.1.4",
     "graphql": "^15.5.1",
     "graphql-tag": "^2.12.6",
