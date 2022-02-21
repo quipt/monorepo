@@ -18,8 +18,7 @@
       "dom",
       "esnext.asynciterable"
     ],
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*.ts",
