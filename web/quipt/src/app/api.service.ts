@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ConfigService} from './config.service';
 import AWSAppSyncClient, {AUTH_TYPE} from 'aws-appsync';
 import {AuthService} from '@auth0/auth0-angular';
+import {lastValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class ApiService {
       auth: {
         type: AUTH_TYPE.OPENID_CONNECT,
         jwtToken: async () =>
-          await authService.getAccessTokenSilently().toPromise(),
+          await lastValueFrom(authService.getAccessTokenSilently()),
       },
     });
 

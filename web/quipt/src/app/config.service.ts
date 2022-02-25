@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpBackend} from '@angular/common/http';
 import {AuthClientConfig} from '@auth0/auth0-angular';
+import {firstValueFrom} from 'rxjs';
 
 interface AwsMobile {
   aws_appsync_graphqlEndpoint: string;
@@ -44,9 +45,9 @@ export class ConfigService {
   }
 
   public async load(): Promise<void> {
-    this.config = await this.http
-      .get<Config>('/assets/config.json')
-      .toPromise();
+    this.config = await firstValueFrom(
+      this.http.get<Config>('/assets/config.json')
+    );
 
     this.configureAuth0();
   }
