@@ -203,28 +203,28 @@
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-9.0.0.tgz#227dc53e1ac81824f998c6e76000b7efc522641e"
   integrity sha512-6Pxgsrf0qF9iFFqmIcWmjJGkkCaCm6V5QNnxMy2KloO3SDq6QuMVRbN9RtC8Urmo25LP+eZ6ZgYqFYpdD8Hd9w==
 
-"@angular/core@~13.2.4":
+"@angular/core@^13.2.4":
   version "13.2.4"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-13.2.4.tgz#c179a0b0e82881ee9ec98a3ba8c54e686bf6405b"
   integrity sha512-cCgf8Crx86hvZQX8lc7Yy5fedRI4trAXYsysrJ7ISRohfFk31Z/W5BEpKO8CkX51Ja5IfJPyoI2DVVTvrwzsEQ==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/flex-layout@~13.0.0-beta.38":
+"@angular/flex-layout@^13.0.0-beta.38":
   version "13.0.0-beta.38"
   resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-13.0.0-beta.38.tgz#b0993a255ba51d2cfd16537ba8a8d88c3adf6587"
   integrity sha512-kcWb7CcoHbvw7fjo/knizWVmSSmvaTnr8v1ML6zOdxu1PK9UPPOcOS8RTm6fy61zoC2LABivP1/6Z2jF5XfpdQ==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/forms@~13.2.4":
+"@angular/forms@^13.2.4":
   version "13.2.4"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-13.2.4.tgz#fb0edb063db555191ae5ac4ed7780f44469dec17"
   integrity sha512-XdWJZy4zfJ4ZGEhKZBceHAAozBQZPp1BRl7m2j09EV2I6l/nLdrYhgKGd4UBUtJWyXElPEuEgLiKKdmlPKF5eQ==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/localize@~13.2.4":
+"@angular/localize@^13.2.4":
   version "13.2.4"
   resolved "https://registry.yarnpkg.com/@angular/localize/-/localize-13.2.4.tgz#c4bb49c9e3ae8c1ac510c767cca48178abccbcfd"
   integrity sha512-y/VUla0GAppBmBfyWmpqJ/sPYT1fw5lGVWVMaCd5zYvNpRnIWim9APQ+BwBRgeMrmG6T6rH/2EdGx+crcwMuuQ==
@@ -233,7 +233,7 @@
     glob "7.2.0"
     yargs "^17.2.1"
 
-"@angular/material@~13.2.4":
+"@angular/material@^13.2.4":
   version "13.2.4"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-13.2.4.tgz#d2b0a17ab34d5be0e0d138634ee81d51c58aa9ee"
   integrity sha512-i6RnmapqcVlnIyQ/3+DQ3Ms52PhXYSLqsJLxguPfJi5GzcJL2DVGEYOtFWNmj8PfrHmgLyo+4r+SpPCIFEr0qQ==
