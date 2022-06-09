@@ -1758,10 +1758,10 @@ configstore@^5.0.1:
     write-file-atomic "^3.0.0"
     xdg-basedir "^4.0.0"
 
-constructs@^10.1.25:
-  version "10.1.25"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.25.tgz#f22a7670216c50b5ebd727245423d37ef8ec57d2"
-  integrity sha512-etUavUwFJ3oTxoP9ax8Dvzv47Nzk9QHRnubL3cEOxLATd8b0SOLFN4xB7FP6eEg/D+cI7rgXTOQH9Oj4rIhwqw==
+constructs@^10.1.33:
+  version "10.1.33"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.33.tgz#bb0715f09ef96a29c2654fd1afc3ac0e4606e2cb"
+  integrity sha512-OgqPYjBLbMFcaQ9bsdvF59orh46GNwg3tBdyOlhuWm8ljRxaQ2jEJ3XAj06I0/+sTAcsF9sZ9GAVmJIiCTnBkA==
 
 convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   version "1.7.0"
@@ -5166,10 +5166,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^4.7.2:
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.2.tgz#1f9aa2ceb9af87cca227813b4310fff0b51593c4"
-  integrity sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A==
+typescript@^4.7.3:
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.3.tgz#8364b502d5257b540f9de4c40be84c98e23a129d"
+  integrity sha512-WOkT3XYvrpXx4vMMqlD+8R8R37fZkjyLGlxavMc4iB8lrl8L0DeTcHbYgw/v0N/z9wAFsgBhcsF0ruoySS22mA==
 
 unique-string@^2.0.0:
   version "2.0.0"
