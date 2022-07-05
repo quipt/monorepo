@@ -2658,10 +2658,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
-"@types/node@*", "@types/node@>=10.0.0", "@types/node@^17.0.41":
-  version "17.0.41"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.41.tgz#1607b2fd3da014ae5d4d1b31bc792a39348dfb9b"
-  integrity sha512-xA6drNNeqb5YyV5fO3OAEsnXLfO7uF0whiOfPTz5AeDo8KeZFmODKnvwPymMNO8qE/an8pVY/O50tig2SQCrGw==
+"@types/node@*", "@types/node@>=10.0.0", "@types/node@^18.0.1":
+  version "18.0.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.1.tgz#e91bd73239b338557a84d1f67f7b9e0f25643870"
+  integrity sha512-CmR8+Tsy95hhwtZBKJBs0/FFq4XX7sDZHlGGf+0q+BRZfMbOTkzkj0AFAuTyXbObDIoanaBBW0+KEW+m3N16Wg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -3381,10 +3381,10 @@ aws-appsync-auth-link@^2.0.8:
     apollo-link "1.2.5"
     debug "2.6.9"
 
-aws-appsync-subscription-link@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/aws-appsync-subscription-link/-/aws-appsync-subscription-link-2.3.0.tgz#1c8f97da45fcfdbf3875b60550e5f02e9304c01d"
-  integrity sha512-uXezPMEsU70oRpm8fM1CRrZDn/dK4dq65LkNaXqQudLyhwaotCZObdy753Py2x/VDqoERm1AO25kxrFlAqqakw==
+aws-appsync-subscription-link@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/aws-appsync-subscription-link/-/aws-appsync-subscription-link-2.4.0.tgz#fe101fb728978f83434a7d22065bec709569654e"
+  integrity sha512-jo9WV+ogUDhpjMOQyqvm/kcJRXND0aB7dAG4mpxP2ifr4W2Xa7SXgFhuREMPpzd/jN1wgyfArVeev+aDEM1ecw==
   dependencies:
     apollo-link "1.2.5"
     apollo-link-context "1.0.11"
@@ -3394,10 +3394,10 @@ aws-appsync-subscription-link@^2.3.0:
     debug "2.6.9"
     url "^0.11.0"
 
-aws-appsync@^4.1.6:
-  version "4.1.6"
-  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-4.1.6.tgz#2aff30651dc0c1a937eaf3de0f4d4e600b5e3c70"
-  integrity sha512-yHeLOepDk6VyZrjO02g+QkxYev11hvbDy/6p9N827xhcn4Kk+JR6nclkzLpew5CXwI7OGX3c0RRyrkKcfLzYlg==
+aws-appsync@^4.1.7:
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-4.1.7.tgz#6186bd938e67d5621336f1b61a624ec0f671a650"
+  integrity sha512-9OZ0IUx5zqgv/CfjS4xPVORIHkc6lug2VMlXhOIyHskmX8Z/nlpGabIq3Szp6pQVUHOCRgeZXoFtL5Dph9d8TQ==
   dependencies:
     "@aws-crypto/sha256-universal" "^1.1.1"
     "@aws-sdk/client-s3" "^3.25.0"
@@ -3411,7 +3411,7 @@ aws-appsync@^4.1.6:
     apollo-link-http "1.5.8"
     apollo-link-retry "2.2.7"
     aws-appsync-auth-link "^2.0.8"
-    aws-appsync-subscription-link "^2.3.0"
+    aws-appsync-subscription-link "^2.4.0"
     debug "2.6.9"
     redux "^3.7.2"
     redux-thunk "^2.2.0"
@@ -8698,10 +8698,10 @@ ts-invariant@^0.4.0:
   dependencies:
     tslib "^1.9.3"
 
-ts-node@~10.8.0:
-  version "10.8.0"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.8.0.tgz#3ceb5ac3e67ae8025c1950626aafbdecb55d82ce"
-  integrity sha512-/fNd5Qh+zTt8Vt1KbYZjRHCE9sI5i7nqfD/dzBBRDeVXZXS6kToW6R7tTU6Nd4XavFs0mAVCg29Q//ML7WsZYA==
+ts-node@~10.8.2:
+  version "10.8.2"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.8.2.tgz#3185b75228cef116bf82ffe8762594f54b2a23f2"
+  integrity sha512-LYdGnoGddf1D6v8REPtIH+5iq/gTDuZqv2/UJUU7tKjuEU8xVZorBM+buCGNjj+pGEud+sOoM4CX3/YzINpENA==
   dependencies:
     "@cspotcode/source-map-support" "^0.8.0"
     "@tsconfig/node10" "^1.0.7"
