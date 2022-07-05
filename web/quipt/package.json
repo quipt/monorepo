@@ -29,7 +29,7 @@
     "@angular/platform-browser-dynamic": "^13.2.4",
     "@angular/router": "^13.2.4",
     "@auth0/auth0-angular": "^1.10.0",
-    "aws-appsync": "^4.1.6",
+    "aws-appsync": "^4.1.7",
     "graphql": "~15.8.0",
     "graphql-tag": "^2.12.6",
     "rxjs": "^7.5.5",
