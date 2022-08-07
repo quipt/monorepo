@@ -285,10 +285,10 @@
   resolved "https://registry.yarnpkg.com/@assemblyscript/loader/-/loader-0.10.1.tgz#70e45678f06c72fa2e350e8553ec4a4d72b92e06"
   integrity sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==
 
-"@auth0/auth0-angular@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-angular/-/auth0-angular-1.10.0.tgz#9002aa5faa9bd67b5ec770d26c4cf5c408e55557"
-  integrity sha512-ypM7PIHkWBB+DY5CqLD38VIQpjkbSfmncJxmQurqsHcpsJNIXoL3LGvv6hX+Wo9tp8kxKHHjV7RZ07JOplV90w==
+"@auth0/auth0-angular@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-angular/-/auth0-angular-1.10.1.tgz#1d76b36f046f1aeee47c4e17ec899142837c2c61"
+  integrity sha512-lbWmzaBSisBH7EGQEY+eDRCQL8PkZF2Nq1zbrHkO1pwkxh1QNqr+jVjrDTTBvQGelTijR3wFUq1ykxxphXWcQA==
   dependencies:
     "@auth0/auth0-spa-js" "^1.22.0"
     tslib "^2.0.0"
@@ -9271,10 +9271,10 @@ zen-observable@^0.8.0:
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
 
-zone.js@^0.11.6:
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.11.6.tgz#c7cacfc298fe24bb585329ca04a44d9e2e840e74"
-  integrity sha512-umJqFtKyZlPli669gB1gOrRE9hxUUGkZr7mo878z+NEBJZZixJkKeVYfnoLa7g25SseUDc92OZrMKKHySyJrFg==
+zone.js@^0.11.7:
+  version "0.11.7"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.11.7.tgz#262194267c7b964e8da77ce16b9fba9bea23cfdc"
+  integrity sha512-e39K2EdK5JfA3FDuUTVRvPlYV4aBfnOOcGuILhQAT7nzeV12uSrLBzImUM9CDVoncDSX4brR/gwqu0heQ3BQ0g==
   dependencies:
     tslib "^2.3.0"
 
