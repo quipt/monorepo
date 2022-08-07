@@ -18,7 +18,7 @@
     "posttest": "yarn run lint"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.100",
+    "@types/aws-lambda": "^8.10.101",
     "@types/jest": "^27.5.0",
     "@types/node": "^18.6.4",
     "aws-cdk": "^2.0.0",
