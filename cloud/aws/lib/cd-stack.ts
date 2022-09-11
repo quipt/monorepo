@@ -45,7 +45,7 @@ export class CDStack extends cdk.NestedStack {
       }),
       environment: {
         privileged: true,
-        buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
+        buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_4,
         environmentVariables: {
           REPOSITORY_NAME: {
             type: codebuild.BuildEnvironmentVariableType.PLAINTEXT,
