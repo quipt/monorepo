@@ -44,11 +44,20 @@ export class CIStack extends cdk.NestedStack {
               'set -e',
               `cd ${dir}`,
               'docker build . --target test --tag image:test',
-              'docker run image:test',
+              'docker run --name test image:test',
+              'docker cp test:dist/ ./',
               'docker build . --target release --tag image:release',
               'cd -',
               'docker save -o image.tar image:release',
             ],
+          },
+          post_build: {
+            commands: ['docker container rm test'],
+          },
+        },
+        reports: {
+          angular: {
+            files: [`${dir}/dist/*/junit-report.xml`],
           },
         },
         artifacts: {

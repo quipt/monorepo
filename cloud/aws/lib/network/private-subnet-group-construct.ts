@@ -47,14 +47,15 @@ export class PrivateSubnetGroup extends cdk.Construct {
         }
       );
 
-      const cfnSubnetRouteTableAssociation = new ec2.CfnSubnetRouteTableAssociation(
-        this,
-        `SubnetRouteTableAssociation${i}`,
-        {
-          subnetId: this.subnets[i].subnetId,
-          routeTableId: this.routeTables[i].ref,
-        }
-      );
+      const cfnSubnetRouteTableAssociation =
+        new ec2.CfnSubnetRouteTableAssociation(
+          this,
+          `SubnetRouteTableAssociation${i}`,
+          {
+            subnetId: this.subnets[i].subnetId,
+            routeTableId: this.routeTables[i].ref,
+          }
+        );
     }
   }
 }

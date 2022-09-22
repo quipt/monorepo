@@ -24,13 +24,11 @@ const event = {
         s3SchemaVersion: '1.0',
         configurationId: 'testConfigRule',
         bucket: {
-          name:
-            'quipt-dev-us-us-east-1-appsy-uploadbucketd2c1da78-19gcoqwfgf3a',
+          name: 'quipt-dev-us-us-east-1-appsy-uploadbucketd2c1da78-19gcoqwfgf3a',
           ownerIdentity: {
             principalId: 'EXAMPLE',
           },
-          arn:
-            'arn:aws:s3:::quipt-dev-us-us-east-1-appsy-uploadbucketd2c1da78-19gcoqwfgf3a',
+          arn: 'arn:aws:s3:::quipt-dev-us-us-east-1-appsy-uploadbucketd2c1da78-19gcoqwfgf3a',
         },
         object: {
           key: 'SampleVideo_1280x720_10mb.mp4',

@@ -68,14 +68,15 @@ export class PublicNetworkStack extends cdk.NestedStack {
         }
       );
 
-      const cfnSubnetRouteTableAssociation = new ec2.CfnSubnetRouteTableAssociation(
-        this,
-        `SubnetRouteTableAssociation${i}`,
-        {
-          subnetId: this.subnets[i].subnetId,
-          routeTableId: this.routeTables[i].ref,
-        }
-      );
+      const cfnSubnetRouteTableAssociation =
+        new ec2.CfnSubnetRouteTableAssociation(
+          this,
+          `SubnetRouteTableAssociation${i}`,
+          {
+            subnetId: this.subnets[i].subnetId,
+            routeTableId: this.routeTables[i].ref,
+          }
+        );
 
       const eip = new ec2.CfnEIP(this, `Eip${i}`, {
         domain: props.vpc.vpcId,
