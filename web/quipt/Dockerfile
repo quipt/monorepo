@@ -1,6 +1,6 @@
-FROM node:16-alpine AS base
+FROM node:18-alpine AS base
 
-RUN apk add chromium
+RUN apk add --no-cache chromium
 
 ENV CHROME_BIN=/usr/bin/chromium-browser
 
