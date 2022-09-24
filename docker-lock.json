@@ -15,8 +15,15 @@
 			},
 			{
 				"name": "node",
-				"tag": "14-alpine",
-				"digest": "76badf0d0284ad838536d49d8a804988b4985fc6bc7242dfff4f8216c851438b",
+				"tag": "16-alpine",
+				"digest": "2c405ed42fc0fd6aacbe5730042640450e5ec030bada7617beac88f742b6997b",
+				"dockerfile": "web/quipt/Dockerfile",
+				"service": "web"
+			},
+			{
+				"name": "busybox",
+				"tag": "latest",
+				"digest": "ad9bd57a3a57cc95515c537b89aaa69d83a6df54c4050fcf2b41ad367bec0cd5",
 				"dockerfile": "web/quipt/Dockerfile",
 				"service": "web"
 			}

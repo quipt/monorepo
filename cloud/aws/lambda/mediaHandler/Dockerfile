@@ -1,6 +1,6 @@
 FROM ghcr.io/binoculars/ffmpeg-build-lambda:master as ffmpeg
 
-FROM public.ecr.aws/lambda/nodejs:14 as build
+FROM public.ecr.aws/lambda/nodejs:16 as build
 
 RUN npm i -g yarn
 
@@ -12,7 +12,7 @@ RUN \
 
 RUN yarn --frozen-lockfile --production
 
-FROM public.ecr.aws/lambda/nodejs:14 as release
+FROM public.ecr.aws/lambda/nodejs:16 as release
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
 

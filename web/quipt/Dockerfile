@@ -1,4 +1,4 @@
-FROM node:14-alpine@sha256:76badf0d0284ad838536d49d8a804988b4985fc6bc7242dfff4f8216c851438b AS base
+FROM node:16-alpine AS base
 
 RUN apk add chromium
 

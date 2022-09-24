@@ -9,7 +9,11 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /
+    directory: /web/quipt
+    schedule:
+      interval: daily
+  - package-ecosystem: docker
+    directory: /cloud/aws/lambda/mediaHandler
     schedule:
       interval: daily
   - package-ecosystem: github-actions
