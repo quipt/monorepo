@@ -14,10 +14,10 @@ RUN yarn --frozen-lockfile --production
 
 FROM public.ecr.aws/lambda/nodejs:16 as release
 
-ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
+COPY --from=ffmpeg /ffprobe /usr/local/bin/ffprobe
+COPY --from=ffmpeg /ffmpeg /usr/local/bin/ffmpeg
 
-COPY --from=ffmpeg /lib/ /lib/
-COPY --from=ffmpeg /bin/ /bin/
+RUN ffmpeg -version
 
 COPY --from=build ${LAMBDA_TASK_ROOT}/node_modules/ ${LAMBDA_TASK_ROOT}/node_modules/
 COPY --from=build ${LAMBDA_TASK_ROOT}/build/* ${LAMBDA_TASK_ROOT}/
