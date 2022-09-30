@@ -8,6 +8,10 @@ updates:
     directory: /web/quipt
     schedule:
       interval: daily
+  - package-ecosystem: npm
+    directory: /cloud/aws/lambda/mediaHandler
+    schedule:
+      interval: daily
   - package-ecosystem: docker
     directory: /web/quipt
     schedule:
