@@ -415,19 +415,23 @@ export class BoardComponent implements OnInit {
     return await this.processFiles($event?.dataTransfer?.files);
   }
 
+  showSnackBarCannotEdit() {
+    this._snackBar.open(
+      'Cannot edit. Please choose one of your own boards to upload to',
+      'Close',
+      {
+        duration: this.snackBarDuration * 1000,
+      }
+    );
+  }
+
   async processFiles(files?: FileList) {
     if (!files?.length) {
       return false;
     }
 
     if (!this.canEdit) {
-      this._snackBar.open(
-        'Cannot edit. Please choose one of your own boards to upload to',
-        'Close',
-        {
-          duration: this.snackBarDuration * 1000,
-        }
-      );
+      this.showSnackBarCannotEdit();
       return false;
     }
 
@@ -502,7 +506,12 @@ export class BoardComponent implements OnInit {
   }
 
   openFileDialog() {
-    (document.querySelector('#file') as HTMLInputElement).click();
+    if (this.canEdit) {
+      (document.querySelector('#file') as HTMLInputElement).click();
+      return;
+    }
+
+    this.showSnackBarCannotEdit();
   }
 
   async fileInputChanged($event: Event) {
