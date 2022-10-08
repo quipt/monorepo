@@ -1,7 +1,7 @@
 # Features
 
-- [ ] Authentication
-	- [ ] Auth0
+- [x] Authentication
+	- [x] Auth0
 - [ ] Profile
 	- [ ] Auth0
 - [ ] Settings
@@ -10,13 +10,13 @@
 		- [ ] Font
 		- [ ] 
 - [ ] Users
-- [ ] Boards
+- [x] Boards
 	- [ ] Ordered list of videos
 	- [ ] Fork/Remix
-	- [ ] Upload
-		- [ ] Drag and drop
-		- [ ] Button
-		- [ ] Video type and size limits
+	- [x] Upload
+		- [x] Drag and drop
+		- [x] Button
+		- [x] Video type and size limits
 	- [ ] Playlists
 		- [ ] sortable
 		- [ ] Export to other sites
@@ -25,11 +25,11 @@
 	- [ ] Settings
 		- [ ] Volume
 		- [ ] Playback speed
-- [ ] Media
-	- [ ] mp4
+- [x] Media
+	- [x] mp4
 	- [ ] gif
-- [ ] Favorites
-	- [ ] Board
+- [x] Favorites
+	- [x] Board
 - [ ] Search
 	- [ ] Videos
 	- [ ] Boards
