@@ -57,3 +57,4 @@ jobs:
           VALIDATE_TYPESCRIPT_ES: false
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LINTER_RULES_PATH: .

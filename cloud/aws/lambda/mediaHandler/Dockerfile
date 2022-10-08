@@ -1,10 +1,12 @@
-FROM ghcr.io/binoculars/ffmpeg-build-lambda:master as ffmpeg
+FROM ghcr.io/binoculars/ffmpeg-build-lambda:master AS ffmpeg
 
-FROM public.ecr.aws/lambda/nodejs:16 as build
+FROM public.ecr.aws/lambda/nodejs:16 AS lambda
+
+FROM lambda AS build
 
 RUN npm i -g yarn
 
-ADD ./ ./
+COPY ./ ${LAMBDA_TASK_ROOT}
 
 RUN \
     yarn --frozen-lockfile && \
@@ -12,7 +14,7 @@ RUN \
 
 RUN yarn --frozen-lockfile --production
 
-FROM public.ecr.aws/lambda/nodejs:16 as release
+FROM lambda AS release
 
 COPY --from=ffmpeg /ffprobe /usr/local/bin/ffprobe
 COPY --from=ffmpeg /ffmpeg /usr/local/bin/ffmpeg
