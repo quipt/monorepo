@@ -1,5 +1,12 @@
 name: Dependabot auto-merge
-on: pull_request
+
+on:
+  workflow_run:
+    workflows:
+      - Docker
+      - Lint Code Base
+    types:
+      - completed
 
 permissions:
   contents: write
