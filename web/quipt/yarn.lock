@@ -3451,10 +3451,10 @@ aws-appsync-auth-link@^2.0.8:
     apollo-link "1.2.5"
     debug "2.6.9"
 
-aws-appsync-subscription-link@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/aws-appsync-subscription-link/-/aws-appsync-subscription-link-2.4.0.tgz#fe101fb728978f83434a7d22065bec709569654e"
-  integrity sha512-jo9WV+ogUDhpjMOQyqvm/kcJRXND0aB7dAG4mpxP2ifr4W2Xa7SXgFhuREMPpzd/jN1wgyfArVeev+aDEM1ecw==
+aws-appsync-subscription-link@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/aws-appsync-subscription-link/-/aws-appsync-subscription-link-2.4.1.tgz#d5648e17a84480fa3da9550eeddf5da9da9c59d7"
+  integrity sha512-bGh5m442QKByg9/dYpyxONZZK6jAK0lDjM96yC9o3KmnCmDZUiKVH60tgf1Jwow+pONKFY+Nm4Ad0UrfEFmu2Q==
   dependencies:
     apollo-link "1.2.5"
     apollo-link-context "1.0.11"
@@ -3463,11 +3463,12 @@ aws-appsync-subscription-link@^2.4.0:
     aws-appsync-auth-link "^2.0.8"
     debug "2.6.9"
     url "^0.11.0"
+    zen-observable-ts "^1.2.5"
 
-aws-appsync@^4.1.7:
-  version "4.1.7"
-  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-4.1.7.tgz#6186bd938e67d5621336f1b61a624ec0f671a650"
-  integrity sha512-9OZ0IUx5zqgv/CfjS4xPVORIHkc6lug2VMlXhOIyHskmX8Z/nlpGabIq3Szp6pQVUHOCRgeZXoFtL5Dph9d8TQ==
+aws-appsync@^4.1.8:
+  version "4.1.8"
+  resolved "https://registry.yarnpkg.com/aws-appsync/-/aws-appsync-4.1.8.tgz#9a972fb82c555fddbaf6b8699ea2462c5ea6b593"
+  integrity sha512-dyLNFG0xpS+cZeVg6Lx7qEm+IeYCc3VldkHsuKv5GubEVsQrcnY2RcMhmi3Q+MnHC5YNfXjTV2IOKlsquAkuXg==
   dependencies:
     "@aws-crypto/sha256-universal" "^1.1.1"
     "@aws-sdk/client-s3" "^3.25.0"
@@ -3481,7 +3482,7 @@ aws-appsync@^4.1.7:
     apollo-link-http "1.5.8"
     apollo-link-retry "2.2.7"
     aws-appsync-auth-link "^2.0.8"
-    aws-appsync-subscription-link "^2.4.0"
+    aws-appsync-subscription-link "^2.4.1"
     debug "2.6.9"
     redux "^3.7.2"
     redux-thunk "^2.2.0"
@@ -8864,7 +8865,14 @@ zen-observable-ts@^0.8.12, zen-observable-ts@^0.8.21:
     tslib "^1.9.3"
     zen-observable "^0.8.0"
 
-zen-observable@^0.8.0:
+zen-observable-ts@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-1.2.5.tgz#6c6d9ea3d3a842812c6e9519209365a122ba8b58"
+  integrity sha512-QZWQekv6iB72Naeake9hS1KxHlotfRpe+WGNbNx5/ta+R3DNjVO2bswf63gXlWDcs+EMd7XY8HfVQyP1X6T4Zg==
+  dependencies:
+    zen-observable "0.8.15"
+
+zen-observable@0.8.15, zen-observable@^0.8.0:
   version "0.8.15"
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
