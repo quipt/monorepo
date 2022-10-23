@@ -98,6 +98,7 @@ export class AppsyncStack extends cdk.Stack {
     });
 
     const apiLambda = new lambda_nodejs.NodejsFunction(this, 'AppSyncHandler', {
+      runtime: lambda.Runtime.NODEJS_16_X,
       entry: path.join(__dirname, '../../lambda/api/main.ts'),
       bundling: {
         externalModules: [
