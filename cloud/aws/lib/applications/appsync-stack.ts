@@ -101,6 +101,7 @@ export class AppsyncStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_16_X,
       entry: path.join(__dirname, '../../lambda/api/main.ts'),
       bundling: {
+        forceDockerBundling: true,
         externalModules: [
           'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
         ],
