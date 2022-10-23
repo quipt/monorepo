@@ -35,6 +35,7 @@ export class CdkPipelineStack extends cdk.Stack {
         ],
         primaryOutputDirectory: 'cloud/aws/cdk.out',
       }),
+      dockerEnabledForSynth: true,
     };
 
     const cdkPipeline = new CodePipeline(this, 'Pipeline', {
