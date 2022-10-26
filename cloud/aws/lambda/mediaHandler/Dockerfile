@@ -1,6 +1,6 @@
 FROM ghcr.io/ffbuilds/static-ffmpeg-gplv3-lambda:main AS ffmpeg
 
-FROM public.ecr.aws/lambda/nodejs:16 AS lambda
+FROM public.ecr.aws/lambda/nodejs:18 AS lambda
 
 FROM lambda AS build
 
