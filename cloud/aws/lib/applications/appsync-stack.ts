@@ -153,6 +153,8 @@ export class AppsyncStack extends cdk.Stack {
       serviceRoleArn: serviceRole.roleArn,
     });
 
+    dataSource.node.addDependency(schema);
+
     new appsync.CfnResolver(this, 'getBoardByIdResolver', {
       apiId: api.attrApiId,
       dataSourceName: dataSource.name,

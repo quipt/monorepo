@@ -34,11 +34,13 @@ const applicationAccounts = [
     accountId: '387742483181',
     auth0Issuer: 'https://quipt.us.auth0.com/',
     auth0ClientId: 'KGdVPmiBLURfCxiGo5TQb0KEZ1n1LDUk',
-    regionGroups: [{
-      name: 'US',
-      primaryRegion: globalPrimaryRegion,
-      replicaRegions: [],
-    }],
+    regionGroups: [
+      {
+        name: 'US',
+        primaryRegion: globalPrimaryRegion,
+        replicaRegions: [],
+      },
+    ],
     baseDomain,
   },
   // {
