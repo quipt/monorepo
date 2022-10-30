@@ -1,6 +1,10 @@
 # What is it?
 - A full-stack web application in a monorepo
 - TypeScript all the way... CDK for IaC, Angular front-end, AppSync & TypeScript lambda backends
+- The CDK Pipeline
+  - Builds and deploys the pipeline itself
+  - Builds the lambda functions and angular application
+  - Deploys the CloudFormation and Angular application for each environment
 
 # What can you do with it?
 - Log in with Auth0
