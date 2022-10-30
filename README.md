@@ -24,6 +24,7 @@
   - Home page (logged in and logged out)
   - All/my boards list, need to paginate
   - Implement features on the features list
+- The GraphQL API schema
 
 # Features
 
@@ -35,7 +36,6 @@
 	- [ ] Global user settings
 		- [ ] Colors
 		- [ ] Font
-		- [ ] 
 - [ ] Users
 - [x] Boards
 	- [ ] Ordered list of videos
