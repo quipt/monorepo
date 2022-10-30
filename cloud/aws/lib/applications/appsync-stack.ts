@@ -157,91 +157,91 @@ export class AppsyncStack extends cdk.Stack {
 
     new appsync.CfnResolver(this, 'getBoardByIdResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Query',
       fieldName: 'getBoardById',
     });
 
     new appsync.CfnResolver(this, 'listBoardsResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Query',
       fieldName: 'listBoards',
     });
 
     new appsync.CfnResolver(this, 'listMyBoardsResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Query',
       fieldName: 'listMyBoards',
     });
 
     new appsync.CfnResolver(this, 'getFavoriteResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Query',
       fieldName: 'getFavorite',
     });
 
     new appsync.CfnResolver(this, 'createBoardResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'createBoard',
     });
 
     new appsync.CfnResolver(this, 'deleteBoardResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'deleteBoard',
     });
 
     new appsync.CfnResolver(this, 'updateBoardResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'updateBoard',
     });
 
     new appsync.CfnResolver(this, 'createTokenResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'createToken',
     });
 
     new appsync.CfnResolver(this, 'createClipsResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'createClips',
     });
 
     new appsync.CfnResolver(this, 'createFavoriteResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'createFavorite',
     });
 
     new appsync.CfnResolver(this, 'deleteFavoriteResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'deleteFavorite',
     });
 
     new appsync.CfnResolver(this, 'updateClipResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'updateClip',
     });
 
     new appsync.CfnResolver(this, 'deleteClipResolver', {
       apiId: api.attrApiId,
-      dataSourceName: dataSource.name,
+      dataSourceName: dataSource.attrName,
       typeName: 'Mutation',
       fieldName: 'deleteClip',
     });
