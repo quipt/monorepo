@@ -11,6 +11,14 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
  * `yarn cdk diff`        compare deployed stack with current state
  * `yarn cdk synth`       emits the synthesized CloudFormation template
 
+# Account Structure
+There are several AWS accounts involved that separate concerns when deploying to different environments.
 
-# Architecture
+## CI Account
+The CI account hosts the CDK Pipeline and does the deployments.
+
+## Application Accounts
+The application or workload accounts host the application and infrastructure itself. Each environment gets its own AWS account.
+
+# Application Architecture
 ![Architecture Diagram](./doc/architecture.svg)
