@@ -2,12 +2,6 @@ import {Construct} from 'constructs';
 import {WebStackProps} from './applications/web-stack';
 import {ApplicationStage} from './application-stage';
 
-const availabilityZoneCounts = new Map([
-  ['us-east-1', 4],
-  ['us-east-2', 3],
-  ['us-west-2', 4],
-]);
-
 export enum Brand {
   Quipt = 'Quipt',
 }
@@ -81,14 +75,8 @@ export class ApplicationAccount {
     return this.applicationAccountType === ApplicationAccountType.prod;
   }
 
-  get branch() {
-    return this.isProduction
-      ? 'master'
-      : this.applicationAccountType.toString();
-  }
-
   get imageTag() {
-    return `branch_${this.branch}`;
+    return this.applicationAccountType.toString();
   }
 
   get zoneName() {
@@ -140,11 +128,7 @@ export class ApplicationAccount {
               {
                 env: {account: this.accountId, region},
                 isProduction: this.isProduction,
-                vpcCidr: `10.${[...availabilityZoneCounts.keys()].indexOf(
-                  region
-                )}.0.0/16`,
                 regionGroup,
-                azCount: availabilityZoneCounts.get(region)!,
                 zoneName: this.zoneName,
                 ciAccountId: this.ciAccountId,
                 imageTag: this.imageTag,

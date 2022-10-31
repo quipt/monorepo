@@ -1,11 +1,9 @@
 import * as cdk from 'aws-cdk-lib';
 import * as route53 from 'aws-cdk-lib/aws-route53';
-import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import {Construct} from 'constructs';
 import * as certificatemanager from 'aws-cdk-lib/aws-certificatemanager';
 
 export interface DnsStackProps extends cdk.StackProps {
-  vpc?: ec2.Vpc;
   zoneName: string;
 }
 
@@ -26,17 +24,6 @@ export class DnsStack extends cdk.Stack {
         zoneName: props.zoneName,
       }
     );
-
-    if (props.vpc) {
-      this.privateHostedZone = new route53.PrivateHostedZone(
-        this,
-        'PrivateHostedZone',
-        {
-          zoneName: props.zoneName,
-          vpc: props.vpc,
-        }
-      );
-    }
 
     // Certificates
 

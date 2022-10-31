@@ -7,8 +7,6 @@ import {AppsyncStack} from './applications/appsync-stack';
 
 export interface ApplicationStageProps extends cdk.StageProps {
   isProduction: boolean;
-  vpcCidr: string;
-  azCount: number;
   zoneName: string;
   ciAccountId: string;
   imageTag: string;
