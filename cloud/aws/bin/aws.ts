@@ -43,18 +43,21 @@ const applicationAccounts = [
     ],
     baseDomain,
   },
-  // {
-  //   applicationAccountType: ApplicationAccountType.prod,
-  //   brand: Brand.Quipt,
-  //   accountId: '264149948773',
-  //   auth0ClientId: '',
-  //   regionGroups: [{
-  //     name: 'US',
-  //     primaryRegion: globalPrimaryRegion,
-  //     replicaRegions: ['us-east-2', 'us-west-2'],
-  //   }],
-  //   baseDomain,
-  // },
+  {
+    applicationAccountType: ApplicationAccountType.prod,
+    brand: Brand.Quipt,
+    accountId: '929570751740',
+    auth0Issuer: 'https://quipt.us.auth0.com/',
+    auth0ClientId: 'pEWqq2rrEN1alynHNzu5odaux7uNTFnY',
+    regionGroups: [
+      {
+        name: 'US',
+        primaryRegion: globalPrimaryRegion,
+        replicaRegions: [],
+      },
+    ],
+    baseDomain,
+  },
 ].map(
   props =>
     new ApplicationAccount({
