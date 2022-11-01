@@ -1,8 +1,23 @@
-<p i18n>Welcome to Quipt</p>
+<p i18n>Welcome to <em>Quipt</em></p>
 <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
   <p>You are logged in! Check out your <a routerLink="/myboards">boards</a>.</p>
 </ng-container>
 <ng-template #loggedOut>
   <p>Please sign in to get started.</p>
 </ng-template>
+<h2>What is it?</h2>
+<p>A video board app. You can upload short videos and make collections (boards) out of them.</p>
+<h2>What can you do with it?</h2>
+<ul>
+  <li>Create boards</li>
+  <li>Upload videos to the boards</li>
+  <li>Caption the videos</li>
+  <li>Delete the videos and boards</li>
+  <li>Favorite boards</li>
+</ul>
+<h2>What are the limitations?</h2>
+<ul>
+  <li>Videos must be in a playable format e.g. mov, mp4, etc</li>
+  <li>Must be less than 120 seconds in length</li>
+</ul>
 <p>Hack me at <a href="https://github.com/quipt/monorepo">github.com/quipt/monorepo</a></p>
