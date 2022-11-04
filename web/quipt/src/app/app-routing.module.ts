@@ -12,12 +12,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'allboards', component: BoardsComponent, canActivate: [AuthGuard]},
   {
-    path: ':username/boards',
-    component: BoardComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'myboards/:boardId',
+    path: 'boards/:boardId',
     component: BoardComponent,
     canActivate: [AuthGuard],
   },

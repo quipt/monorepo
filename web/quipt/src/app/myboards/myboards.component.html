@@ -2,7 +2,7 @@
 <!-- if no boards yet -->
 <p *ngIf="!boards.length">Create your first board</p>
 
-<p *ngFor="let board of boards;"><a routerLink="/myboards/{{board.id}}">{{ board.title }}</a></p>
+<p *ngFor="let board of boards;"><a routerLink="/boards/{{board.id}}">{{ board.title }}</a></p>
 
 <button mat-fab color="primary" (click)="addBoard()">
   <mat-icon>add</mat-icon>
