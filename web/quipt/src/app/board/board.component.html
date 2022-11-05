@@ -19,6 +19,11 @@
                 </button>
                 <div>{{favorites}}</div>
             </mat-card>
+            <mat-card fxLayout="row" fxLayoutAlign="center">
+                <button mat-button (click)="onShareClick()">
+                    <mat-icon>share</mat-icon>
+                </button>
+            </mat-card>
             <mat-card fxLayout="row" fxLayoutAlign="center" *ngIf="canEdit">
                 <button mat-button (click)="onDeleteClick()">
                     <mat-icon>delete</mat-icon>

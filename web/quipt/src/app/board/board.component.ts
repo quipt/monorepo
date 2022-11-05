@@ -6,6 +6,7 @@ import {ApiService} from '../api.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import gql from 'graphql-tag';
 import {ConfigService} from '../config.service';
+import {Clipboard} from '@angular/cdk/clipboard';
 
 const GetBoardByIdQuery = gql`
   query GetBoardById($id: String!) {
@@ -191,7 +192,8 @@ export class BoardComponent implements OnInit {
     private config: ConfigService,
     public sanitizer: DomSanitizer,
     public auth: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private clipboard: Clipboard
   ) {
     this.route.params.subscribe(params => {
       this.boardId = params.boardId;
@@ -520,5 +522,24 @@ export class BoardComponent implements OnInit {
       return false;
     }
     return await this.processFiles(target.files);
+  }
+
+  onShareClick() {
+    const shareData = {
+      title: 'Quipt',
+      text: this.title,
+      url: location.origin + this.router.url,
+    }
+
+    if (!navigator.canShare) {
+      this.clipboard.copy(shareData.url);
+      this._snackBar.open('Link copied to clipboard', 'Close', {
+        duration: this.snackBarDuration * 1000,
+      });
+    } else if (navigator.canShare(shareData)) {
+      navigator.share(shareData);
+    } else {
+      console.error('Invalid share data');
+    }
   }
 }
