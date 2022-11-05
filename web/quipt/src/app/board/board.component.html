@@ -10,7 +10,7 @@
                 <button mat-button (click)="openFileDialog()">
                     <mat-icon>movie</mat-icon>
                 </button>
-                <input id="file" type="file" multiple="multiple" hidden (change)=fileInputChanged($event)>
+                <input id="file" type="file" multiple="multiple" accept="video/*" hidden (change)=fileInputChanged($event)>
                 <div>{{clips.length}}</div>
             </mat-card>
             <mat-card fxLayout="row" fxLayoutAlign="center">

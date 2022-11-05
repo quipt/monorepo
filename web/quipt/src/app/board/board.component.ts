@@ -439,7 +439,13 @@ export class BoardComponent implements OnInit {
 
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i)!;
-      const hash = await this.calculateHash(file);
+
+      if (!/^video\//.test(file.type)) {
+        this._snackBar.open('File type is not a video', 'Close', {
+          duration: this.snackBarDuration * 1000,
+        });
+        continue;
+      }
 
       if (file.size > 0x3200000) {
         this._snackBar.open('Size is above 50MB', 'Close', {
@@ -447,6 +453,8 @@ export class BoardComponent implements OnInit {
         });
         continue;
       }
+
+      const hash = await this.calculateHash(file);
 
       if (this.clips.some(clip => clip.hash === hash)) {
         this._snackBar.open('Duplicate found', 'Close', {
