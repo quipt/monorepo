@@ -529,7 +529,7 @@ export class BoardComponent implements OnInit {
       title: 'Quipt',
       text: this.title,
       url: location.origin + this.router.url,
-    }
+    };
 
     if (!navigator.canShare) {
       this.clipboard.copy(shareData.url);
