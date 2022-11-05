@@ -30,8 +30,8 @@ export default async function createToken(
     return null;
   }
 
-  // Validate size
-  if (size > 0x3200000) {
+  // Validate size (100 MB)
+  if (size > 0x6400000) {
     return null;
   }
 

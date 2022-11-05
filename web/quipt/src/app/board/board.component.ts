@@ -466,8 +466,8 @@ export class BoardComponent implements OnInit {
         continue;
       }
 
-      if (file.size > 0x3200000) {
-        this._snackBar.open('Size is above 50MB', 'Close', {
+      if (file.size > 0x6400000) {
+        this._snackBar.open('Size is above 100 MB', 'Close', {
           duration: this.snackBarDuration * 1000,
         });
         continue;
