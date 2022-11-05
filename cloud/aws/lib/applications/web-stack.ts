@@ -94,6 +94,11 @@ export class WebStack extends cdk.Stack {
                 {
                   isDefaultBehavior: true,
                 },
+                {
+                  pathPattern: 'index.html',
+                  defaultTtl: cdk.Duration.seconds(0),
+                  minTtl: cdk.Duration.seconds(0),
+                },
               ],
             },
           ],
