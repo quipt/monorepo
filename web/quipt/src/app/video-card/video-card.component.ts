@@ -22,8 +22,13 @@ export class VideoCardComponent implements OnInit {
 
   onClick($event: MouseEvent) {
     $event.preventDefault();
+    const target = $event.target as HTMLVideoElement;
 
-    ($event.target as HTMLVideoElement).play();
+    if (target.paused) {
+      target.play();
+    } else {
+      target.pause();
+    }
 
     return false;
   }
