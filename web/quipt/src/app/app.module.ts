@@ -30,6 +30,7 @@ import {BoardComponent} from './board/board.component';
 import {NewBoardModalComponent} from './new-board-modal/new-board-modal.component';
 import {VideoCardComponent} from './video-card/video-card.component';
 import {MyboardsComponent} from './myboards/myboards.component';
+import {DeleteBoardModalComponent} from './delete-board-modal/delete-board-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {MyboardsComponent} from './myboards/myboards.component';
     NewBoardModalComponent,
     VideoCardComponent,
     MyboardsComponent,
+    DeleteBoardModalComponent,
   ],
   imports: [
     BrowserModule,

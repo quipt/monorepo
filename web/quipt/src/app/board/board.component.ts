@@ -7,6 +7,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import gql from 'graphql-tag';
 import {ConfigService} from '../config.service';
 import {Clipboard} from '@angular/cdk/clipboard';
+import {MatDialog} from '@angular/material/dialog';
+import {DeleteBoardModalComponent} from '../delete-board-modal/delete-board-modal.component';
 
 const GetBoardByIdQuery = gql`
   query GetBoardById($id: String!) {
@@ -193,7 +195,8 @@ export class BoardComponent implements OnInit {
     public sanitizer: DomSanitizer,
     public auth: AuthService,
     private _snackBar: MatSnackBar,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    public dialog: MatDialog
   ) {
     this.route.params.subscribe(params => {
       this.boardId = params.boardId;
@@ -272,7 +275,7 @@ export class BoardComponent implements OnInit {
     this.favorites += this.favorited ? 1 : -1;
   }
 
-  async onDeleteClick() {
+  async deleteBoard() {
     const client = await this.api.hc();
 
     await client.mutate({
@@ -283,6 +286,22 @@ export class BoardComponent implements OnInit {
     });
 
     this.router.navigate(['/myboards']);
+  }
+
+  async onDeleteClick() {
+    if (!this.clips.length) {
+      return await this.deleteBoard();
+    }
+
+    const dialogRef = this.dialog.open(DeleteBoardModalComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (!result) return;
+
+      await this.deleteBoard();
+    });
   }
 
   toHex(buf: ArrayBuffer) {
