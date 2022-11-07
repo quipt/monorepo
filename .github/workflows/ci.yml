@@ -1,57 +1,29 @@
-name: Docker
+name: Continuous Integration
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
-env:
-  REGISTRY_USERNAME: quipt-devsecops
-  REGISTRY_URI: ghcr.io
+permissions:
+  contents: read
 
 jobs:
-  push:
+  cdk-synth:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3.1.0
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2.1.0
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          registry: ghcr.io
-          username: quipt-devsecops
-          password: ${{ secrets.CR_PAT }}
+          node-version: 18
 
-      - name: Build and push image
-        run: |
-          NAMED_TAG=$(printf "${{ github.ref }}" | sed -e 's|^refs/||' -e 's|^heads|branch|' -e 's|^tags|tag|' -e 's|/|_|')
-          COMMIT_TAG=commit_${{ github.sha }}
-          
-          buildAndPush() {
-            REPOSITORY_URI=${REGISTRY_URI}/${{ github.repository_owner }}/$1
-
-            # Pull the commit image
-            docker pull ${REPOSITORY_URI}:${COMMIT_TAG} && IMAGE_TAG=${REPOSITORY_URI}:${COMMIT_TAG}
-
-            # If the commit image exists, tag it with the current git branch/tag name and push
-            if [ -n "${IMAGE_TAG}" ]; then
-              docker tag ${IMAGE_TAG} ${REPOSITORY_URI}:${NAMED_TAG}
-              docker push $_
-            # If the image does not exist, build and push it with the named tag and commit tag
-            else
-              GIT_COMMIT=${{ github.sha }}
-              docker-compose build $1
-              docker-compose push $_
-              docker tag "${REPOSITORY_URI}:latest" "${REPOSITORY_URI}:${NAMED_TAG}"
-              docker push $_
-              docker tag "${REPOSITORY_URI}:latest" "${REPOSITORY_URI}:${COMMIT_TAG}"
-              docker push $_
-            fi
-          }
-
-          buildAndPush web
+      - run: |
+          cd cloud/aws
+          yarn --frozen-lockfile
+          yarn build
+          yarn cdk synth
