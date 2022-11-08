@@ -15,6 +15,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {AuthModule} from '@auth0/auth0-angular';
+import {
+  NgxGoogleAnalyticsModule,
+  NgxGoogleAnalyticsRouterModule,
+} from 'ngx-google-analytics';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -65,6 +69,8 @@ import {DeleteBoardModalComponent} from './delete-board-modal/delete-board-modal
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
+    NgxGoogleAnalyticsModule.forRoot('G-VKL71RHF8J'),
+    NgxGoogleAnalyticsRouterModule,
   ],
   providers: [
     {
