@@ -1,7 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-import * as codepipeline from 'aws-cdk-lib/aws-codepipeline';
-import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions';
 import {
   CodePipeline,
   CodePipelineProps,
@@ -11,7 +9,7 @@ import {
 import {ApplicationAccount} from './application-account';
 import {CIStack} from './ci-stack';
 import {CDStack} from './cd-stack';
-import {Stage} from 'aws-cdk-lib';
+import {NagSuppressions} from 'cdk-nag';
 
 interface CdkPipelineStackProps extends cdk.StackProps {
   applicationAccounts: ApplicationAccount[];
@@ -50,6 +48,17 @@ export class CdkPipelineStack extends cdk.Stack {
     });
 
     cdkPipeline.buildPipeline();
+
+    NagSuppressions.addResourceSuppressionsByPath(
+      this,
+      '/CdkPipelineStack/Pipeline/Pipeline/ArtifactsBucketEncryptionKey/Resource',
+      [
+        {
+          id: 'AwsSolutions-KMS5',
+          reason: 'Because I said so',
+        },
+      ]
+    );
 
     const sourceStage = cdkPipeline.pipeline.stage('Source');
     const assetsStage = cdkPipeline.pipeline.stage('Assets');

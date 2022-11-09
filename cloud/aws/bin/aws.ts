@@ -2,6 +2,14 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import {
+  AwsSolutionsChecks,
+  HIPAASecurityChecks,
+  NIST80053R4Checks,
+  NIST80053R5Checks,
+  PCIDSS321Checks,
+} from 'cdk-nag';
+import {Aspects} from 'aws-cdk-lib';
+import {
   ApplicationAccountType,
   ApplicationAccount,
   Brand,
@@ -75,5 +83,11 @@ const cdkPipelineStack = new CdkPipelineStack(app, 'CdkPipelineStack', {
   },
   applicationAccounts,
 });
+
+// Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }));
+// Aspects.of(app).add(new HIPAASecurityChecks({ verbose: true }));
+// Aspects.of(app).add(new NIST80053R4Checks({ verbose: true }));
+// Aspects.of(app).add(new NIST80053R5Checks({ verbose: true }));
+// Aspects.of(app).add(new PCIDSS321Checks({ verbose: true }));
 
 app.synth();
