@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "aws-cdk-lib": "^2.50.0",
-    "cdk-nag": "^2.20.5",
+    "cdk-nag": "^2.20.6",
     "constructs": "^10.1.154",
     "nanoid": "^4.0.0",
     "source-map-support": "^0.5.21"
