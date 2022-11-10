@@ -55,7 +55,82 @@ export class CdkPipelineStack extends cdk.Stack {
       [
         {
           id: 'AwsSolutions-KMS5',
-          reason: 'Because I said so',
+          reason: 'Default key for CDK Pipeline',
+        },
+        {
+          id: 'NIST.800.53.R4-KMSBackingKeyRotationEnabled',
+          reason: 'CDK Pipeline-managed key',
+        },
+        {
+          id: 'NIST.800.53.R5-KMSBackingKeyRotationEnabled',
+          reason: 'CDK Pipeline-managed key',
+        },
+        {
+          id: 'PCI.DSS.321-KMSBackingKeyRotationEnabled',
+          reason: 'CDK Pipeline-managed key',
+        },
+      ]
+    );
+
+    NagSuppressions.addResourceSuppressionsByPath(
+      this,
+      '/CdkPipelineStack/Pipeline/Pipeline/ArtifactsBucket/Resource',
+      [
+        {
+          id: 'AwsSolutions-S1',
+          reason: 'Access logs not needed for pipeline artifacts',
+        },
+        {
+          id: 'HIPAA.Security-S3BucketLoggingEnabled',
+          reason: 'Access logs not needed for pipeline artifacts',
+        },
+        {
+          id: 'HIPAA.Security-S3BucketReplicationEnabled',
+          reason: 'Replication not needed for pipeline artifacts',
+        },
+        {
+          id: 'HIPAA.Security-S3BucketVersioningEnabled',
+          reason: 'Versioning not needed for pipeline artifacts',
+        },
+        {
+          id: 'NIST.800.53.R4-S3BucketDefaultLockEnabled',
+          reason: 'Object lock not needed for pipeline artifacts',
+        },
+        {
+          id: 'NIST.800.53.R4-S3BucketReplicationEnabled',
+          reason: 'Replication not needed for pipeline artifacts',
+        },
+        {
+          id: 'NIST.800.53.R4-S3BucketVersioningEnabled',
+          reason: 'Versioning not needed for pipeline artifacts',
+        },
+        {
+          id: 'NIST.800.53.R4-S3BucketLoggingEnabled',
+          reason: 'Access logs not needed for pipeline artifacts',
+        },
+        {
+          id: 'NIST.800.53.R5-S3BucketLoggingEnabled',
+          reason: 'Access logs not needed for pipeline artifacts',
+        },
+        {
+          id: 'NIST.800.53.R5-S3BucketReplicationEnabled',
+          reason: 'Replication not needed for pipeline artifacts',
+        },
+        {
+          id: 'NIST.800.53.R5-S3BucketVersioningEnabled',
+          reason: 'Versioning not needed for pipeline artifacts',
+        },
+        {
+          id: 'PCI.DSS.321-S3BucketLoggingEnabled',
+          reason: 'Access logs not needed for pipeline artifacts',
+        },
+        {
+          id: 'PCI.DSS.321-S3BucketReplicationEnabled',
+          reason: 'Replication not needed for pipeline artifacts',
+        },
+        {
+          id: 'PCI.DSS.321-S3BucketVersioningEnabled',
+          reason: 'Versioning not needed for pipeline artifacts',
         },
       ]
     );
