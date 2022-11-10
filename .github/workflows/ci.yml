@@ -27,7 +27,7 @@ jobs:
           cd cloud/aws
           yarn --frozen-lockfile
           yarn build
-          yarn cdk synth
+          yarn cdk synth '**'
 
   angular:
     runs-on: ubuntu-latest

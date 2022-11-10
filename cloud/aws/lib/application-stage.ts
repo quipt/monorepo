@@ -4,6 +4,7 @@ import {DnsStack} from './dns-stack';
 import {WebStack, WebStackProps} from './applications/web-stack';
 import {RegionGroup} from './application-account';
 import {AppsyncStack} from './applications/appsync-stack';
+import {AwsSolutionsChecks} from 'cdk-nag';
 
 export interface ApplicationStageProps extends cdk.StageProps {
   isProduction: boolean;
@@ -42,5 +43,13 @@ export class ApplicationStage extends cdk.Stage {
       issuer: props.auth0Issuer,
       dns,
     });
+
+    const stacks = [dns, web, appsync];
+    const checks = [AwsSolutionsChecks];
+    for (const stack of stacks) {
+      for (const check of checks) {
+        // cdk.Aspects.of(stack).add(new check({ verbose: true }));
+      }
+    }
   }
 }
