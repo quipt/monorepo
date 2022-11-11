@@ -24,7 +24,7 @@ jobs:
           node-version: 18
 
       - run: |
-          cd cloud/aws
+          cd packages/aws
           yarn --frozen-lockfile
           yarn build
           yarn cdk synth '**'
@@ -41,7 +41,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v3
         with:
-          context: web/quipt/
+          context: packages/web/
           push: false
           load: true
           tags: quipt:web-test

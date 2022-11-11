@@ -1,23 +1,23 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: /cloud/aws
+    directory: /packages/aws
     schedule:
       interval: daily
   - package-ecosystem: npm
-    directory: /web/quipt
+    directory: /packages/web
     schedule:
       interval: daily
   - package-ecosystem: npm
-    directory: /cloud/aws/lambda/mediaHandler
+    directory: /packages/aws/lambda/mediaHandler
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /web/quipt
+    directory: /packages/web
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /cloud/aws/lambda/mediaHandler
+    directory: /packages/aws/lambda/mediaHandler
     schedule:
       interval: daily
   - package-ecosystem: github-actions

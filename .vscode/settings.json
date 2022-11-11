@@ -1,6 +1,6 @@
 {
     "eslint.workingDirectories": [
-        "./cloud/aws",
-        "./web/quipt"
+        "./packages/aws",
+        "./packages/web"
     ]
 }
