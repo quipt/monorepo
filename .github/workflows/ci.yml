@@ -25,6 +25,7 @@ jobs:
 
       - run: |
           yarn --frozen-lockfile
+          yarn workspace @quipt/aws build
           yarn workspace @quipt/aws cdk synth '**'
 
   angular:

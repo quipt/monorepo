@@ -27,6 +27,7 @@ export class CdkPipelineStack extends cdk.Stack {
         }),
         commands: [
           'yarn --frozen-lockfile',
+          'yarn workspace @quipt/aws build',
           'yarn workspace @quipt/aws cdk synth',
         ],
         primaryOutputDirectory: 'packages/aws/cdk.out',
