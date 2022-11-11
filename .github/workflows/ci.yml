@@ -24,9 +24,7 @@ jobs:
           node-version: 18
 
       - run: |
-          cd packages/aws
           yarn --frozen-lockfile
-          yarn build
           yarn cdk synth '**'
 
   angular:
