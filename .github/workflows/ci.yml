@@ -25,7 +25,7 @@ jobs:
 
       - run: |
           yarn --frozen-lockfile
-          yarn cdk synth '**'
+          yarn workspace @quipt/aws cdk synth '**'
 
   angular:
     runs-on: ubuntu-latest
@@ -39,14 +39,14 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v3
         with:
-          context: packages/web/
+          context: .
           push: false
           load: true
           tags: quipt:web-test
-          target: test
+          target: web-test
           cache-from: type=gha,scope=web
           cache-to: type=gha,mode=max,scope=web
-      
+
       - name: Test image
         run: |
           docker run quipt:web-test

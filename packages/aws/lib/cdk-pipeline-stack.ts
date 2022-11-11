@@ -26,10 +26,8 @@ export class CdkPipelineStack extends cdk.Stack {
           authentication: cdk.SecretValue.secretsManager('GITHUB_TOKEN'),
         }),
         commands: [
-          'cd packages/aws',
           'yarn --frozen-lockfile',
-          'yarn build',
-          'yarn cdk synth',
+          'yarn workspace @quipt/aws cdk synth',
         ],
         primaryOutputDirectory: 'packages/aws/cdk.out',
       }),
