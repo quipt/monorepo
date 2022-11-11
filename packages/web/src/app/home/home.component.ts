@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ConfigService} from '../config.service';
 import {AuthService} from '@auth0/auth0-angular';
 
@@ -7,8 +7,6 @@ import {AuthService} from '@auth0/auth0-angular';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   constructor(public config: ConfigService, public auth: AuthService) {}
-
-  ngOnInit(): void {}
 }

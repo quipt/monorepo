@@ -41,4 +41,4 @@ const event = {
   ],
 };
 
-handler(event, {} as Context, () => {});
+handler(event, {} as Context, () => { return null; });
