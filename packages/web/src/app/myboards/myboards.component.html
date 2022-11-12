@@ -5,9 +5,11 @@
 <!-- if no boards yet -->
 <h1 *ngIf="loaded && !boards.length">Create your first board</h1>
 
-<p *ngFor="let board of boards;">
-  <a routerLink="/boards/{{board.id}}">{{ board.title }}</a>
-</p>
+<mat-selection-list>
+  <mat-list-item *ngFor="let board of boards;">
+    <a routerLink="/boards/{{board.id}}">{{ board.title }}</a>
+  </mat-list-item>
+</mat-selection-list>
 
 <button mat-fab color="primary" (click)="addBoard()">
   <mat-icon>add</mat-icon>

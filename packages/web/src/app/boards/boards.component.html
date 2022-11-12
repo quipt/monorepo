@@ -1,4 +1,12 @@
-<p *ngFor="let board of boards;"><a routerLink="/boards/{{board.id}}">{{ board.title }}</a></p>
+<div *ngIf="!loaded">
+  <mat-spinner></mat-spinner>
+</div>
+
+<mat-selection-list>
+  <mat-list-item *ngFor="let board of boards;">
+    <a routerLink="/boards/{{board.id}}">{{ board.title }}</a>
+  </mat-list-item>
+</mat-selection-list>
 
 <button mat-fab color="primary" (click)="addBoard()">
   <mat-icon>add</mat-icon>
