@@ -1,19 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: /packages/aws
-    schedule:
-      interval: daily
-  - package-ecosystem: npm
-    directory: /packages/web
-    schedule:
-      interval: daily
-  - package-ecosystem: npm
-    directory: /packages/media-handler
-    schedule:
-      interval: daily
-  - package-ecosystem: npm
-    directory: /packages/api
+    directory: /
     schedule:
       interval: daily
   - package-ecosystem: docker
