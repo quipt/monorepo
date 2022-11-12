@@ -26,7 +26,6 @@
     "aws-cdk-lib": "^2.50.0",
     "cdk-nag": "^2.20.7",
     "constructs": "^10.1.156",
-    "nanoid": "^4.0.0",
     "source-map-support": "^0.5.21"
   }
 }

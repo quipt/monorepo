@@ -1,0 +1,8 @@
+{
+  "name": "@quipt/api",
+  "version": "0.1.0",
+  "private": false,
+  "dependencies": {
+    "nanoid": "^4.0.0"
+  }
+}
