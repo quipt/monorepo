@@ -1,4 +1,4 @@
-import {AppSyncResolverEvent, Context} from 'aws-lambda';
+import {Context} from 'aws-lambda';
 
 import createBoard, {CreateBoardInput} from './boards/createBoard';
 import deleteBoard from './boards/deleteBoard';

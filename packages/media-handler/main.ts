@@ -84,7 +84,7 @@ export function checkM3u(file: string) {
 const extensionRegex = /\.(\w+)$/;
 
 function getExtension(filename: string) {
-  return filename.match(extensionRegex)![1];
+  return filename.match(extensionRegex)[1];
 }
 
 const outputDir = path.join(tempDir, 'outputs');

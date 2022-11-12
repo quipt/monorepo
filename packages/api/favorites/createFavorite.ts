@@ -7,9 +7,9 @@ export default async function createFavorite(boardId: string, userId: string) {
     userId,
     created: new Date().toISOString(),
   };
-  const resp = await docClient
+  await docClient
     .put({
-      TableName: process.env.FAVORITES_TABLE!,
+      TableName: process.env.FAVORITES_TABLE,
       Item,
     })
     .promise();

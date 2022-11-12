@@ -3,7 +3,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 export default async function deleteBoard(id: string, owner: string) {
   const params: AWS.DynamoDB.DocumentClient.DeleteItemInput = {
-    TableName: process.env.BOARDS_TABLE!,
+    TableName: process.env.BOARDS_TABLE,
     Key: {
       id,
     },
@@ -20,7 +20,7 @@ export default async function deleteBoard(id: string, owner: string) {
 
     const clips = await docClient
       .query({
-        TableName: process.env.CLIPS_TABLE!,
+        TableName: process.env.CLIPS_TABLE,
         KeyConditionExpression: '#0 = :0',
         ExpressionAttributeNames: {
           '#0': 'boardId',
@@ -35,7 +35,7 @@ export default async function deleteBoard(id: string, owner: string) {
       await docClient
         .batchWrite({
           RequestItems: {
-            [process.env.CLIPS_TABLE!]: clips.Items.map(clip => {
+            [process.env.CLIPS_TABLE]: clips.Items.map(clip => {
               return {
                 DeleteRequest: {
                   Key: {

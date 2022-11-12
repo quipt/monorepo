@@ -3,7 +3,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 export default async function listMyBoards(sub: string, nextToken?: string) {
   const params: AWS.DynamoDB.DocumentClient.QueryInput = {
-    TableName: process.env.BOARDS_TABLE!,
+    TableName: process.env.BOARDS_TABLE,
     IndexName: 'owner-id',
     KeyConditionExpression: '#0 = :0',
     ExpressionAttributeNames: {

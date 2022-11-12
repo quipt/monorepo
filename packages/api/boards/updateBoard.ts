@@ -6,7 +6,7 @@ export type UpdateBoardInput = Pick<Board, 'id' | 'title'>;
 
 async function updateBoard(board: UpdateBoardInput, owner: string) {
   const params: AWS.DynamoDB.DocumentClient.UpdateItemInput = {
-    TableName: process.env.BOARDS_TABLE!,
+    TableName: process.env.BOARDS_TABLE,
     Key: {
       id: board.id,
     },
@@ -33,8 +33,8 @@ async function updateBoard(board: UpdateBoardInput, owner: string) {
     }
 
     params.UpdateExpression += prefix + '#' + key + ' = :' + key;
-    params.ExpressionAttributeNames![`#${key}`] = key;
-    params.ExpressionAttributeValues![`:${key}`] = value;
+    params.ExpressionAttributeNames[`#${key}`] = key;
+    params.ExpressionAttributeValues[`:${key}`] = value;
     prefix = ', ';
   }
 

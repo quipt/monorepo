@@ -7,9 +7,9 @@ export default async function deleteFavorite(boardId: string, userId: string) {
     boardId,
     userId,
   };
-  const resp = await docClient
+  await docClient
     .delete({
-      TableName: process.env.FAVORITES_TABLE!,
+      TableName: process.env.FAVORITES_TABLE,
       Key,
     })
     .promise();

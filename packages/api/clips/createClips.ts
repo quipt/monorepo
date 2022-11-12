@@ -16,7 +16,7 @@ export default async function createClips(
 ) {
   const resp = await docClient
     .get({
-      TableName: process.env.BOARDS_TABLE!,
+      TableName: process.env.BOARDS_TABLE,
       Key: {
         id: boardId,
       },
@@ -30,7 +30,7 @@ export default async function createClips(
   await docClient
     .batchWrite({
       RequestItems: {
-        [process.env.CLIPS_TABLE!]: clips.map(clip => {
+        [process.env.CLIPS_TABLE]: clips.map(clip => {
           return {
             PutRequest: {
               Item: {

@@ -9,7 +9,7 @@ export default async function deleteClip(
 ) {
   const resp = await docClient
     .get({
-      TableName: process.env.BOARDS_TABLE!,
+      TableName: process.env.BOARDS_TABLE,
       Key: {
         id: boardId,
       },
@@ -22,7 +22,7 @@ export default async function deleteClip(
 
   await docClient
     .delete({
-      TableName: process.env.CLIPS_TABLE!,
+      TableName: process.env.CLIPS_TABLE,
       Key: {
         boardId,
         clipId,

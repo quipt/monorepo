@@ -9,7 +9,7 @@ const {HASHES_TABLE, UPLOAD_BUCKET_NAME} = process.env;
 async function checkIfExists(hash: string) {
   const resp = await docClient
     .get({
-      TableName: HASHES_TABLE!,
+      TableName: HASHES_TABLE,
       Key: {
         hash: Buffer.from(hash, 'hex'),
       },
@@ -48,7 +48,7 @@ export default async function createToken(
 
   await docClient
     .put({
-      TableName: HASHES_TABLE!,
+      TableName: HASHES_TABLE,
       Item: {
         hash: Buffer.from(hash, 'hex'),
         id: key,

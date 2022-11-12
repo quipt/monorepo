@@ -21,7 +21,7 @@ export default async function createBoard(
   };
 
   const params: AWS.DynamoDB.DocumentClient.PutItemInput = {
-    TableName: process.env.BOARDS_TABLE!,
+    TableName: process.env.BOARDS_TABLE,
     Item,
   };
   try {

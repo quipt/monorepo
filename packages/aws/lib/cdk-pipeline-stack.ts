@@ -137,7 +137,7 @@ export class CdkPipelineStack extends cdk.Stack {
     const sourceStage = cdkPipeline.pipeline.stage('Source');
     const assetsStage = cdkPipeline.pipeline.stage('Assets');
 
-    const sourceOutput = sourceStage.actions[0].actionProperties.outputs![0];
+    const sourceOutput = sourceStage.actions[0].actionProperties.outputs[0];
 
     const ciStack = new CIStack(this, 'CI', {
       input: sourceOutput,
@@ -158,7 +158,7 @@ export class CdkPipelineStack extends cdk.Stack {
             const runOrder =
               stage.actions.reduce(
                 (acc, action) =>
-                  Math.max(action.actionProperties.runOrder!, acc),
+                  Math.max(action.actionProperties.runOrder, acc),
                 0
               ) + 1;
 

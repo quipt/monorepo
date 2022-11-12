@@ -3,7 +3,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 export default async function getBoardById(id: string) {
   const params: AWS.DynamoDB.DocumentClient.GetItemInput = {
-    TableName: process.env.BOARDS_TABLE!,
+    TableName: process.env.BOARDS_TABLE,
     Key: {id},
   };
   try {
@@ -11,7 +11,7 @@ export default async function getBoardById(id: string) {
 
     const clips = await docClient
       .query({
-        TableName: process.env.CLIPS_TABLE!,
+        TableName: process.env.CLIPS_TABLE,
         KeyConditionExpression: '#0 = :0',
         ExpressionAttributeNames: {
           '#0': 'boardId',
@@ -24,7 +24,7 @@ export default async function getBoardById(id: string) {
 
     const favorites = await docClient
       .query({
-        TableName: process.env.FAVORITES_TABLE!,
+        TableName: process.env.FAVORITES_TABLE,
         KeyConditionExpression: '#0 = :0',
         ExpressionAttributeNames: {
           '#0': 'boardId',
