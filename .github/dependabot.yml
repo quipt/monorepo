@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /
+    directory: /packages/web
     schedule:
       interval: daily
   - package-ecosystem: docker
