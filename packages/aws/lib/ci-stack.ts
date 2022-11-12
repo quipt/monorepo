@@ -43,10 +43,10 @@ export class CIStack extends cdk.NestedStack {
             commands: [
               'set -e',
               `cd ${dir}`,
-              'docker build . --target web-test --tag image:test',
+              'docker build . --target test --tag image:test',
               'docker run --name test image:test',
               'docker cp test:/opt/app/dist ./',
-              'docker build . --target web-release --tag image:release',
+              'docker build . --target release --tag image:release',
               'cd -',
               'docker save -o image.tar image:release',
             ],

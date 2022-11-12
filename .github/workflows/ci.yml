@@ -44,7 +44,7 @@ jobs:
           push: false
           load: true
           tags: quipt:web-test
-          target: web-test
+          target: test
           cache-from: type=gha,scope=web
           cache-to: type=gha,mode=max,scope=web
 

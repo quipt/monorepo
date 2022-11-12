@@ -22,6 +22,8 @@
   "scripts": {
     "lint": "eslint .",
     "ci:web": "yarn workspace @quipt/web test --watch=false",
-    "postinstall": "generate-lockfile --lockfile yarn.lock --package ./packages/media-handler/package.json --write ./packages/media-handler/yarn.lock --force --dev"
+    "lock:web": "generate-lockfile --lockfile yarn.lock --package ./packages/web/package.json --write ./packages/web/yarn.lock --force --dev",
+    "lock:media-handler": "generate-lockfile --lockfile yarn.lock --package ./packages/media-handler/package.json --write ./packages/media-handler/yarn.lock --force --dev",
+    "postinstall": "yarn lock:web && yarn lock:media-handler"
   }
 }
