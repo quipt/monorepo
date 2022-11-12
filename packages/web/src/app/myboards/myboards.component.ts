@@ -40,6 +40,7 @@ interface createBoardData {
 })
 export class MyboardsComponent implements OnInit {
   boards: board[] = [];
+  loaded: boolean = false;
 
   constructor(private api: ApiService, public dialog: MatDialog, private router: Router) {}
 
@@ -55,6 +56,7 @@ export class MyboardsComponent implements OnInit {
         return console.log('ListMyBoards - no data');
       }
       this.boards = data.listMyBoards.Items;
+      this.loaded = true;
     });
   }
 
