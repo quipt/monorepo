@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 import gql from 'graphql-tag';
 import {ApiService} from '../api.service';
 import {board, CreateBoard} from '../boards/boards.component';
@@ -25,6 +26,13 @@ interface listBoardsData {
   };
 }
 
+interface createBoardData {
+  createBoard: {
+    id: string;
+    title: string;
+  };
+}
+
 @Component({
   selector: 'app-myboards',
   templateUrl: './myboards.component.html',
@@ -33,7 +41,7 @@ interface listBoardsData {
 export class MyboardsComponent implements OnInit {
   boards: board[] = [];
 
-  constructor(private api: ApiService, public dialog: MatDialog) {}
+  constructor(private api: ApiService, public dialog: MatDialog, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     const client = await this.api.hc();
@@ -60,7 +68,7 @@ export class MyboardsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (!result) return;
 
-      await client.mutate({
+      const mutation = await client.mutate<createBoardData>({
         mutation: CreateBoard,
         variables: {
           board: {
@@ -69,7 +77,7 @@ export class MyboardsComponent implements OnInit {
         },
       });
 
-      await this.ngOnInit();
+      this.router.navigate([['/boards', mutation.data.createBoard.id].join('/')]);
     });
   }
 }
