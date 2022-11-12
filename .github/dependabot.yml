@@ -9,15 +9,19 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: npm
-    directory: /packages/aws/lambda/mediaHandler
+    directory: /packages/media-handler
+    schedule:
+      interval: daily
+  - package-ecosystem: npm
+    directory: /packages/api
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /packages/web
+    directory: /
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /packages/aws/lambda/mediaHandler
+    directory: /packages/media-handler
     schedule:
       interval: daily
   - package-ecosystem: github-actions

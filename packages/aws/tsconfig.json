@@ -1,17 +1,10 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es2021",
     "types": ["node"],
     "lib": ["es2019"],
     "rootDir": ".",
     "outDir": "build"
-  },
-  "include": [
-    "lambda/**/*.ts",
-    "src/**/*.ts",
-    "test/**/*.ts"
-  ],
-  "exclude": [
-    "lambda/mediaHandler/**/*"
-  ]
+  }
 }

@@ -1,7 +1,5 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -19,7 +17,7 @@
       "esnext.asynciterable"
     ],
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts",

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ConfigService} from './config.service';
 import AWSAppSyncClient, {AUTH_TYPE} from 'aws-appsync';
+import {NormalizedCacheObject} from 'apollo-cache-inmemory';
 import {AuthService} from '@auth0/auth0-angular';
 import {lastValueFrom} from 'rxjs';
 
@@ -8,7 +9,7 @@ import {lastValueFrom} from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  _hc;
+  _hc: AWSAppSyncClient<NormalizedCacheObject>;
 
   constructor(authService: AuthService, configService: ConfigService) {
     const client = new AWSAppSyncClient({

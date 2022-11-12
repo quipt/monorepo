@@ -1,0 +1,12 @@
+.angular
+.dockerignore
+.gitignore
+Dockerfile
+dist/
+node_modules/
+.github/
+.vscode/
+.editorconfig
+.hadolint.yml
+*.md
+LICENSE

@@ -1,6 +1,0 @@
-{
-    "eslint.workingDirectories": [
-        "./packages/aws",
-        "./packages/web"
-    ]
-}

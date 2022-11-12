@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {SafeUrl} from '@angular/platform-browser';
 import {Clip} from '../board/board.component';
 
@@ -7,7 +7,7 @@ import {Clip} from '../board/board.component';
   templateUrl: './video-card.component.html',
   styleUrls: ['./video-card.component.scss'],
 })
-export class VideoCardComponent implements OnInit {
+export class VideoCardComponent {
   @Input() canEdit = false;
   @Input() clipId = '';
   @Input() source: string | SafeUrl = '';
@@ -15,10 +15,6 @@ export class VideoCardComponent implements OnInit {
   @Input() caption = '';
   @Output() deleteEvent = new EventEmitter<string>();
   @Output() captionChangedEvent = new EventEmitter<Clip>();
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   onClick($event: MouseEvent) {
     $event.preventDefault();

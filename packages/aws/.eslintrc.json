@@ -1,5 +1,8 @@
 {
-  "extends": "./node_modules/gts/",
+  "extends": "../../.eslintrc.cjs",
+  "env": {
+    "node": true
+  },
   "rules": {
     "@typescript-eslint/no-unused-vars": "off",
     "node/no-extraneous-import": "off"
