@@ -4,6 +4,6 @@
     <div><mat-icon *ngIf="canEdit" (click)="onDelete($event, clipId)">delete</mat-icon></div>
 </header>
 <div>
-    <video [src]="source" (click)="onClick($event)" playsinline>
+    <video [src]="source" (click)="onClick($event)" playsinline preload="auto">
     </video>
 </div>
