@@ -34,7 +34,7 @@
 
     <div fxLayout="row wrap" fxLayoutAlign="center">
         <div *ngFor="let clip of clips;">
-            <app-video-card [source]="clip.source" [caption]="clip.caption" [clipId]="clip.clipId" (deleteEvent)="deleteClip($event)" [canEdit]="canEdit" (captionChangedEvent)="captionChanged($event)">
+            <app-video-card [source]="clip.source" [poster]="clip.poster" [caption]="clip.caption" [clipId]="clip.clipId" (deleteEvent)="deleteClip($event)" [canEdit]="canEdit" (captionChangedEvent)="captionChanged($event)">
             </app-video-card>
         </div>
     </div>
