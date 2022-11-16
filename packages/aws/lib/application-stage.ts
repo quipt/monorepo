@@ -45,10 +45,10 @@ export class ApplicationStage extends cdk.Stage {
     });
 
     const stacks = [dns, web, appsync];
-    const checks = [AwsSolutionsChecks];
+    const checks = []; // [AwsSolutionsChecks];
     for (const stack of stacks) {
       for (const check of checks) {
-        // cdk.Aspects.of(stack).add(new check({ verbose: true }));
+        cdk.Aspects.of(stack).add(new check({ verbose: true }));
       }
     }
   }

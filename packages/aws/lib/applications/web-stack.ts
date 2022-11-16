@@ -126,7 +126,7 @@ export class WebStack extends cdk.Stack {
         }
       );
 
-      const recordSet = new route53.RecordSet(this, 'RecordSet', {
+      new route53.RecordSet(this, 'RecordSet', {
         zone: props.dns.publicHostedZone,
         recordType: route53.RecordType.A,
         target: route53.RecordTarget.fromAlias(
@@ -299,7 +299,7 @@ export class WebStack extends cdk.Stack {
       },
     });
 
-    const rule = new events.Rule(this, 'CloudWatchEventRule', {
+    new events.Rule(this, 'CloudWatchEventRule', {
       description: `${repository.repositoryName}:${props.imageTag} to ${pipeline.pipelineName}`,
       eventPattern: {
         detail: {

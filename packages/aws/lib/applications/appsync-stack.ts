@@ -68,7 +68,7 @@ export class AppsyncStack extends cdk.Stack {
       domainName: `api.${props.dns.publicHostedZone.zoneName}`,
     });
 
-    const domainNameApiAssociation = new appsync.CfnDomainNameApiAssociation(
+    new appsync.CfnDomainNameApiAssociation(
       this,
       'DomainNameApiAssociation',
       {
@@ -77,7 +77,7 @@ export class AppsyncStack extends cdk.Stack {
       }
     );
 
-    const recordSet = new route53.RecordSet(this, 'RecordSet', {
+    new route53.RecordSet(this, 'RecordSet', {
       zone: props.dns.publicHostedZone,
       recordName: 'api',
       recordType: route53.RecordType.CNAME,

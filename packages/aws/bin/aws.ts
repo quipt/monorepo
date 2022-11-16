@@ -68,7 +68,7 @@ const applicationAccounts = [
 
 const app = new cdk.App();
 
-const cdkPipelineStack = new CdkPipelineStack(app, 'CdkPipelineStack', {
+new CdkPipelineStack(app, 'CdkPipelineStack', {
   env: {
     account: globalPrimaryAccountId,
     region: globalPrimaryRegion,
