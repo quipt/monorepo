@@ -216,10 +216,10 @@
     "@angular-eslint/bundled-angular-compiler" "14.3.0"
     "@typescript-eslint/utils" "5.43.0"
 
-"@angular/animations@^14.2.4":
-  version "14.2.11"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-14.2.11.tgz#57d3ef39e1b74d24b982d5037adf2a33889ffdc3"
-  integrity sha512-HOw8xecbKfs7A5Ezjf+BfXKvvwU7X8I0US5Ey6bOuLvpA3QVOGSLw9BeutY5Q2mPWiRgnNNQW+FOd8Pe9gEkpQ==
+"@angular/animations@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-15.0.0.tgz#6dfa27e8e5f056b38c6a3477242fbbc97e80c61e"
+  integrity sha512-AEtVjsmKb/kFLlnP3/+wuEgrL8bJD0L4gpetU6QCWR1G3im6yEbatbn2OkWenTS65F9maZNc9T5yK09ZRPwr9Q==
   dependencies:
     tslib "^2.3.0"
 
@@ -288,10 +288,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^14.2.4":
-  version "14.2.11"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-14.2.11.tgz#5bad4a56e50eb6eb448d1849e9be9f5b0bb24339"
-  integrity sha512-4uEIA6ESMLt2f/ivKuVBpME0IbuFHWmpweN4dwJt83DfJBiBfpqdrFYZHz/Kbkh9cGCiP7L4/eKPRWTlAHehhw==
+"@angular/core@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-15.0.0.tgz#82338ff7fc736997d5f6f5ec22644e8549194e5d"
+  integrity sha512-Hek8L/1XrU1LPN4qmKJiNdYz96ju/yPWvrFjqvrDHjWEenIfxjJohjRwL+ZzICZiEwfnR6y3QGvv4OBY96oTGw==
   dependencies:
     tslib "^2.3.0"
 
