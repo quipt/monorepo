@@ -24,7 +24,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     MatToolbarModule,
-    RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'}),
+    RouterModule.forRoot(routes, {}),
   ],
   exports: [RouterModule],
 })
