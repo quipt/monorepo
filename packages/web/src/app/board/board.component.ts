@@ -3,11 +3,11 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {AuthService} from '@auth0/auth0-angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
-import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import gql from 'graphql-tag';
 import {ConfigService} from '../config.service';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {DeleteBoardModalComponent} from '../delete-board-modal/delete-board-modal.component';
 
 const GetBoardByIdQuery = gql`
