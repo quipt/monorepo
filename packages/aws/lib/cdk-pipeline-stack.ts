@@ -5,7 +5,9 @@ import {
   CodePipelineProps,
   CodePipelineSource,
   ShellStep,
+  CodeBuildStep,
 } from 'aws-cdk-lib/pipelines';
+import {BuildSpec} from 'aws-cdk-lib/aws-codebuild';
 import {ApplicationAccount} from './application-account';
 import {CIStack} from './ci-stack';
 import {CDStack} from './cd-stack';
@@ -21,7 +23,7 @@ export class CdkPipelineStack extends cdk.Stack {
 
     const pipelineProps: CodePipelineProps = {
       crossAccountKeys: true,
-      synth: new ShellStep('Synth', {
+      synth: new CodeBuildStep('Synth', {
         input: CodePipelineSource.gitHub('quipt/monorepo', 'master', {
           authentication: cdk.SecretValue.secretsManager('GITHUB_TOKEN'),
         }),
@@ -31,10 +33,17 @@ export class CdkPipelineStack extends cdk.Stack {
           'yarn workspace @quipt/aws cdk synth',
         ],
         primaryOutputDirectory: 'packages/aws/cdk.out',
-      }),
-      dockerEnabledForSynth: true,
-      dockerEnabledForSelfMutation: true,
-    };
+        partialBuildSpec: BuildSpec.fromObject({
+          version: '0.2',
+          phases: {
+            install: {
+              'runtime-versions': {
+                nodejs: 16
+              },
+            },
+          },
+        }),
+      })};
 
     const cdkPipeline = new CodePipeline(this, 'Pipeline', {
       ...pipelineProps,
