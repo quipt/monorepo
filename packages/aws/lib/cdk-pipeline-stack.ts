@@ -4,7 +4,6 @@ import {
   CodePipeline,
   CodePipelineProps,
   CodePipelineSource,
-  ShellStep,
   CodeBuildStep,
 } from 'aws-cdk-lib/pipelines';
 import {BuildSpec} from 'aws-cdk-lib/aws-codebuild';
