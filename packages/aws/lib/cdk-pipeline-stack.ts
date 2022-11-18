@@ -33,13 +33,17 @@ export class CdkPipelineStack extends cdk.Stack {
           'yarn workspace @quipt/aws cdk synth',
         ],
         primaryOutputDirectory: 'packages/aws/cdk.out',
+        buildEnvironment: {
+          privileged: true
+        },
         partialBuildSpec: BuildSpec.fromObject({
           version: '0.2',
           phases: {
             install: {
               'runtime-versions': {
-                nodejs: 16
+                nodejs: 14
               },
+              commands: ['n 16']
             },
           },
         }),
