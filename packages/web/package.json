@@ -24,7 +24,7 @@
     "@angular/material": "^15.0.0",
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
-    "@angular/router": "^15.0.0",
+    "@angular/router": "^15.0.1",
     "@auth0/auth0-angular": "^1.11.0",
     "aws-appsync": "^4.1.8",
     "graphql": "~15.8.0",
