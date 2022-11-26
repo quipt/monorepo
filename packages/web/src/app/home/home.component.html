@@ -1,3 +1,22 @@
+<div fxLayout="row">
+  <th-canvas>
+    <th-scene>
+      <th-ambientLight></th-ambientLight>
+      <th-object3D
+        loadObj
+        url="/assets/logo.obj"
+        [position]="[-1, 0, 0]"
+      ></th-object3D>
+      <th-pointLight [position]="[10, 10, 10]"></th-pointLight>
+      <th-perspectiveCamera
+        [args]="[20, 5, 0.1, 100]"
+        [position]="[1, 1, 6]"
+        [lookAt]="[0, 0, 0]"
+      ></th-perspectiveCamera>
+    </th-scene>
+  </th-canvas>
+</div>
+
 <p i18n>Welcome to <em>Quipt</em></p>
 <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
   <p>You are logged in! Check out your <a routerLink="/myboards">boards</a>.</p>
@@ -23,3 +42,5 @@
   <li>Must be 100 MB and under</li>
 </ul>
 <p>Hack me at <a href="https://github.com/quipt/monorepo">github.com/quipt/monorepo</a></p>
+
+<sub>Logo design by J. Rose (Age 11)</sub>

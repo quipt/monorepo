@@ -21,6 +21,9 @@ import {
   NgxGoogleAnalyticsRouterModule,
 } from 'ngx-google-analytics';
 
+
+import { NgxThreeModule } from 'ngx-three';
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ConfigService} from './config.service';
@@ -73,6 +76,7 @@ import {DeleteBoardModalComponent} from './delete-board-modal/delete-board-modal
     MatInputModule,
     NgxGoogleAnalyticsModule.forRoot('G-VKL71RHF8J'),
     NgxGoogleAnalyticsRouterModule,
+    NgxThreeModule,
   ],
   providers: [
     {
