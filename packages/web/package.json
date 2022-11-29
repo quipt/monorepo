@@ -26,7 +26,7 @@
     "@angular/platform-browser-dynamic": "^15.0.1",
     "@angular/router": "^15.0.1",
     "@auth0/auth0-angular": "^1.11.0",
-    "aws-appsync": "^4.1.8",
+    "aws-appsync": "^4.1.9",
     "graphql": "~15.8.0",
     "graphql-tag": "^2.12.6",
     "ngx-google-analytics": "^14.0.1",
