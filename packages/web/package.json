@@ -46,7 +46,7 @@
     "@angular-eslint/template-parser": "14.1.2",
     "@angular/cli": "~15.0.1",
     "@angular/compiler-cli": "~15.0.2",
-    "@types/jasmine": "~4.3.0",
+    "@types/jasmine": "~4.3.1",
     "@types/jasminewd2": "~2.0.10",
     "@types/node": "^18.11.9",
     "@types/three": "^0.146.0",
