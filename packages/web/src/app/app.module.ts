@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, APP_INITIALIZER} from '@angular/core';
+import {NgOptimizedImage} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -20,8 +21,6 @@ import {
   NgxGoogleAnalyticsModule,
   NgxGoogleAnalyticsRouterModule,
 } from 'ngx-google-analytics';
-
-
 import { NgxThreeModule } from 'ngx-three';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -77,6 +76,7 @@ import {DeleteBoardModalComponent} from './delete-board-modal/delete-board-modal
     NgxGoogleAnalyticsModule.forRoot('G-VKL71RHF8J'),
     NgxGoogleAnalyticsRouterModule,
     NgxThreeModule,
+    NgOptimizedImage,
   ],
   providers: [
     {
