@@ -13,7 +13,7 @@
     ]
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.29.0",
     "generate-lockfile": "^0.0.12",
