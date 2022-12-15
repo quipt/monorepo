@@ -326,10 +326,10 @@
     "@material/typography" "15.0.0-canary.7971d6ad5.0"
     tslib "^2.3.0"
 
-"@angular/platform-browser-dynamic@^15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-15.0.3.tgz#66c11e3b1228a10e73ed2dc71a0f9303acc408fe"
-  integrity sha512-+hdywxDegUGftq+teqQDmQ22seyR25qSPna60PxZIpQxi4D8+sNm9PxSGIn4pZtxN9gpg78j69yUM0E2OwVbjQ==
+"@angular/platform-browser-dynamic@^15.0.4":
+  version "15.0.4"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-15.0.4.tgz#e7fa434df62ea1b64ed98dff79ab6ce3b083f78d"
+  integrity sha512-SCUxsfJAHXnAyo2ulmfqs3vGnB/tWNKe+G2KKshrSLyCYIJ3UgpsoPAo1mGih64qo8TWOQk9PJgrlVEB2DoWYg==
   dependencies:
     tslib "^2.3.0"
 
