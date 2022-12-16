@@ -238,19 +238,19 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/compiler-cli@~15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-15.0.3.tgz#6c26f6dd50f4e25f938719104d11a8c02cf39c79"
-  integrity sha512-3IH1Ns4Ed/VFQlNNtgIcorht7JK7SoBzpbxrbqjogoHZwUR3OTn+dvX87N7zMn0yxAL0T6Jv0UTILcGY0EP9HQ==
+"@angular/compiler-cli@~15.0.4":
+  version "15.0.4"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-15.0.4.tgz#dfe699846cd5d69f5e0d33164173eb2ecba20b72"
+  integrity sha512-e6Jt4qkIiyqBg8ZlpcQaQtQ5OAnfl8gfkJnIwSvvCg0mPCJv+ZkQAL5s3SpzzM5jd7Nr0jBq3zd2Fv0eKW2ayw==
   dependencies:
     "@babel/core" "^7.17.2"
+    "@jridgewell/sourcemap-codec" "^1.4.14"
     chokidar "^3.0.0"
     convert-source-map "^1.5.1"
     dependency-graph "^0.11.0"
     magic-string "^0.27.0"
     reflect-metadata "^0.1.2"
     semver "^7.0.0"
-    sourcemap-codec "^1.4.8"
     tslib "^2.3.0"
     yargs "^17.2.1"
 
@@ -2985,7 +2985,7 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@jridgewell/sourcemap-codec@1.4.14", "@jridgewell/sourcemap-codec@^1.4.10", "@jridgewell/sourcemap-codec@^1.4.13":
+"@jridgewell/sourcemap-codec@1.4.14", "@jridgewell/sourcemap-codec@^1.4.10", "@jridgewell/sourcemap-codec@^1.4.13", "@jridgewell/sourcemap-codec@^1.4.14":
   version "1.4.14"
   resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.14.tgz#add4c98d341472a289190b424efbdb096991bb24"
   integrity sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==
