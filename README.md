@@ -13,6 +13,21 @@
 - Caption the videos
 - Delete videos and boards
 
+# Repository layout
+This repository utilizes yarn workspaces. All of the modules are stored under the `packages` directory. Each module has its own README file, which describes its functionality in detail.
+
+## `packages/api`
+Contains the Lambda for the AppSync API
+
+## `packages/aws`
+Contains the Cloud Development Kit (CDK) / Infrastructure as Code implementation
+
+## `packages/media-handler`
+A Docker-based Lambda function that transforms the video that was uploaded to the S3 upload bucket and then uploads it to the output bucket
+
+## `packages/web`
+The front-end Angular web application
+
 # Areas that need improvement
 - Testing
   - cdk
