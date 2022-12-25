@@ -10,8 +10,15 @@
 - Log in with Auth0
 - Upload short videos and make boards out of them
 - Favorite a board
+- Share boards with permanent URLs
 - Caption the videos
 - Delete videos and boards
+
+# Screenshot
+<img src="./packages/web/doc/screenshot_homepage.png" alt="Home page screenshot">
+
+# Architecture
+<img src="./packages/aws/doc/architecture.svg" alt="Architecture Diagram">
 
 # Repository layout
 This repository utilizes yarn workspaces. All of the modules are stored under the `packages` directory. Each module has its own README file, which describes its functionality in detail.
@@ -34,7 +41,6 @@ The front-end Angular web application
   - angular
   - lambda
   - synthetics
-- Documentation (need to update REAMDEs)
 - UI
   - Home page (logged in and logged out)
   - All/my boards list, need to paginate
