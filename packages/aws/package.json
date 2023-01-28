@@ -12,12 +12,12 @@
     "compile": "tsc"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.109",
+    "@types/aws-lambda": "^8.10.110",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
-    "aws-cdk": "^2.60.0",
-    "aws-sdk": "^2.1300.0",
-    "esbuild": "0.17.3",
+    "aws-cdk": "^2.62.2",
+    "aws-sdk": "^2.1304.0",
+    "esbuild": "0.17.5",
     "jest": "^29.4.1",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1"
@@ -25,7 +25,7 @@
   "dependencies": {
     "aws-cdk-lib": "^2.62.2",
     "cdk-nag": "^2.21.76",
-    "constructs": "^10.1.218",
+    "constructs": "^10.1.233",
     "source-map-support": "^0.5.21"
   }
 }
