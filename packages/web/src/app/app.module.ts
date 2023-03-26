@@ -38,6 +38,7 @@ import {NewBoardModalComponent} from './new-board-modal/new-board-modal.componen
 import {VideoCardComponent} from './video-card/video-card.component';
 import {MyboardsComponent} from './myboards/myboards.component';
 import {DeleteBoardModalComponent} from './delete-board-modal/delete-board-modal.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {DeleteBoardModalComponent} from './delete-board-modal/delete-board-modal
     DeleteBoardModalComponent,
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

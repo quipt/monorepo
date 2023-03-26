@@ -7,7 +7,11 @@ import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+import {AuthModule} from '@auth0/auth0-angular';
+
 import {NavigationComponent} from './navigation.component';
+import {AuthButtonComponent} from '../auth-button/auth-button.component';
+import {AppRoutingModule} from '../app-routing.module';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -16,8 +20,13 @@ describe('NavigationComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [NavigationComponent],
+        declarations: [AuthButtonComponent, NavigationComponent],
         imports: [
+          AppRoutingModule,
+          AuthModule.forRoot({
+            domain: 'localhost',
+            clientId: 'test'
+          }),
           NoopAnimationsModule,
           LayoutModule,
           MatButtonModule,
