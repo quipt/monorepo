@@ -9,7 +9,7 @@
     "@types/aws-lambda": "^8.10.110",
     "@types/node": "^18.11.18",
     "ts-node": "^10.4.0",
-    "typescript": "4.8.4"
+    "typescript": "5.1.3"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.299.0",
