@@ -98,6 +98,7 @@ export class AppsyncStack extends cdk.Stack {
 
     const apiLambda = new lambda_nodejs.NodejsFunction(this, 'AppSyncHandler', {
       runtime: lambda.Runtime.NODEJS_18_X,
+      architecture: lambda.Architecture.ARM_64,
       entry: path.join(__dirname, '../../../api/main.ts'),
       bundling: {
         minify: true,
@@ -113,6 +114,7 @@ export class AppsyncStack extends cdk.Stack {
       this,
       'MediaHandler',
       {
+        architecture: lambda.Architecture.ARM_64,
         code: lambda.DockerImageCode.fromImageAsset(
           path.join(__dirname, '../../../media-handler/')
         ),

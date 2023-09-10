@@ -176,7 +176,7 @@ export class WebStack extends cdk.Stack {
         },
       }),
       environment: {
-        buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_4,
+        buildImage: codebuild.LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_2_0,
         privileged: true,
         environmentVariables: {
           REPOSITORY_NAME: {
