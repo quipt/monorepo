@@ -41,7 +41,7 @@ export class CdkPipelineStack extends cdk.Stack {
           phases: {
             install: {
               'runtime-versions': {
-                nodejs: 16,
+                nodejs: 12,
               },
             },
           },
