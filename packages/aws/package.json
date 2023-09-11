@@ -23,9 +23,9 @@
     "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.70.0",
-    "cdk-nag": "^2.23.5",
-    "constructs": "^10.1.291",
+    "aws-cdk-lib": "^2.95.1",
+    "cdk-nag": "^2.27.127",
+    "constructs": "^10.2.70",
     "source-map-support": "^0.5.21"
   }
 }

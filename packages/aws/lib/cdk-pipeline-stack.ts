@@ -6,7 +6,7 @@ import {
   CodePipelineSource,
   CodeBuildStep,
 } from 'aws-cdk-lib/pipelines';
-import {BuildSpec, LinuxArmBuildImage} from 'aws-cdk-lib/aws-codebuild';
+import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import {ApplicationAccount} from './application-account';
 import {CIStack} from './ci-stack';
 import {CDStack} from './cd-stack';
@@ -34,14 +34,14 @@ export class CdkPipelineStack extends cdk.Stack {
         primaryOutputDirectory: 'packages/aws/cdk.out',
         buildEnvironment: {
           privileged: true,
-          buildImage: LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_2_0,
+          buildImage: codebuild.LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_3_0,
         },
-        partialBuildSpec: BuildSpec.fromObject({
+        partialBuildSpec: codebuild.BuildSpec.fromObject({
           version: '0.2',
           phases: {
             install: {
               'runtime-versions': {
-                nodejs: 12,
+                nodejs: 16,
               },
             },
           },
